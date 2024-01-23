@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "387767847852",
+    "project_id": "gentlewear-e4244",
+    "storage_bucket": "gentlewear-e4244.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:387767847852:android:494a24b1f257d8f2770809",
+        "android_client_info": {
+          "package_name": "md06.fpoly.gentlewear"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB47moD54bgmrQONFVRMzKzd-pKKPLglY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
