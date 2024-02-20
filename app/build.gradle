@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'md06.fpoly.gentlewear'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "md06.fpoly.gentlewear"
         minSdk 22
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
