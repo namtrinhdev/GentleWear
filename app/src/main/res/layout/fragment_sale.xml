@@ -10,6 +10,6 @@
         android:layout_height="match_parent"
         android:text="sale_tab"
         android:gravity="center"
-        android:textSize="50dp"/>
+        android:textSize="30dp"/>
 
 </FrameLayout>

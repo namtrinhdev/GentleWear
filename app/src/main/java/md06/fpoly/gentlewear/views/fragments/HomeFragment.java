@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment {
                         tab.setText("Popular");
                         break;
                     case 1:
-                        tab.setText("Trending");
+                        tab.setText("Trend");
                         break;
                     case 2:
                         tab.setText("News");
