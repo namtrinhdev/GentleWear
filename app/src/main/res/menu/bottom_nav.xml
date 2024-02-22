@@ -14,6 +14,6 @@
         android:title="Wishlist" />
     <item
         android:id="@+id/nav_user"
-        android:icon="@drawable/user"
+        android:icon="@drawable/user1"
         android:title="Profile" />
 </menu>
