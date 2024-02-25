@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#B63056</color>
+    <color name="colorPrimary">#78767C</color>
+    <color name="tab_selected_text">#2A91D8</color>
+    <color name="tab_unselected_text">#DA8666</color>
 </resources>
