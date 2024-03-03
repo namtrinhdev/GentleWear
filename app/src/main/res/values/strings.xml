@@ -2,4 +2,6 @@
     <string name="app_name">GentleWear</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">ĐĂNG NHẬP</string>
+    <string name="sign_up">ĐĂNG KÝ</string>
 </resources>
