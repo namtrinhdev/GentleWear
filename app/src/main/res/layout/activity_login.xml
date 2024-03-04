@@ -89,7 +89,8 @@ We have excited deals and promotions going on, grab your pick now! "
                     android:id="@+id/txt_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/latoblack"/>
+                    android:fontFamily="@font/latoblack"
+                    android:textColor="#000000"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 <!--            <TextView-->
@@ -114,7 +115,8 @@ We have excited deals and promotions going on, grab your pick now! "
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/latoblack"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:textColor="#000000"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

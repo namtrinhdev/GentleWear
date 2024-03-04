@@ -11,12 +11,12 @@ public class Users implements Serializable {
     public Users() {
     }
 
-    public Users(String _id, String fullname, String email, String sdt, String paswd, String diaChi, String avatar) {
+    public Users(String _id, String fullname, String email, String sdt, String passwd, String diaChi, String avatar) {
         this._id = _id;
         this.fullname = fullname;
         this.email = email;
         this.sdt = sdt;
-        this.passwd = paswd;
+        this.passwd = passwd;
         this.diaChi = diaChi;
         this.avatar = avatar;
     }
@@ -53,12 +53,12 @@ public class Users implements Serializable {
         this.sdt = sdt;
     }
 
-    public String getPaswd() {
+    public String getPasswd() {
         return passwd;
     }
 
-    public void setPaswd(String paswd) {
-        this.passwd = paswd;
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
     }
 
     public String getDiaChi() {
@@ -72,9 +72,8 @@ public class Users implements Serializable {
     public String getAvatar() {
         return avatar;
     }
+
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
-
-
 }

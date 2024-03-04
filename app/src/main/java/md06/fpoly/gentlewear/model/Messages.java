@@ -1,14 +1,16 @@
 package md06.fpoly.gentlewear.model;
 
+import java.util.List;
+
 public class Messages {
     private String msg;
     private int status;
-    private Users data;
+    private List<Users> data;
 
     public Messages() {
     }
 
-    public Messages(String msg, int status, Users data) {
+    public Messages(String msg, int status, List<Users> data) {
         this.msg = msg;
         this.status = status;
         this.data = data;
@@ -30,11 +32,11 @@ public class Messages {
         this.status = status;
     }
 
-    public Users getData() {
+    public List<Users> getData() {
         return data;
     }
 
-    public void setData(Users data) {
+    public void setData(List<Users> data) {
         this.data = data;
     }
 }

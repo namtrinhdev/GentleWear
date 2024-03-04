@@ -70,14 +70,11 @@ public class Login_Activity extends AppCompatActivity {
                                 Toast.makeText(Login_Activity.this, "Email đăng nhập không đúng", Toast.LENGTH_SHORT).show();
                             } else if (mList.getStatus() == 2) {
                                 Toast.makeText(Login_Activity.this, "Mật khẩu không đúng", Toast.LENGTH_SHORT).show();
-                            } else if (mList.getStatus() == 3) {
+                            } else{
                                 startActivity(new Intent(Login_Activity.this, MainActivity.class));
                                 finish();
                                 Toast.makeText(Login_Activity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(Login_Activity.this, "Có lỗi xảy ra, vui lòng đăng nhập lại sau", Toast.LENGTH_SHORT).show();
                             }
-
                         } else {
                             Toast.makeText(Login_Activity.this, "Có lỗi xảy ra, vui lòng đăng nhập lại", Toast.LENGTH_SHORT).show();
                         }
@@ -112,39 +109,5 @@ public class Login_Activity extends AppCompatActivity {
         });
     }
 
-//    private void checkLogin(String emailDn, String passDn) {
-//        progressDialog.setMessage("Login...");
-//        progressDialog.show();
-//        Call<Messages> call = userInterface.checkLogin(emailDn, passDn);
-//        call.enqueue(new Callback<Messages>() {
-//            @Override
-//            public void onResponse(Call<Messages> call, Response<Messages> response) {
-//                if(progressDialog.isShowing()){
-//                    progressDialog.dismiss();
-//                }
-//                if(response.isSuccessful()){
-//                    Messages mList = response.body();
-//                    if(mList.getStatus()==1){
-//                        Toast.makeText(Login_Activity.this, "Email đăng nhập không đúng", Toast.LENGTH_SHORT).show();
-//                    }else if(mList.getStatus()==2){
-//                        Toast.makeText(Login_Activity.this, "Mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
-//                    }else {
-//                        startActivity(new Intent(Login_Activity.this, MainActivity.class));
-//                        finish();
-//                        Toast.makeText(Login_Activity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-//                    }
-//                }else {
-//                    Toast.makeText(Login_Activity.this, "Vui lòng đăng nhập lại", Toast.LENGTH_SHORT).show();
-//                }
-//                Log.i("TAG", "onResponse: ");
-////                Toast.makeText(Login_Activity.this, "ok", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Messages> call, Throwable t) {
-//                Log.e("TAG", "onFailure: ", t);
-//                Toast.makeText(Login_Activity.this, "Lỗi kết nối", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+
 }
