@@ -4,26 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img"
     android:alpha="0.8"
-    tools:context=".SplashActivity">
+    android:background="@drawable/img"
+    tools:context=".activitys.SplashActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/latoblack"
             android:text="Gentle Wear"
             android:textColor="#000000"
             android:textSize="44dp"
-            android:textStyle="bold"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="@font/latoblack"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="216dp"
@@ -31,38 +32,61 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginTop="70dp"
-            android:text="Create your fashion
-in your own way"
+            android:fontFamily="@font/latoblack"
+            android:text="Create your fashion in your own way"
+            android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="24dp"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:fontFamily="@font/latoblack"/>
+            android:textStyle="bold" />
 
-        <Button
+
+        <FrameLayout
             android:id="@+id/btn_login"
             android:layout_width="222dp"
-            android:layout_height="54dp"
-            android:text="Log in"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginTop="50dp"
-            android:fontFamily="@font/latoblack"
-            />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:layout_gravity="center">
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/border_btn" />
 
-        <Button
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/latoblack"
+                android:text="Log in"
+                android:textAlignment="center"
+                android:textColor="@color/bg_white"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <FrameLayout
             android:id="@+id/btn_register"
             android:layout_width="222dp"
-            android:layout_height="54dp"
-            android:text="Register"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_marginTop="50dp"
-            android:fontFamily="@font/latoblack"
-            />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/border_btn" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/latoblack"
+                android:text="Register"
+                android:textAlignment="center"
+                android:textColor="@color/bg_white"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+        </FrameLayout>
     </LinearLayout>
 
 

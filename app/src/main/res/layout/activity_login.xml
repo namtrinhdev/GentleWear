@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_login"
-    tools:context=".Login_Activity">
+    tools:context=".activitys.Login_Activity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,11 +37,11 @@
             android:width="286dp"
             android:height="60dp"
             android:fontFamily="@font/latolight"
-            android:textStyle="bold"
             android:text="Yay! You're back! Thanks for shopping with us.
 We have excited deals and promotions going on, grab your pick now! "
             android:textColor="#FFFFFF"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -67,14 +67,14 @@ We have excited deals and promotions going on, grab your pick now! "
             android:orientation="vertical"
             android:padding="28dp">
 
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Email addres"-->
-<!--                android:textColor="#000000"-->
-<!--                android:textSize="14dp"-->
-<!--                android:textStyle="bold"-->
-<!--                android:fontFamily="@font/latoblack"/>-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email addres"
+                android:textColor="#000000"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/latoblack"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/email_dn"
@@ -88,17 +88,18 @@ We have excited deals and promotions going on, grab your pick now! "
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/latoblack"/>
+                    android:fontFamily="@font/latoblack"
+                    android:textSize="15dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="30dp"-->
-<!--                android:text="Password"-->
-<!--                android:textColor="#000000"-->
-<!--                android:textSize="14dp"-->
-<!--                android:textStyle="bold" />-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Password"
+                android:textColor="#000000"
+                android:textSize="14dp"
+                android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/pass_dn"
@@ -112,11 +113,13 @@ We have excited deals and promotions going on, grab your pick now! "
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/latoblack"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:textSize="15dp"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <RelativeLayout
+                android:id="@+id/ckb_remember"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp">
@@ -143,37 +146,55 @@ We have excited deals and promotions going on, grab your pick now! "
 
             </RelativeLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/btn_dn"
-                android:layout_width="356dp"
-                android:layout_height="54dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/custom_button">
+            <FrameLayout
+                android:id="@+id/btn_signin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ckb_remember"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="25dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/border_btn" />
 
                 <TextView
-                    android:layout_width="53dp"
-                    android:layout_height="20dp"
-                    android:fontFamily="@font/latoblack"
-                    android:text="SIGN IN"
-                    android:textColor="#FFFFFF"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/login"
+                    android:textAlignment="center"
+                    android:textColor="@color/bg_white"
+                    android:textSize="15dp" />
+            </FrameLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/txt_creat"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_below="@+id/btn_signin"
                 android:layout_marginTop="10dp"
-                android:text="Create an Account"
-                android:textColor="#6342E8"
-                android:textSize="12dp" />
-            "/>
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Not registered yet?"
+                    android:textColor="@color/text_1"
+                    android:textSize="15dp"
+                    />
+                <TextView
+                    android:id="@+id/txt_signup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sign_up"
+                    android:textColor="@color/bg_red"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="5dp"
+                    />
+            </LinearLayout>
 
         </LinearLayout>
 

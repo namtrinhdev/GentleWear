@@ -1,12 +1,11 @@
 package md06.fpoly.gentlewear.views.fragments.tabFragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
 
 import md06.fpoly.gentlewear.R;
 

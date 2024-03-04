@@ -6,4 +6,20 @@
     <color name="colorPrimary">#78767C</color>
     <color name="tab_selected_text">#2A91D8</color>
     <color name="tab_unselected_text">#DA8666</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="bg_white">#FCFCFC</color>
+    <color name="bg_red">#133EAC</color>
+    <color name="text_red">#FF000000</color>
+    <color name="text_1">#B5B5B5</color>
+    <color name="text_2">#757577</color>
+    <color name="bg_ed">#F1EEFE</color>
+    <color name="text_normal">#000000</color>
+    <color name="edtxt_color_bg">#E0E0E0</color>
+    <color name="transparent">#00E0E0E0</color>
+    <color name="bg_btn">#454278</color>
+    <color name="gray">#ccc</color>
 </resources>

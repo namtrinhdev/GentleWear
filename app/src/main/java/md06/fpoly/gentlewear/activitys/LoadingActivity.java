@@ -1,10 +1,12 @@
-package md06.fpoly.gentlewear;
-
-import androidx.appcompat.app.AppCompatActivity;
+package md06.fpoly.gentlewear.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import md06.fpoly.gentlewear.R;
 
 public class LoadingActivity extends AppCompatActivity {
 
