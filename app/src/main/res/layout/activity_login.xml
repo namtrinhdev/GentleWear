@@ -37,11 +37,11 @@
             android:width="286dp"
             android:height="60dp"
             android:fontFamily="@font/latolight"
-            android:textStyle="bold"
             android:text="Yay! You're back! Thanks for shopping with us.
 We have excited deals and promotions going on, grab your pick now! "
             android:textColor="#FFFFFF"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
