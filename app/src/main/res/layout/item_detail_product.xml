@@ -1,14 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F1F4FB" >
+    android:background="#F1F4FB">
+
+    <LinearLayout
+        android:id="@+id/head"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center|left"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/btnmenu"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="25dp"
+            android:src="@drawable/baseline_arrow_back_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="70dp"
+            android:fontFamily="@font/latoblack"
+            android:text="Chi tiet san pham"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="409dp"
         android:layout_height="729dp"
+        android:layout_below="@+id/head"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,243 +49,270 @@
             <ImageView
                 android:id="@+id/product_image"
                 android:layout_width="wrap_content"
-                android:layout_height="325dp"
-                android:layout_margin="24dp"
-                android:background="#F1F4FB"
-                android:gravity="center"
-                android:src="@drawable/avatar1" />
+                android:layout_height="180dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:src="@drawable/hoodie2" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/background_white"
-                android:orientation="vertical">
+                android:background="@drawable/background_white">
 
-                <!-- Product Information -->
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <RelativeLayout
                     android:id="@+id/product_info_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="73dp">
+                    android:layout_height="57dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp">
 
                     <TextView
                         android:id="@+id/brand_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:text="Geeta Mens"
-                        android:textSize="15dp"
-                        app:layout_constraintEnd_toStartOf="@+id/product_name_text"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:text="Gentle Wear"
+                        android:textColor="@color/black"
+                        android:textSize="15dp" />
 
                     <TextView
                         android:id="@+id/product_name_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginEnd="228dp"
-                        android:text="Purple Hoodie "
-                        android:textSize="25dp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/product_price_text"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/brand_text"
-                        app:layout_constraintVertical_bias="0.0" />
+                        android:layout_below="@+id/brand_text"
+                        android:layout_marginTop="1dp"
+                        android:fontFamily="@font/latoblack"
+                        android:text="Pink Hoodie"
+                        android:textColor="@color/black"
+                        android:textSize="25dp" />
 
                     <TextView
                         android:id="@+id/product_price_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="28dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginBottom="7dp"
+                        android:fontFamily="@font/latoblack"
                         android:text="$48.00 USD"
-                        android:textSize="24dp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:textColor="@color/black"
+                        android:textSize="24dp" />
+                </RelativeLayout>
 
-                <!-- Quantity Controls -->
-                <androidx.constraintlayout.widget.ConstraintLayout
+
+                <RelativeLayout
                     android:id="@+id/quantity_controls_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:layout_editor_absoluteY="73dp">
+                    android:layout_below="@+id/product_info_layout"
+                    android:gravity="center">
 
-                    <!-- Decrease Button -->
-                    <Button
-                        android:id="@+id/btn_decrease"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:text="-"
-                        android:textColor="@color/black"
-                        android:backgroundTint="@color/white"
-                        android:textSize="20sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/quantity_text"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="1.0" />
+                    <LinearLayout
+                        android:layout_width="100dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/border_soluong"
+                        android:orientation="horizontal">
 
-                    <!-- Quantity Text -->
-                    <TextView
-                        android:id="@+id/quantity_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="12dp"
-                        android:text="1"
-                        android:textSize="20sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/btn_increase"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        <TextView
+                            android:id="@+id/tv_giam"
+                            android:layout_width="39dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="-"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
 
-                    <!-- Increase Button -->
-                    <Button
-                        android:id="@+id/btn_increase"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="104dp"
-                        android:backgroundTint="@color/white"
-                        android:text="+"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/product_image_button"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="1.0" />
+                        <TextView
+                            android:id="@+id/tv_soluong"
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="1"
+                            android:textColor="@color/black"
+                            android:textSize="20dp" />
 
-                    <!-- Product Image Button -->
-                    <ImageButton
+                        <TextView
+                            android:id="@+id/tv_tang"
+                            android:layout_width="39dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="+"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <ImageView
                         android:id="@+id/product_image_button"
-                        android:layout_width="63dp"
-                        android:layout_height="59dp"
-                        android:layout_marginEnd="36dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="30dp"
                         app:srcCompat="@drawable/ic_download" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </RelativeLayout>
 
-                <!-- Description TextViews -->
-                <TextView
-                    android:id="@+id/description_title"
+                <RelativeLayout
+                    android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="DESCRIPTION"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:layout_below="@+id/quantity_controls_layout"
+                    android:padding="10dp">
 
-                <TextView
-                    android:id="@+id/description_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book...detail"
-                    android:textSize="13dp" />
-
-                <!-- Select Size -->
-                <TextView
-                    android:id="@+id/select_size_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="SELECT SIZE"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
-
-                <!-- Size Selection Buttons -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/size_selection_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <Button
-                        android:id="@+id/size_button_s"
-                        android:layout_width="58dp"
-                        android:layout_height="42dp"
-                        android:layout_marginStart="12dp"
-                        android:backgroundTint="@color/white"
-                        android:text="S"
-                        android:textColor="@color/black"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <Button
-                        android:id="@+id/size_button_xxl"
-                        android:layout_width="93dp"
-                        android:layout_height="54dp"
-                        android:layout_marginEnd="16dp"
-                        android:backgroundTint="@color/white"
-                        android:text="XXL"
-                        android:textColor="@color/black"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="1.0" />
-
-                    <Button
-                        android:id="@+id/size_button_xl"
-                        android:layout_width="74dp"
-                        android:layout_height="49dp"
-                        android:backgroundTint="@color/white"
-                        android:text="XL"
-                        android:textColor="@color/black"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/size_button_xxl"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <Button
-                        android:id="@+id/size_button_l"
-                        android:layout_width="64dp"
-                        android:layout_height="52dp"
-                        android:layout_marginEnd="16dp"
-                        android:backgroundTint="@color/white"
-                        android:text="L"
-                        android:textColor="@color/black"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/size_button_xl"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.6" />
-
-                    <Button
-                        android:id="@+id/size_button_m"
-                        android:layout_width="63dp"
+                    <TextView
+                        android:id="@+id/description_title"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:backgroundTint="@color/white"
-                        android:text="M"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/latoblack"
+                        android:text="DESCRIPTION"
                         android:textColor="@color/black"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/size_button_l"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toEndOf="@+id/size_button_s"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.8" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
 
-                <!-- Add to Cart Button -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/add_to_cart_layout"
+                    <TextView
+                        android:id="@+id/description_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/description_title"
+                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book...detail"
+                        android:textSize="13dp" />
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/description"
+                    android:padding="10dp">
 
-                    <Button
-                        android:id="@+id/btn_add_to_cart"
-                        android:layout_width="354dp"
-                        android:layout_height="50dp"
-                        android:text="ADD TO CART"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/select_size_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="SELECT SIZE"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:layout_marginBottom="5dp"
+                        android:textStyle="bold" />
+
+
+                    <RelativeLayout
+                        android:id="@+id/size_selection_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/select_size_title">
+
+                        <TextView
+                            android:id="@+id/size_s"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/border_size"
+                            android:gravity="center"
+                            android:text="S"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/size_m"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_alignLeft="@+id/size_s"
+                            android:layout_marginStart="69dp"
+                            android:layout_marginLeft="119dp"
+                            android:layout_toEndOf="@+id/size_s"
+                            android:background="@drawable/border_size"
+                            android:gravity="center"
+                            android:text="M"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/size_l"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_alignLeft="@+id/size_m"
+                            android:layout_marginStart="69dp"
+                            android:layout_marginLeft="119dp"
+                            android:layout_toEndOf="@+id/size_m"
+                            android:background="@drawable/border_size"
+                            android:gravity="center"
+                            android:text="L"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/size_xl"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_alignLeft="@+id/size_l"
+                            android:layout_marginStart="69dp"
+                            android:layout_marginLeft="119dp"
+                            android:layout_toEndOf="@+id/size_l"
+                            android:background="@drawable/border_size"
+                            android:gravity="center"
+                            android:text="XL"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/size_xxl"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_alignLeft="@+id/size_xl"
+                            android:layout_marginStart="69dp"
+                            android:layout_marginLeft="119dp"
+                            android:layout_toEndOf="@+id/size_xl"
+                            android:background="@drawable/border_size"
+                            android:gravity="center"
+                            android:text="XXL"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_addToCart"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="90dp"
+                        app:cardBackgroundColor="@color/bg_btn"
+                        app:cardCornerRadius="50dp"
+                        app:cardElevation="10dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentBottom="true"
+                                android:fontFamily="@font/latoblack"
+                                android:gravity="center"
+                                android:text="ADD TO CART"
+                                android:textAllCaps="false"
+                                android:textColor="@color/white"
+                                android:textSize="18dp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+                </RelativeLayout>
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

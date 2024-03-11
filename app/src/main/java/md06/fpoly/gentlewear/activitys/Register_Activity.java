@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import md06.fpoly.gentlewear.activitys.SplashActivity;
 import md06.fpoly.gentlewear.classs.APIClass;
 import md06.fpoly.gentlewear.interfaces.UserInterface;
 import md06.fpoly.gentlewear.model.Messages;

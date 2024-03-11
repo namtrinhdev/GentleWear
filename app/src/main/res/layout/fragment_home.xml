@@ -24,8 +24,6 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/avatar1"
-
-
                 />
         </androidx.cardview.widget.CardView>
 
@@ -33,7 +31,7 @@
             android:id="@+id/btnnoti"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="126dp"
+            android:layout_marginLeft="180dp"
             android:src="@drawable/baseline_notifications_24" />
 
         <ImageView

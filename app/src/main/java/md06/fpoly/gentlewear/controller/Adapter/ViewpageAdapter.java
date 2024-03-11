@@ -3,7 +3,6 @@ package md06.fpoly.gentlewear.controller.Adapter;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import md06.fpoly.gentlewear.views.fragments.CartFragment;

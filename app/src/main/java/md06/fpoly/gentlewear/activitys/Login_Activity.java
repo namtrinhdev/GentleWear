@@ -19,6 +19,9 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
 
+import md06.fpoly.gentlewear.activitys.MainActivity;
+import md06.fpoly.gentlewear.activitys.Register_Activity;
+import md06.fpoly.gentlewear.activitys.SplashActivity;
 import md06.fpoly.gentlewear.classs.RetrofitClientAPI;
 import md06.fpoly.gentlewear.interfaces.UserInterface;
 import md06.fpoly.gentlewear.model.Messages;

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="414dp"
     android:layout_height="875dp"
-    tools:context=".LoadingActivity"
+    tools:context=".activitys.LoadingActivity"
     android:background="@drawable/bg"
     android:alpha="0.8">
     <LinearLayout
