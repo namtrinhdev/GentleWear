@@ -2,17 +2,23 @@ package md06.fpoly.gentlewear;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
+import md06.fpoly.gentlewear.activitys.SplashActivity;
 import md06.fpoly.gentlewear.classs.APIClass;
 import md06.fpoly.gentlewear.interfaces.UserInterface;
 import md06.fpoly.gentlewear.model.Messages;
@@ -24,7 +30,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Register_Activity extends AppCompatActivity {
-    private EditText fullname, email_dk, pass_dk;
+    private TextInputLayout layout_fullname, layout_email_dk, layout_pass_dk;
+    private TextInputEditText txt_fullname, txt_email_dk, txt_pass_dk;
     private FrameLayout btn_dk;
     private TextView txt_signin;
     private ImageView back_1;
@@ -37,9 +44,12 @@ public class Register_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         txt_signin = findViewById(R.id.txt_signin);
-        fullname = findViewById(R.id.fullname_dk);
-        email_dk = findViewById(R.id.email_dk);
-        pass_dk =  findViewById(R.id.pass_dk);
+        layout_fullname = findViewById(R.id.layout_fullname);
+        layout_email_dk = findViewById(R.id.layout_email_dk);
+        layout_pass_dk = findViewById(R.id.layout_pass_dk);
+        txt_fullname = findViewById(R.id.txt_fullname);
+        txt_email_dk = findViewById(R.id.txt_email_dk);
+        txt_pass_dk = findViewById(R.id.txt_pass_dk);
         btn_dk = findViewById(R.id.btn_dk);
 
         Retrofit retrofit = new Retrofit.Builder().baseUrl(APIClass.URL).addConverterFactory(GsonConverterFactory.create()).build();
@@ -51,24 +61,24 @@ public class Register_Activity extends AppCompatActivity {
             progressDialog.setMessage("Loading...");
             progressDialog.show();
             boolean validate = true;
-            if(fullname.getText().toString().trim().isEmpty()){
-                fullname.setError("Hãy điền đầy đủ họ tên");
+            if(txt_fullname.getText().toString().trim().isEmpty()){
+                txt_fullname.setError("Hãy điền đầy đủ họ tên");
                 validate = false;
             }
-            if(email_dk.getText().toString().trim().isEmpty()){
-                email_dk.setError("Hãy điền đầy đủ email");
+            if(txt_email_dk.getText().toString().trim().isEmpty()){
+                txt_email_dk.setError("Hãy điền đầy đủ email");
                 validate = false;
             }
-            if(pass_dk.getText().toString().trim().isEmpty()){
-                pass_dk.setError("Hãy nhập mật khẩu");
+            if(txt_pass_dk.getText().toString().trim().isEmpty()){
+                txt_pass_dk.setError("Hãy nhập mật khẩu");
                 validate = false;
             }
             if(validate){
                 Users users = new Users();
-                users.setFullname(fullname.getText().toString());
-                users.setEmail(email_dk.getText().toString());
+                users.setFullname(txt_fullname.getText().toString());
+                users.setEmail(txt_email_dk.getText().toString());
                 users.setSdt("");
-                users.setPaswd(pass_dk.getText().toString());
+                users.setPasswd(txt_pass_dk.getText().toString());
                 users.setDiaChi("");
                 users.setAvatar("");
                 Call<Messages> call = userInterface.registerUser(users);
@@ -106,6 +116,7 @@ public class Register_Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         back_1 = findViewById(R.id.back_1);
         back_1.setOnClickListener(new View.OnClickListener() {
             @Override

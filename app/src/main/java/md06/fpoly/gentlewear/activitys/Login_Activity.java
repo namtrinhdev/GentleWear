@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +17,11 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.List;
+
+import md06.fpoly.gentlewear.activitys.MainActivity;
+import md06.fpoly.gentlewear.activitys.Register_Activity;
+import md06.fpoly.gentlewear.activitys.SplashActivity;
 import md06.fpoly.gentlewear.classs.RetrofitClientAPI;
 import md06.fpoly.gentlewear.interfaces.UserInterface;
 import md06.fpoly.gentlewear.model.Messages;
@@ -22,6 +29,7 @@ import md06.fpoly.gentlewear.model.Users;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class Login_Activity extends AppCompatActivity {
     TextInputLayout email, pass;
@@ -65,14 +73,11 @@ public class Login_Activity extends AppCompatActivity {
                                 Toast.makeText(Login_Activity.this, "Email đăng nhập không đúng", Toast.LENGTH_SHORT).show();
                             } else if (mList.getStatus() == 2) {
                                 Toast.makeText(Login_Activity.this, "Mật khẩu không đúng", Toast.LENGTH_SHORT).show();
-                            } else if (mList.getStatus() == 3) {
+                            } else{
                                 startActivity(new Intent(Login_Activity.this, MainActivity.class));
                                 finish();
                                 Toast.makeText(Login_Activity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(Login_Activity.this, "Có lỗi xảy ra, vui lòng đăng nhập lại sau", Toast.LENGTH_SHORT).show();
                             }
-
                         } else {
                             Toast.makeText(Login_Activity.this, "Có lỗi xảy ra, vui lòng đăng nhập lại", Toast.LENGTH_SHORT).show();
                         }
@@ -107,39 +112,5 @@ public class Login_Activity extends AppCompatActivity {
         });
     }
 
-//    private void checkLogin(String emailDn, String passDn) {
-//        progressDialog.setMessage("Login...");
-//        progressDialog.show();
-//        Call<Messages> call = userInterface.checkLogin(emailDn, passDn);
-//        call.enqueue(new Callback<Messages>() {
-//            @Override
-//            public void onResponse(Call<Messages> call, Response<Messages> response) {
-//                if(progressDialog.isShowing()){
-//                    progressDialog.dismiss();
-//                }
-//                if(response.isSuccessful()){
-//                    Messages mList = response.body();
-//                    if(mList.getStatus()==1){
-//                        Toast.makeText(md06.fpoly.gentlewear.Login_Activity.this, "Email đăng nhập không đúng", Toast.LENGTH_SHORT).show();
-//                    }else if(mList.getStatus()==2){
-//                        Toast.makeText(md06.fpoly.gentlewear.Login_Activity.this, "Mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
-//                    }else {
-//                        startActivity(new Intent(md06.fpoly.gentlewear.Login_Activity.this, MainActivity.class));
-//                        finish();
-//                        Toast.makeText(md06.fpoly.gentlewear.Login_Activity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-//                    }
-//                }else {
-//                    Toast.makeText(md06.fpoly.gentlewear.Login_Activity.this, "Vui lòng đăng nhập lại", Toast.LENGTH_SHORT).show();
-//                }
-//                Log.i("TAG", "onResponse: ");
-////                Toast.makeText(md06.fpoly.gentlewear.Login_Activity.this, "ok", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Messages> call, Throwable t) {
-//                Log.e("TAG", "onFailure: ", t);
-//                Toast.makeText(md06.fpoly.gentlewear.Login_Activity.this, "Lỗi kết nối", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+
 }
