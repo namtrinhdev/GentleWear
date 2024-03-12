@@ -12,7 +12,7 @@
         android:id="@+id/view_page"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bot_navView" />
+        android:layout_marginBottom="20dp" />
 
     <!--    <androidx.drawerlayout.widget.DrawerLayout-->
     <!--        android:id="@+id/drawerLayout2"-->

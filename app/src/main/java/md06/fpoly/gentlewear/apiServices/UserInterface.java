@@ -1,4 +1,4 @@
-package md06.fpoly.gentlewear.interfaces;
+package md06.fpoly.gentlewear.apiServices;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public interface UserInterface {
     @GET("api/users/{id}")
     Call<Users> getUserById(@Path("id") String id);
     @FormUrlEncoded
-    @POST("api/users/checklogin")
+    @POST("api/users/login")
     Call<Messages> checkLogin(@Field("email") String email, @Field("passwd") String passwd);
     @Multipart
     @PUT("api/users/{id}")

@@ -1,15 +1,12 @@
-package md06.fpoly.gentlewear;
+package md06.fpoly.gentlewear.activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,9 +15,9 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import md06.fpoly.gentlewear.activitys.SplashActivity;
+import md06.fpoly.gentlewear.R;
 import md06.fpoly.gentlewear.classs.APIClass;
-import md06.fpoly.gentlewear.interfaces.UserInterface;
+import md06.fpoly.gentlewear.apiServices.UserInterface;
 import md06.fpoly.gentlewear.model.Messages;
 import md06.fpoly.gentlewear.model.Users;
 import retrofit2.Call;
@@ -30,7 +27,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Register_Activity extends AppCompatActivity {
-    private TextInputLayout layout_fullname, layout_email_dk, layout_pass_dk;
     private TextInputEditText txt_fullname, txt_email_dk, txt_pass_dk;
     private FrameLayout btn_dk;
     private TextView txt_signin;
@@ -44,9 +40,6 @@ public class Register_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         txt_signin = findViewById(R.id.txt_signin);
-        layout_fullname = findViewById(R.id.layout_fullname);
-        layout_email_dk = findViewById(R.id.layout_email_dk);
-        layout_pass_dk = findViewById(R.id.layout_pass_dk);
         txt_fullname = findViewById(R.id.txt_fullname);
         txt_email_dk = findViewById(R.id.txt_email_dk);
         txt_pass_dk = findViewById(R.id.txt_pass_dk);
@@ -109,21 +102,14 @@ public class Register_Activity extends AppCompatActivity {
                 progressDialog.dismiss();
             }
         });
-        txt_signin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Register_Activity.this, Login_Activity.class);
-                startActivity(intent);
-            }
+        txt_signin.setOnClickListener(view -> {
+            Intent intent = new Intent(Register_Activity.this, Login_Activity.class);
+            startActivity(intent);
         });
 
         back_1 = findViewById(R.id.back_1);
-        back_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Register_Activity.this, SplashActivity.class);
-                startActivity(intent);
-            }
+        back_1.setOnClickListener(view -> {
+            onBackPressed();
         });
     }
 }

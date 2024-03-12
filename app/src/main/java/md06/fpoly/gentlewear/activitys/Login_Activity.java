@@ -1,4 +1,4 @@
-package md06.fpoly.gentlewear;
+package md06.fpoly.gentlewear.activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,9 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,19 +14,13 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.util.List;
-
-import md06.fpoly.gentlewear.activitys.MainActivity;
-import md06.fpoly.gentlewear.activitys.Register_Activity;
-import md06.fpoly.gentlewear.activitys.SplashActivity;
+import md06.fpoly.gentlewear.R;
 import md06.fpoly.gentlewear.classs.RetrofitClientAPI;
-import md06.fpoly.gentlewear.interfaces.UserInterface;
+import md06.fpoly.gentlewear.apiServices.UserInterface;
 import md06.fpoly.gentlewear.model.Messages;
-import md06.fpoly.gentlewear.model.Users;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class Login_Activity extends AppCompatActivity {
     TextInputLayout email, pass;
@@ -55,60 +46,47 @@ public class Login_Activity extends AppCompatActivity {
         userInterface = RetrofitClientAPI.getRetrofitInstance().create(UserInterface.class);
         progressDialog = new ProgressDialog(this);
 
-        btn_dn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressDialog.setMessage("Login...");
-                progressDialog.show();
-                Call<Messages> call = userInterface.checkLogin(txt_email.getText().toString(), txt_pass.getText().toString());
-                call.enqueue(new Callback<Messages>() {
-                    @Override
-                    public void onResponse(Call<Messages> call, Response<Messages> response) {
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-                        if (response.isSuccessful()) {
-                            Messages mList = response.body();
-                            if (mList.getStatus() == 1) {
-                                Toast.makeText(Login_Activity.this, "Email đăng nhập không đúng", Toast.LENGTH_SHORT).show();
-                            } else if (mList.getStatus() == 2) {
-                                Toast.makeText(Login_Activity.this, "Mật khẩu không đúng", Toast.LENGTH_SHORT).show();
-                            } else{
-                                startActivity(new Intent(Login_Activity.this, MainActivity.class));
-                                finish();
-                                Toast.makeText(Login_Activity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(Login_Activity.this, "Có lỗi xảy ra, vui lòng đăng nhập lại", Toast.LENGTH_SHORT).show();
-                        }
+        btn_dn.setOnClickListener(v -> {
+            progressDialog.setMessage("Login...");
+            progressDialog.show();
+            Call<Messages> call = userInterface.checkLogin(txt_email.getText().toString(), txt_pass.getText().toString());
+            call.enqueue(new Callback<Messages>() {
+                @Override
+                public void onResponse(Call<Messages> call, Response<Messages> response) {
+                    if (progressDialog.isShowing()) {
+                        progressDialog.dismiss();
                     }
+                    Messages res = response.body();
+                    if (response.isSuccessful()) {
+                        if (res.getStatus() == 1) {
+                            startActivity(new Intent(Login_Activity.this, MainActivity.class));
+                            finish();
+                            Toast.makeText(Login_Activity.this, res.getMsg(), Toast.LENGTH_SHORT).show();
+                        } else{
+                            Toast.makeText(Login_Activity.this, res.getMsg(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(Login_Activity.this, "Có lỗi xảy ra, vui lòng đăng nhập lại", Toast.LENGTH_SHORT).show();
+                    }
+                }
 
-                    @Override
-                    public void onFailure(Call<Messages> call, Throwable t) {
-                        Toast.makeText(Login_Activity.this, "Lỗi kết nối server, vui lòng đăng nhập lại", Toast.LENGTH_SHORT).show();
-                        if (progressDialog.isShowing()) {
-                            progressDialog.dismiss();
-                        }
-                        Log.e("onFailure", t.toString());
+                @Override
+                public void onFailure(Call<Messages> call, Throwable t) {
+                    Toast.makeText(Login_Activity.this, "Lỗi kết nối server, vui lòng đăng nhập lại", Toast.LENGTH_SHORT).show();
+                    if (progressDialog.isShowing()) {
+                        progressDialog.dismiss();
                     }
-                });
-            }
+                    Log.e("onFailure", t.toString());
+                }
+            });
         });
-        txt_creat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(Login_Activity.this, Register_Activity.class);
-                startActivity(intent);
-            }
+        txt_creat.setOnClickListener(view -> {
+            Intent intent = new Intent(Login_Activity.this, Register_Activity.class);
+            startActivity(intent);
         });
         back = findViewById(R.id.back);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Login_Activity.this, SplashActivity.class);
-                startActivity(intent);
-            }
+        back.setOnClickListener(view -> {
+            onBackPressed();
         });
     }
 

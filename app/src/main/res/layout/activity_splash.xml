@@ -4,9 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:alpha="0.8"
-    android:background="@drawable/img"
     tools:context=".activitys.SplashActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img"
+        android:alpha="0.67"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,13 +33,15 @@
             android:textStyle="bold" />
 
         <TextView
-            android:layout_width="216dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginTop="70dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
             android:fontFamily="@font/latoblack"
-            android:text="Create your fashion in your own way"
+            android:text="@string/slogan"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="24dp"
@@ -42,38 +50,53 @@
 
         <FrameLayout
             android:id="@+id/btn_login"
-            android:layout_width="222dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="60dp"
             android:layout_marginTop="120dp"
-            android:layout_gravity="center">
+            android:layout_marginEnd="60dp">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/border_btn" />
+                android:layout_height="48dp"
+                android:background="@drawable/button_shape_invisible" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/latoblack"
-                android:text="Log in"
+                android:text="@string/login"
                 android:textAlignment="center"
-                android:textColor="@color/bg_white"
-                android:textSize="15dp"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </FrameLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/latobold"
+            android:text="@string/or"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
         <FrameLayout
             android:id="@+id/btn_register"
-            android:layout_width="222dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="60dp">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="48dp"
                 android:background="@drawable/border_btn" />
 
             <TextView
@@ -81,10 +104,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/latoblack"
-                android:text="Register"
+                android:text="@string/sign_up"
                 android:textAlignment="center"
+                android:textAllCaps="true"
                 android:textColor="@color/bg_white"
-                android:textSize="15dp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </FrameLayout>
     </LinearLayout>

@@ -6,18 +6,20 @@ import java.io.Serializable;
 
 public class Users implements Serializable {
     private String _id,fullname,email,sdt,passwd,diaChi;
+    private int status;
     private String avatar;
 
     public Users() {
     }
 
-    public Users(String _id, String fullname, String email, String sdt, String passwd, String diaChi, String avatar) {
+    public Users(String _id, String fullname, String email, String sdt, String passwd, String diaChi,int status, String avatar) {
         this._id = _id;
         this.fullname = fullname;
         this.email = email;
         this.sdt = sdt;
         this.passwd = passwd;
         this.diaChi = diaChi;
+        this.status = status;
         this.avatar = avatar;
     }
 
@@ -75,5 +77,13 @@ public class Users implements Serializable {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

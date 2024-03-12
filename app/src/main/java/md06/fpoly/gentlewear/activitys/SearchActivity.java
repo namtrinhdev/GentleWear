@@ -21,15 +21,11 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        et_search_product = findViewById(R.id.et_search_product);
+        et_search_product = findViewById(R.id.ed_search);
         btn_back = findViewById(R.id.btn_back);
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SearchActivity.this, HomeFragment.class);
-                startActivity(intent);
-            }
+        btn_back.setOnClickListener(v -> {
+            onBackPressed();
         });
 
     }

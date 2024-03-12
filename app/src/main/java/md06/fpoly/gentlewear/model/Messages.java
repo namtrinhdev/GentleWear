@@ -5,12 +5,12 @@ import java.util.List;
 public class Messages {
     private String msg;
     private int status;
-    private List<Users> data;
+    private Users data;
 
     public Messages() {
     }
 
-    public Messages(String msg, int status, List<Users> data) {
+    public Messages(String msg, int status, Users data) {
         this.msg = msg;
         this.status = status;
         this.data = data;
@@ -32,11 +32,11 @@ public class Messages {
         this.status = status;
     }
 
-    public List<Users> getData() {
+    public Users getData() {
         return data;
     }
 
-    public void setData(List<Users> data) {
+    public void setData(Users data) {
         this.data = data;
     }
 }

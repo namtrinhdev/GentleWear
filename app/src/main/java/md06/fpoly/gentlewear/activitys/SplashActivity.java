@@ -16,20 +16,14 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         btn_login = findViewById(R.id.btn_login);
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SplashActivity.this, Login_Activity.class);
-                startActivity(intent);
-            }
+        btn_login.setOnClickListener(view -> {
+            Intent intent = new Intent(SplashActivity.this, Login_Activity.class);
+            startActivity(intent);
         });
         btn_register = findViewById(R.id.btn_register);
-        btn_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SplashActivity.this, Register_Activity.class);
-                startActivity(intent);
-            }
+        btn_register.setOnClickListener(view -> {
+            Intent intent = new Intent(SplashActivity.this, Register_Activity.class);
+            startActivity(intent);
         });
     }
 }

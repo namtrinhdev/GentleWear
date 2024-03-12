@@ -8,9 +8,11 @@
     tools:context=".activitys.Login_Activity">
 
     <LinearLayout
+        android:id="@+id/nonused_ID_002"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+
         android:padding="28dp">
 
         <ImageView
@@ -34,14 +36,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:width="286dp"
-            android:height="60dp"
+            android:layout_marginEnd="50dp"
             android:fontFamily="@font/latolight"
-            android:textStyle="bold"
-            android:text="Yay! You're back! Thanks for shopping with us.
-We have excited deals and promotions going on, grab your pick now! "
+            android:text="@string/welcome_login"
             android:textColor="#FFFFFF"
-            android:textSize="14dp" />
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -59,64 +59,49 @@ We have excited deals and promotions going on, grab your pick now! "
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
-
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/nonused_ID_002"
+        android:layout_margin="28dp"
+        app:cardCornerRadius="30dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="28dp">
 
-            <!--            <TextView-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="Email addres"-->
-            <!--                android:textColor="#000000"-->
-            <!--                android:textSize="14dp"-->
-            <!--                android:textStyle="bold"-->
-            <!--                android:fontFamily="@font/latoblack"/>-->
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_email_dn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email addres"
                 android:layout_marginTop="10dp"
-                app:startIconDrawable="@drawable/email"
-                app:endIconMode="clear_text">
+                android:hint="@string/email"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/email">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/latoblack"
-                    android:textColor="#000000"/>
+                    android:textColor="#000000" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <!--            <TextView-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginTop="30dp"-->
-            <!--                android:text="Password"-->
-            <!--                android:textColor="#000000"-->
-            <!--                android:textSize="14dp"-->
-            <!--                android:textStyle="bold" />-->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_pass_dn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
                 android:layout_marginTop="10dp"
-                app:startIconDrawable="@drawable/lock"
-                app:endIconMode="clear_text">
+                android:hint="@string/password"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/lock">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_pass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/latoblack"
                     android:inputType="textPassword"
-                    android:textColor="#000000"/>
+                    android:textColor="#000000" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,8 +115,8 @@ We have excited deals and promotions going on, grab your pick now! "
                     android:layout_height="25dp"
                     android:alpha="0.7"
                     android:fontFamily="@font/latolight"
-                    android:text="Remember me"
-                    android:textSize="12dp"
+                    android:text="@string/remember_me"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -140,33 +125,13 @@ We have excited deals and promotions going on, grab your pick now! "
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/latolight"
-                    android:text="Forget Password?"
+                    android:text="@string/forget_pass"
                     android:textColor="#6342E8"
-                    android:textSize="12dp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
             </RelativeLayout>
 
-            <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-            <!--                android:id="@+id/btn_dn"-->
-            <!--                android:layout_width="356dp"-->
-            <!--                android:layout_height="54dp"-->
-            <!--                android:layout_gravity="center"-->
-            <!--                android:layout_marginTop="20dp"-->
-            <!--                android:background="@drawable/custom_button">-->
-
-            <!--                <TextView-->
-            <!--                    android:layout_width="53dp"-->
-            <!--                    android:layout_height="20dp"-->
-            <!--                    android:fontFamily="@font/latoblack"-->
-            <!--                    android:text="SIGN IN"-->
-            <!--                    android:textColor="#FFFFFF"-->
-            <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                    app:layout_constraintStart_toStartOf="parent"-->
-            <!--                    app:layout_constraintTop_toTopOf="parent" />-->
-
-            <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
             <FrameLayout
                 android:id="@+id/btn_dn"
@@ -174,18 +139,20 @@ We have excited deals and promotions going on, grab your pick now! "
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp">
+
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="@drawable/custom_button"/>
+                    android:layout_height="48dp"
+                    android:background="@drawable/custom_button" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:fontFamily="@font/latoblack"
                     android:text="@string/login"
                     android:textAlignment="center"
-                    android:fontFamily="@font/latoblack"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#FFFFFF" />
             </FrameLayout>
 
             <TextView
@@ -193,17 +160,15 @@ We have excited deals and promotions going on, grab your pick now! "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="Create an Account"
+                android:layout_marginTop="15dp"
+                android:text="@string/create_acc"
                 android:textColor="#6342E8"
-                android:textSize="12dp" />
+                android:textSize="14sp" />
             "/>
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
-
 
 
 </RelativeLayout>
