@@ -1,4 +1,4 @@
-package md06.fpoly.gentlewear.model;
+package md06.fpoly.gentlewear.models;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -6,20 +6,18 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import md06.fpoly.gentlewear.R;
 import md06.fpoly.gentlewear.classs.APIClass;
 import md06.fpoly.gentlewear.apiServices.UserInterface;
-import md06.fpoly.gentlewear.model.Messages;
-import md06.fpoly.gentlewear.model.Users;
+import md06.fpoly.gentlewear.models.Messages;
+import md06.fpoly.gentlewear.models.Users;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

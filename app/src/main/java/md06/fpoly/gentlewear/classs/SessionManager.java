@@ -3,7 +3,7 @@ package md06.fpoly.gentlewear.classs;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import md06.fpoly.gentlewear.model.Users;
+import md06.fpoly.gentlewear.models.Users;
 
 public class SessionManager {
     private static final String PREF_NAME = "User";

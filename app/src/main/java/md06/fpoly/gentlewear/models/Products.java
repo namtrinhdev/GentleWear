@@ -1,41 +1,41 @@
 package md06.fpoly.gentlewear.models;
 
+import java.util.List;
+
 public class Products {
-    int id;
-    String tenSP;
-    int price;
-    int quantity;
-    int idProductType;
-    int sizeID;
-    int quantitySlod;
+    private String _id, productName;
+    private int price, quantity;
+    private List<ProductType> productType;
+    private List<Size> size;
+    private int quantitySold;
 
     public Products() {
     }
 
-    public Products(int id, String tenSP, int price, int quantity, int idProductType, int sizeID, int quantitySlod) {
-        this.id = id;
-        this.tenSP = tenSP;
+    public Products(String _id, String productName, int price, int quantity, List<ProductType> productType, List<Size> size, int quantitySold) {
+        this._id = _id;
+        this.productName = productName;
         this.price = price;
         this.quantity = quantity;
-        this.idProductType = idProductType;
-        this.sizeID = sizeID;
-        this.quantitySlod = quantitySlod;
+        this.productType = productType;
+        this.size = size;
+        this.quantitySold = quantitySold;
     }
 
-    public int getId() {
-        return id;
+    public String get_id() {
+        return _id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
-    public String getTenSP() {
-        return tenSP;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setTenSP(String tenSP) {
-        this.tenSP = tenSP;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public int getPrice() {
@@ -54,27 +54,27 @@ public class Products {
         this.quantity = quantity;
     }
 
-    public int getIdProductType() {
-        return idProductType;
+    public List<ProductType> getProductType() {
+        return productType;
     }
 
-    public void setIdProductType(int idProductType) {
-        this.idProductType = idProductType;
+    public void setProductType(List<ProductType> productType) {
+        this.productType = productType;
     }
 
-    public int getSizeID() {
-        return sizeID;
+    public List<Size> getSize() {
+        return size;
     }
 
-    public void setSizeID(int sizeID) {
-        this.sizeID = sizeID;
+    public void setSize(List<Size> size) {
+        this.size = size;
     }
 
-    public int getQuantitySlod() {
-        return quantitySlod;
+    public int getQuantitySold() {
+        return quantitySold;
     }
 
-    public void setQuantitySlod(int quantitySlod) {
-        this.quantitySlod = quantitySlod;
+    public void setQuantitySold(int quantitySold) {
+        this.quantitySold = quantitySold;
     }
 }

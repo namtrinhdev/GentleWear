@@ -21,4 +21,5 @@
     <string name="description">Description</string>
     <string name="search">Tìm kiếm sản phẩm</string>
     <string name="searchYour">Tìm kiếm</string>
+    <string name="Filter">Lọc</string>
 </resources>

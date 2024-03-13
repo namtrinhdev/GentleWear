@@ -2,8 +2,8 @@ package md06.fpoly.gentlewear.apiServices;
 
 import java.util.List;
 
-import md06.fpoly.gentlewear.model.Messages;
-import md06.fpoly.gentlewear.model.Users;
+import md06.fpoly.gentlewear.models.Messages;
+import md06.fpoly.gentlewear.models.Users;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;

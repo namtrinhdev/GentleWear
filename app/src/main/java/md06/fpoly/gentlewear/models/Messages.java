@@ -1,6 +1,4 @@
-package md06.fpoly.gentlewear.model;
-
-import java.util.List;
+package md06.fpoly.gentlewear.models;
 
 public class Messages {
     private String msg;
