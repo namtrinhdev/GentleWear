@@ -45,17 +45,15 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp" />
 
-    <androidx.cardview.widget.CardView
+    <FrameLayout
         android:id="@+id/btn_addToCart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginBottom="50dp"
-        app:cardBackgroundColor="@color/bg_btn"
-        app:cardCornerRadius="50dp"
-        app:cardElevation="10dp">
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/border_btn">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -75,6 +73,6 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </FrameLayout>
 
 </RelativeLayout>

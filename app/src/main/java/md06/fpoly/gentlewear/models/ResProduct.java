@@ -1,13 +1,20 @@
 package md06.fpoly.gentlewear.models;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ResProduct {
+import md06.fpoly.gentlewear.models.Products;
+
+public class ResProduct implements Serializable {
     private int page, pageSize, totalItems;
-    private Products data;
+    private ArrayList<Products> data;
+    private int total;
+
 
     public ResProduct() {
     }
 
-    public ResProduct(int page, int pageSize, int totalItems, Products data) {
+    public ResProduct(int page, int pageSize, int totalItems, ArrayList<Products> data) {
         this.page = page;
         this.pageSize = pageSize;
         this.totalItems = totalItems;
@@ -38,11 +45,19 @@ public class ResProduct {
         this.totalItems = totalItems;
     }
 
-    public Products getData() {
+    public ArrayList<Products> getData() {
         return data;
     }
 
-    public void setData(Products data) {
+    public void setData(ArrayList<Products> data) {
         this.data = data;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
     }
 }

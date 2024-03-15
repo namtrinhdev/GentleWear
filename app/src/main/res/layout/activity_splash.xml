@@ -60,7 +60,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:background="@drawable/button_shape_invisible" />
+                android:background="@drawable/border_btn" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                 android:text="@string/login"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </FrameLayout>
@@ -82,8 +82,8 @@
             android:text="@string/or"
             android:layout_marginTop="10dp"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
         <FrameLayout
             android:id="@+id/btn_register"

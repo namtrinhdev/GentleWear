@@ -69,8 +69,9 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="32dp"
                 android:fontFamily="@font/latoblack"
-                android:text="$28.00 USD"
-                android:textSize="18dp" />
+                android:text="28.00"
+                android:drawableLeft="@drawable/baseline_attach_money_24"
+                android:textSize="20dp" />
 
             <ImageView
                 android:id="@+id/btn_chitiet"

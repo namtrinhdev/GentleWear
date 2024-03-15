@@ -3,7 +3,7 @@
 
     <item>
         <shape>
-            <solid android:color="@color/bg_btn"/>
+            <solid android:color="#454278"/>
 
             <corners android:radius="60dp" />
         </shape>

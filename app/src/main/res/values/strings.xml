@@ -11,7 +11,7 @@
     <string name="password">Mật khẩu</string>
     <string name="remember_me">Nhớ tài khoản ?</string>
     <string name="forget_pass">Quên mật khẩu?</string>
-    <string name="create_acc">Tạo tài khoản</string>
+    <string name="create_acc">Bạn chưa có tài khoản ? Tạo tài khoản</string>
     <string name="goToCheckout">Thanh toán</string>
     <string name="addAllToCart">Add all to cart</string>
     <string name="ProductDetail">Chi tiết sản phẩm</string>
