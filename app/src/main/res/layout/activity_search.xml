@@ -40,7 +40,8 @@
         android:textSize="16sp"
         android:textColor="@color/colorPrimary"
         android:paddingStart="16sp"
-        android:layout_below="@+id/btn_back"/>
+        android:layout_below="@+id/btn_back"
+        android:imeOptions="actionSearch"/>
 
     <TextView
         android:id="@+id/tv_result_search"
@@ -66,4 +67,10 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         />
+<!--    <Button-->
+<!--        android:id="@+id/btn_search"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Search"-->
+<!--        android:onClick="onSearchButtonClick" />-->
 </RelativeLayout>

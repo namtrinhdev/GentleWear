@@ -61,7 +61,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/nonused_ID_005"
             android:layout_alignParentStart="true"
-            android:layout_margin="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
             android:drawableRight="@drawable/baseline_menu_24"
             android:drawablePadding="8dp"
             android:fontFamily="@font/latobold"
@@ -70,17 +74,27 @@
             android:textColor="@color/black"
             android:textSize="16sp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+
+            android:layout_marginTop="20dp"
+            android:layout_toStartOf="@+id/spn_sort_home"
+            android:text="Sắp xếp:"
+            android:textSize="15sp"
+            android:textColor="@color/black"/>
+
         <Spinner
             android:id="@+id/spn_sort_home"
-            android:layout_width="200dp"
+            android:layout_width="15dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="20dp"
-
             android:layout_marginTop="20dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="20dp"
-            android:spinnerMode="dropdown" />
+            android:spinnerMode="dialog" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh_layout"

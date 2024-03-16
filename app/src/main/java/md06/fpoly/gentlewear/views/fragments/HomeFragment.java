@@ -25,7 +25,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import md06.fpoly.gentlewear.R;
@@ -33,7 +32,6 @@ import md06.fpoly.gentlewear.activitys.DetailProductsActivity;
 import md06.fpoly.gentlewear.activitys.SearchActivity;
 import md06.fpoly.gentlewear.apiServices.Next_interface;
 import md06.fpoly.gentlewear.apiServices.ProductAPIServices;
-import md06.fpoly.gentlewear.classs.APIClass;
 import md06.fpoly.gentlewear.classs.RetrofitClientAPI;
 import md06.fpoly.gentlewear.classs.SessionManager;
 import md06.fpoly.gentlewear.controller.Adapter.HomeAdapter;
@@ -109,16 +107,13 @@ public class HomeFragment extends Fragment {
                 R.array.sort_options, android.R.layout.simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSort.setAdapter(spinnerAdapter);
-        spinnerSort.setPrompt("PROMPT");
         // Set up Spinner item selected listener
         spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 // Handle sorting based on selected option
                 String selectedOption = adapterView.getItemAtPosition(i).toString();
-
                 // Set the selected item as the prompt for the spinner
-
                 // Call your method to sort products based on the selected option
                 sortProducts(selectedOption);
             }
