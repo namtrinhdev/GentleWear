@@ -83,6 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/latoblack"
+                    android:text="hardkey60@gmail.com"
                     android:textColor="#000000" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,6 +101,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/latoblack"
+                    android:text="123"
                     android:inputType="textPassword"
                     android:textColor="#000000" />
 

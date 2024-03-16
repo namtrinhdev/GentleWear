@@ -22,4 +22,6 @@
     <color name="transparent">#00E0E0E0</color>
     <color name="bg_btn">#454278</color>
     <color name="gray">#ccc</color>
+    <color name="lavender">#8692f7</color>
+    <color name="yellow">#bfff00</color>
 </resources>

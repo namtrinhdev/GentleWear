@@ -16,8 +16,7 @@ import md06.fpoly.gentlewear.controller.Adapter.ViewpageAdapter;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager2 viewPager;
-    DrawerLayout drawerLayout;
-    Toolbar toolbar;
+
     private BottomNavigationView bottomNavigationView;
 
 

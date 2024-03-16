@@ -68,8 +68,9 @@
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/latoblack"
                     android:gravity="center"
-                    android:text="$28.00 USD"
-                    android:textSize="18dp" />
+                    android:drawableLeft="@drawable/baseline_attach_money_24"
+                    android:text="28.00"
+                    android:textSize="20dp" />
             </LinearLayout>
 
             <LinearLayout
