@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_title_dialog_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="Sửa tên"
+        android:textAlignment="center"
+        android:textColor="@color/text_normal"
+        android:layout_marginBottom="15dp"
+        android:textSize="22sp" />
+    <EditText
+        android:id="@+id/ed_dialog_user"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/edittext_shape"
+        android:hint=""
+        android:inputType="text" />
+    <Button
+        android:id="@+id/btn_confirm_user_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Xác nhận"
+        android:textAllCaps="false"
+        android:background="@drawable/border_btn"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="10dp"/>
+</LinearLayout>

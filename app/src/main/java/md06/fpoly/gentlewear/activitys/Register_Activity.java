@@ -1,7 +1,5 @@
 package md06.fpoly.gentlewear.activitys;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,11 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.textfield.TextInputEditText;
 
 import md06.fpoly.gentlewear.R;
-import md06.fpoly.gentlewear.classs.APIClass;
 import md06.fpoly.gentlewear.apiServices.UserInterface;
+import md06.fpoly.gentlewear.classs.APIClass;
 import md06.fpoly.gentlewear.models.Messages;
 import md06.fpoly.gentlewear.models.Users;
 import retrofit2.Call;

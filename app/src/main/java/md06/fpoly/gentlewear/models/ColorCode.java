@@ -1,7 +1,5 @@
 package md06.fpoly.gentlewear.models;
 
-import java.util.List;
-
 public class ColorCode {
     private String _id, colorCode, nameColor;
 

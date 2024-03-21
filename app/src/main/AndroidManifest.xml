@@ -16,7 +16,13 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".activitys.ThanhToanActivity"
+            android:name=".activitys.ViMoneyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.QLDonNapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.QLDH_Activity"
             android:exported="false" />
         <activity
             android:name=".activitys.DetailProductsActivity"
@@ -35,6 +41,12 @@
             android:exported="false" />
         <activity
             android:name=".activitys.SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.InformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.ThanhToanActivity"
             android:exported="false" />
         <activity
             android:name=".activitys.LoadingActivity"

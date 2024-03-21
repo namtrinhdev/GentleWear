@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ import md06.fpoly.gentlewear.apiServices.Next_interface;
 import md06.fpoly.gentlewear.apiServices.ProductAPIServices;
 import md06.fpoly.gentlewear.classs.RetrofitClientAPI;
 import md06.fpoly.gentlewear.classs.SessionManager;
+import md06.fpoly.gentlewear.controller.Adapter.BottomSheetFilterFragment;
 import md06.fpoly.gentlewear.controller.Adapter.HomeAdapter;
 import md06.fpoly.gentlewear.models.Products;
 import md06.fpoly.gentlewear.models.ResProduct;
@@ -53,6 +55,7 @@ public class HomeFragment extends Fragment {
     private ProgressBar progressBar;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Spinner spinnerSort;
+    private TextView tv_filter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,7 +66,8 @@ public class HomeFragment extends Fragment {
         img_search = rootView.findViewById(R.id.btnSearch);
         img_avatar = rootView.findViewById(R.id.img_avatar);
         spinnerSort = rootView.findViewById(R.id.spn_sort_home);
-      swipeRefreshLayout = rootView.findViewById(R.id.swipe_refresh_layout);
+        tv_filter = rootView.findViewById(R.id.tv_filter);
+        swipeRefreshLayout = rootView.findViewById(R.id.swipe_refresh_layout);
         return rootView;
     }
 
@@ -152,6 +156,13 @@ public class HomeFragment extends Fragment {
             Glide.with(this).load(sessionManager.getAvatar()).apply(RequestOptions.centerCropTransform()).into(img_avatar);
 
         }
+        tv_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Show bottom sheet fragment when filter text view is clicked
+                showBottomSheetFilter();
+            }
+        });
     }
 
     private void loadData() {
@@ -198,15 +209,15 @@ public class HomeFragment extends Fragment {
         switch (selectedOption) {
             case "Name (A-Z)":
                 sortBy = "name_asc"; // Assuming the API expects this sorting criteria for name A-Z
-                Toast.makeText(getContext(), "Đã sắp xếp tên A-Z "  ,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Đã sắp xếp tên A-Z ", Toast.LENGTH_SHORT).show();
                 break;
             case "Price (Low to High)":
                 sortBy = "price_asc";
-                Toast.makeText(getContext(), "Đã sắp xếp giá từ thấp đến cao "  ,Toast.LENGTH_SHORT).show();// Assuming the API expects this sorting criteria for price low to high
+                Toast.makeText(getContext(), "Đã sắp xếp giá từ thấp đến cao ", Toast.LENGTH_SHORT).show();// Assuming the API expects this sorting criteria for price low to high
                 break;
             case "Price (High to Low)":
                 sortBy = "price_desc";
-                Toast.makeText(getContext(), "Đã sắp xếp giá từ cao đến thấp "  ,Toast.LENGTH_SHORT).show();// Assuming the API expects this sorting criteria for price high to low
+                Toast.makeText(getContext(), "Đã sắp xếp giá từ cao đến thấp ", Toast.LENGTH_SHORT).show();// Assuming the API expects this sorting criteria for price high to low
                 break;
             default:
                 return; // Do nothing if the selected option is not recognized
@@ -238,7 +249,13 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+    private void showBottomSheetFilter() {
+        // Create instance of your bottom sheet fragment
+        BottomSheetFilterFragment bottomSheetFragment = new BottomSheetFilterFragment();
 
+        // Show the bottom sheet fragment
+        bottomSheetFragment.show(getChildFragmentManager(), bottomSheetFragment.getTag());
+    }
 }
 
 

@@ -17,6 +17,7 @@ public class SessionManager {
     private static final String KEY_PHONE_NUMBER = "phoneNumber";
     private static final String KEY_AVATAR = "avatar";
     private static final String KEY_VAI_TRO = "vaiTro";
+    private static final String KEY_MONEY = "money";
     private final SharedPreferences sharedPreferences;
     private final SharedPreferences.Editor editor;
     private final Context context;
@@ -96,7 +97,16 @@ public class SessionManager {
     public String getEmail() {
         return sharedPreferences.getString(KEY_EMAIL, "");
     }
-
+    public String getToken() {
+        return sharedPreferences.getString(KEY_TOKEN, "");
+    }
+    public void setMoney(int soTien){
+        editor.putInt(KEY_MONEY,soTien);
+        editor.apply();
+    }
+    public int getMoney() {
+        return sharedPreferences.getInt(KEY_MONEY, 0);
+    }
     public String getPhoneNumber() {
         return sharedPreferences.getString(KEY_PHONE_NUMBER, "");
     }

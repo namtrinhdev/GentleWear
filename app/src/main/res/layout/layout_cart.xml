@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="5dp">
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -19,14 +19,14 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/image_sp"
+                android:id="@+id/image_spcart"
                 android:layout_width="87dp"
                 android:layout_height="77dp"
                 android:layout_gravity="center|left"
                 android:layout_marginLeft="20dp"
                 android:background="#f1f4fb"
-                android:scaleType="centerCrop"
-                android:src="@drawable/shirt2" />
+                android:scaleType="centerInside"
+                android:src="@drawable/hoodie2" />
 
 
             <LinearLayout
@@ -50,7 +50,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_motasp"
+                    android:id="@+id/tv_nameloai"
                     android:layout_width="140dp"
                     android:layout_height="27dp"
                     android:layout_marginLeft="8dp"
@@ -61,60 +61,66 @@
                     android:textStyle="normal" />
 
                 <TextView
-                    android:id="@+id/tv_price"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_price_card"
+                    android:layout_width="70dp"
                     android:layout_height="27dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/latoblack"
-                    android:gravity="center"
+
                     android:drawableLeft="@drawable/baseline_attach_money_24"
-                    android:text="28.00"
+                    android:text="28"
+                    android:textColor="@color/black"
                     android:textSize="20dp" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="bottom"
                 android:gravity="center"
-                android:layout_marginBottom="6dp"
-                android:background="@drawable/border_soluong">
-                <TextView
-                    android:id="@+id/tv_giam"
-                    android:layout_width="35dp"
-                    android:layout_height="match_parent"
-                    android:text="-"
-                    android:textSize="20dp"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                   />
-                <TextView
-                    android:id="@+id/tv_soluong"
-                    android:layout_width="20dp"
-                    android:layout_height="match_parent"
-                    android:text="1"
-                    android:textSize="20dp"
-                    android:gravity="center" />
+                android:layout_marginBottom="8dp"
+                >
+                <ImageView
+                    android:id="@+id/img_item_remove_cart"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:background="@drawable/shape_diamon_red"
+                    android:src="@drawable/sharp_remove_24"
+                    android:layout_toRightOf="@+id/tv_item_quantity_cart"
 
+                    android:padding="4dp"
+                    />
                 <TextView
-                    android:id="@+id/tv_tang"
-                    android:layout_width="35dp"
-                    android:layout_height="match_parent"
-                    android:text="+"
-                    android:textSize="20dp"
-                    android:gravity="center"
-                    android:textStyle="bold"
+                    android:id="@+id/tv_item_quantity_cart"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="1"
+                    android:layout_gravity="center"
+                    android:textSize="16sp"
+                    android:textColor="@color/bg_red"
+                    android:layout_toRightOf="@+id/img_item_remove_cart"
+                    android:layout_centerHorizontal="true"/>
+                <ImageView
+                    android:id="@+id/img_item_add_cart"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:background="@drawable/shape_diamon_red"
+                    android:src="@drawable/sharp_add_24"
+                    android:layout_toRightOf="@+id/nonused_ID_006"
+                    android:padding="4dp"
+
                     />
             </LinearLayout>
-            <ImageView
-                android:id="@+id/btn_chitiet"
-                android:layout_width="wrap_content"
-                android:layout_height="38dp"
-                android:layout_gravity="top"
+<!--            <ImageView-->
+<!--                android:id="@+id/btn_delete_item_card"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="38dp"-->
+<!--                android:layout_gravity="top"-->
 
-                android:src="@drawable/rounded_close_24" />
+<!--                android:src="@drawable/rounded_close_24" />-->
         </LinearLayout>
 
 

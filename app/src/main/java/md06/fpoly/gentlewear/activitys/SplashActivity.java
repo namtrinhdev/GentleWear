@@ -2,7 +2,6 @@ package md06.fpoly.gentlewear.activitys;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;

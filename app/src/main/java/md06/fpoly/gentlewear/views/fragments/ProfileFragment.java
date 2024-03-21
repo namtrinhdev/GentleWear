@@ -5,57 +5,116 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 
 import md06.fpoly.gentlewear.R;
-import md06.fpoly.gentlewear.activitys.SearchActivity;
-import md06.fpoly.gentlewear.activitys.SplashActivity;
+import md06.fpoly.gentlewear.activitys.InformationActivity;
+import md06.fpoly.gentlewear.activitys.Login_Activity;
+import md06.fpoly.gentlewear.activitys.QLDH_Activity;
+import md06.fpoly.gentlewear.activitys.QLDonNapActivity;
+import md06.fpoly.gentlewear.activitys.ViMoneyActivity;
+import md06.fpoly.gentlewear.classs.APIClass;
 import md06.fpoly.gentlewear.classs.SessionManager;
+import md06.fpoly.gentlewear.models.Cart2;
 
 
 public class ProfileFragment extends Fragment {
     private SessionManager sessionManager;
-    FrameLayout btn_logout;
-    ImageView img_pprofile;
-    TextView tv_name_profile;
+    private TextView tv_name, tv_email;
+    private ImageView img;
+
+    private CardView btn_your_wallet, btn_ql_donNap,btn_ql_food, btn_ql_foodType;
+    public ProfileFragment() {
+        // Required empty public constructor
+    }
+    public static ProfileFragment newInstance() {
+        ProfileFragment fragment = new ProfileFragment();
+        return fragment;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btn_logout = view.findViewById(R.id.btn_logout);
-        img_pprofile = view.findViewById(R.id.img_profile);
-        tv_name_profile = view.findViewById(R.id.tv_name_Profile);
+        img = view.findViewById(R.id.img_avatar);
+        tv_name = view.findViewById(R.id.tv_nameUser_account);
+        tv_email = view.findViewById(R.id.tv_email_account);
+        btn_your_wallet = view.findViewById(R.id.id_your_wallet);
+        btn_ql_donNap = view.findViewById(R.id.id_qld_napTien);
+        btn_ql_food = view.findViewById(R.id.id_qlfood);
+        btn_ql_foodType = view.findViewById(R.id.id_ql_food_type);
+
+        //khoitao
+        sessionManager = new SessionManager(getActivity());
+
+        //set info user
+        setInfoUser();
+        //set visibility
+        setUIPhanQuyen();
 
 
-        // Load avatar image
-        sessionManager = new SessionManager(getContext());
-        if (!sessionManager.getAvatar().equals("")) {
-            Glide.with(this).load(sessionManager.getAvatar()).apply(RequestOptions.centerCropTransform()).into(img_pprofile);
-
-        }
-        tv_name_profile.setText(sessionManager.getFullName());
-
-        btn_logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), SplashActivity.class);
-                startActivity(intent);
-            }
+        //ql don nap
+        btn_ql_donNap.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), QLDonNapActivity.class));
         });
+
+        // ql don hang
+        view.findViewById(R.id.id_qldh).setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), QLDH_Activity.class));
+        });
+
+        // vi cua ban
+        btn_your_wallet.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), ViMoneyActivity.class));
+        });
+
+        // thong tin ca nhan
+        view.findViewById(R.id.id_thong_tin_ca_nhan).setOnClickListener(v ->{
+            startActivity(new Intent(getActivity(), InformationActivity.class));
+        });
+
+        //dang xuat
+        view.findViewById(R.id.id_logout).setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), Login_Activity.class));
+            sessionManager.logoutUser();
+            Cart2.getInstance().clear();
+            getActivity().finish();
+        });
+    }
+    private void setUIPhanQuyen() {
+        if (sessionManager.getVaiTro()==0){
+            btn_your_wallet.setVisibility(View.GONE);
+        }else {
+            btn_ql_foodType.setVisibility(View.GONE);
+            btn_ql_food.setVisibility(View.GONE);
+            btn_ql_donNap.setVisibility(View.GONE);
+        }
+    }
+
+    private void setInfoUser() {
+        if (!sessionManager.getAvatar().equals("")){
+            String url = APIClass.URL+"uploads/"+sessionManager.getAvatar();
+            Glide.with(getActivity()).load(url).placeholder(R.drawable.img_default_user).into(img);
+        }
+        tv_name.setText(sessionManager.getFullName());
+        tv_email.setText(sessionManager.getEmail());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setInfoUser();
     }
 }
