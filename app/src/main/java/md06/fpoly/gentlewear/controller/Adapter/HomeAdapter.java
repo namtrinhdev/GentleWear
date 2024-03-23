@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,13 +14,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
-import java.util.List;
-
 
 import md06.fpoly.gentlewear.R;
 import md06.fpoly.gentlewear.apiServices.Next_interface;
 import md06.fpoly.gentlewear.models.Products;
-import md06.fpoly.gentlewear.models.ResProduct;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ClotherViewHolder> {
     private Context context;

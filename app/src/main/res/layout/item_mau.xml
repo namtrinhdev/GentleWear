@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:layout_margin="5dp">
+
+    <!-- Hình tròn biểu diễn màu sắc -->
+    <View
+        android:id="@+id/viewColorCircle"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/circle_shape"
+        android:contentDescription="@string/product_color_circle" />
+
+    <!-- Tên màu sắc -->
+    <TextView
+        android:id="@+id/textViewProductColorName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingStart="8dp"
+        android:text="Màu cam"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

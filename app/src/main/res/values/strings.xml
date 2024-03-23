@@ -20,7 +20,10 @@
     <string name="description_detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book...detail</string>
     <string name="description">Description</string>
     <string name="search">Tìm kiếm sản phẩm</string>
-    <string name="thanhtoan">Thanh toan</string>
     <string name="searchYour">Tìm kiếm</string>
-    <string name="Filter">Lọc</string>
+    <string name="Filter">Bộ Lọc</string>
+    <string name="thanhtoan">Thanh toan</string>
+    <string name="product_color_circle">Product Color Circle</string>
+    <string name="product_type_icon">Áo Polo</string>
+
 </resources>

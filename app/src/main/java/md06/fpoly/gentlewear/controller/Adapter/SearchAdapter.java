@@ -24,13 +24,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     private ArrayList<Products> searchList;
     private Next_interface anInterface;
 
-    // Constructor và các phương thức khác của Adapter
-
-//    public void updateData(List<Products> newData) {
-//        searchList.clear();
-//        productList.addAll(newData);
-//        notifyDataSetChanged();
-//    }
 
     public void updateData(ArrayList<Products> searchList) {
         this.searchList = searchList;

@@ -1,24 +1,20 @@
 package md06.fpoly.gentlewear.activitys;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import md06.fpoly.gentlewear.R;
-import md06.fpoly.gentlewear.classs.APIClass;
 import md06.fpoly.gentlewear.models.Cart;
 import md06.fpoly.gentlewear.models.Cart2;
 import md06.fpoly.gentlewear.models.Products;
@@ -27,10 +23,11 @@ public class DetailProductsActivity extends AppCompatActivity {
     private Products products;
     private TextView tv_mota, tv_namepro, tv_quantity, tv_price;
 
-    private ImageView img_product, img_backpress,img_add,img_remove;
+    private ImageView img_product, img_backpress, img_add, img_remove;
     private FrameLayout btn_themGH;
     private int count = 1;
     private List<Cart> list = Cart2.getInstance().getCart();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,47 +57,46 @@ public class DetailProductsActivity extends AppCompatActivity {
             tv_quantity.setText(String.valueOf(count));
             tv_price.setText(count + " đ");
         }
-        if (getQuantity() == products.getQuantity()){
+        if (getQuantity() == products.getQuantity()) {
             count = 0;
             tv_quantity.setText(String.valueOf(count));
             tv_price.setText(count + " đ");
         }
         //
         img_add.setOnClickListener(view -> {
-            if (products != null && products.get_id() != null) {
-                if (list.size() != 0) {
-                    int index = -1;
-                    for (int i = 0; i < list.size(); i++) {
-                        if (list.get(i).getProducts().get_id().equals(products.get_id())) {
-                            index = i;
-                            break;
-                        }
+            if (list.size() != 0) {
+                int index = -1;
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).getProducts().get_id().equals(products.get_id())) {
+                        index = i;
+                        break;
                     }
-                    if (index != -1) {
-                        if (list.get(index).getSoLuong() <= products.getQuantity()) {
-                            if (count < products.getQuantity() - list.get(index).getSoLuong() && count < 15) {
-                                count++;
-                                tv_quantity.setText(String.valueOf(count));
-                                tv_price.setText(products.getPrice() * count + " đ");
-                            }
-                        }
-                    } else {
-                        if (count < products.getQuantity() && count < 15) {
+                }
+                if (index != -1) {
+                    if (list.get(index).getSoLuong() <= products.getQuantity()) {
+                        if (count < products.getQuantity() - list.get(index).getSoLuong() && count < 15) {
                             count++;
                             tv_quantity.setText(String.valueOf(count));
                             tv_price.setText(products.getPrice() * count + " đ");
                         }
                     }
-
                 } else {
-                    //list null
                     if (count < products.getQuantity() && count < 15) {
                         count++;
                         tv_quantity.setText(String.valueOf(count));
                         tv_price.setText(products.getPrice() * count + " đ");
                     }
                 }
+
+            } else {
+                //list null
+                if (count < products.getQuantity() && count < 15) {
+                    count++;
+                    tv_quantity.setText(String.valueOf(count));
+                    tv_price.setText(products.getPrice() * count + " đ");
+                }
             }
+
         });
 
         img_remove.setOnClickListener(view -> {
@@ -168,7 +164,7 @@ public class DetailProductsActivity extends AppCompatActivity {
         });
     }
 
-    private int getQuantity(){
+    private int getQuantity() {
         if (list.size() != 0) {
             if (getIndex() != -1) {
                 return list.get(getIndex()).getSoLuong();
@@ -180,8 +176,8 @@ public class DetailProductsActivity extends AppCompatActivity {
         }
     }
 
-    private int getIndex(){
-        for (int i = 0; i<list.size(); i++){
+    private int getIndex() {
+        for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getProducts().get_id().equals(products.get_id())) {
                 return i;
             }

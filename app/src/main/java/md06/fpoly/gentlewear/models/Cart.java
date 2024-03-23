@@ -1,9 +1,6 @@
 package md06.fpoly.gentlewear.models;
 
 import java.io.Serializable;
-import java.util.List;
-
-import md06.fpoly.gentlewear.models.Products;
 
 public class Cart implements Serializable {
     private Products products;

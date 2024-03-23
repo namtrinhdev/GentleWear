@@ -1,9 +1,6 @@
 package md06.fpoly.gentlewear.models;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
-
-import md06.fpoly.gentlewear.models.Products;
 
 public class ResProduct implements Serializable {
     private int page, pageSize, totalItems;

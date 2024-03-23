@@ -66,7 +66,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:drawableRight="@drawable/baseline_menu_24"
+            android:drawableRight="@drawable/baseline_sort_24"
             android:drawablePadding="8dp"
             android:fontFamily="@font/latobold"
             android:text="@string/Filter"
@@ -78,7 +78,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-
             android:layout_marginTop="20dp"
             android:layout_toStartOf="@+id/spn_sort_home"
             android:text="Sắp xếp:"
@@ -87,7 +86,8 @@
 
         <Spinner
             android:id="@+id/spn_sort_home"
-            android:layout_width="15dp"
+            android:layout_width="25dp"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="20dp"
