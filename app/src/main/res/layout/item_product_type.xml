@@ -6,21 +6,17 @@
     android:orientation="horizontal"
     android:padding="8dp">
 
-    <!-- Icon của loại sản phẩm -->
-    <ImageView
-        android:id="@+id/imageViewProductTypeIcon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_vertical"
-        android:contentDescription="@string/product_type_icon"
-        android:src="@drawable/aococtay" />
+    <!-- Ô kiểm cho loại sản phẩm -->
+    <CheckBox
+        android:id="@+id/btn_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-    <!-- Tên loại sản phẩm -->
+    <!-- Văn bản hiển thị tên loại sản phẩm -->
     <TextView
         android:id="@+id/textViewProductTypeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_gravity="center_vertical"
         android:paddingStart="8dp"
         android:text="Product Type"

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,7 +28,7 @@ public class Login_Activity extends AppCompatActivity {
     TextInputLayout email, pass;
     TextInputEditText txt_email, txt_pass;
     FrameLayout btn_dn;
-    TextView txt_creat;
+    TextView txt_creat, reset_pass;
     ImageView back;
 
     UserInterface userInterface;
@@ -44,12 +45,18 @@ public class Login_Activity extends AppCompatActivity {
         btn_dn = findViewById(R.id.btn_dn);
         txt_email = findViewById(R.id.txt_email);
         txt_pass = findViewById(R.id.txt_pass);
-
+        reset_pass = findViewById(R.id.reset_pass);
         manager = new SessionManager(this);
 
         userInterface = RetrofitClientAPI.getRetrofitInstance().create(UserInterface.class);
         progressDialog = new ProgressDialog(this);
-
+        reset_pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Login_Activity.this, ForgotPasswordActivity.class));
+                finish();
+            }
+        });
         btn_dn.setOnClickListener(v -> {
             progressDialog.setMessage("Login...");
             progressDialog.show();

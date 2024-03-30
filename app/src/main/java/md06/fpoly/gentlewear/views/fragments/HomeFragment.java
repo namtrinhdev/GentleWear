@@ -2,6 +2,7 @@ package md06.fpoly.gentlewear.views.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ import java.util.List;
 import md06.fpoly.gentlewear.R;
 import md06.fpoly.gentlewear.activitys.DetailProductsActivity;
 import md06.fpoly.gentlewear.activitys.SearchActivity;
+import md06.fpoly.gentlewear.apiServices.FilterListener;
 import md06.fpoly.gentlewear.apiServices.Next_interface;
 import md06.fpoly.gentlewear.apiServices.ProductAPIServices;
 import md06.fpoly.gentlewear.classs.RetrofitClientAPI;
@@ -44,7 +46,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements FilterListener, BottomSheetFilterFragment.OnProductTypeSelectedListener {
     private static final String TAG = "HomeFrg";
     private ImageView img_search, img_avatar;
     private ProductAPIServices apiServices;
@@ -56,6 +58,9 @@ public class HomeFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private Spinner spinnerSort;
     private TextView tv_filter;
+
+    int page = 1;
+    int pageSize = 10;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,7 +102,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onClickItem(String id) {
-                // Handle click on item (if needed)
+
             }
 
         });
@@ -165,8 +170,12 @@ public class HomeFragment extends Fragment {
         });
     }
 
+
+
+
+
     private void loadData() {
-        Call<ResProduct> call = apiServices.getProduct(1, 10);
+        Call<ResProduct> call = apiServices.getProduct(page, pageSize);
         call.enqueue(new Callback<ResProduct>() {
             @Override
             public void onResponse(Call<ResProduct> call, Response<ResProduct> response) {
@@ -249,12 +258,64 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+    private void filterProducts(String productType) {
+        // Kiểm tra xem loại sản phẩm được chọn có hợp lệ hay không
+        if (productType != null && !productType.isEmpty()) {
+            // Gọi API để lấy danh sách sản phẩm dựa trên loại sản phẩm đã chọn
+            Call<ResProduct> call = apiServices.getProductWithFilter(productType, page, pageSize);
+            call.enqueue(new Callback<ResProduct>() {
+                @Override
+                public void onResponse(Call<ResProduct> call, Response<ResProduct> response) {
+                    if (response.isSuccessful()) {
+                        ResProduct filteredProductResponse = response.body();
+                        if (filteredProductResponse != null && filteredProductResponse.getData() != null) {
+                            List<Products> filteredProducts = filteredProductResponse.getData();
+                            // Cập nhật RecyclerView với danh sách sản phẩm đã lọc
+                            adapter.setData((ArrayList<Products>) filteredProducts);
+                            // Hiển thị danh sách sản phẩm đã lọc
+                            adapter.notifyDataSetChanged();
+                        }
+                    } else {
+                        // Xử lý trường hợp không thành công
+                        Log.e(TAG, "Unsuccessful response: " + response.code());
+                        Toast.makeText(getContext(), "Failed to filter products", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResProduct> call, Throwable t) {
+                    // Xử lý khi gọi API thất bại
+                    Log.e(TAG, "API call failed: " + t.getMessage());
+                    Toast.makeText(getContext(), "Failed to filter products", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            // Nếu loại sản phẩm không hợp lệ, thông báo cho người dùng
+            Toast.makeText(getContext(), "No product type selected", Toast.LENGTH_SHORT).show();
+        }
+    }
     private void showBottomSheetFilter() {
         // Create instance of your bottom sheet fragment
         BottomSheetFilterFragment bottomSheetFragment = new BottomSheetFilterFragment();
 
         // Show the bottom sheet fragment
         bottomSheetFragment.show(getChildFragmentManager(), bottomSheetFragment.getTag());
+    }
+
+    @Override
+    public void onFilterApplied(String productType) {
+        filterProducts(productType);
+    }
+
+    @Override
+    public void onCancel() {
+        loadData();
+    }
+
+    @Override
+    public void onProductTypeSelected(String productType) {
+        filterProducts(productType);
+
     }
 }
 
