@@ -25,5 +25,6 @@
     <string name="thanhtoan">Thanh toan</string>
     <string name="product_color_circle">Product Color Circle</string>
     <string name="product_type_icon">Áo Polo</string>
+    <string name="lbl_zptranstoken">zptranstoken</string>
 
 </resources>

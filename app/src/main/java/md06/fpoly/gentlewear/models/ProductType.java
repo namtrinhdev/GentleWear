@@ -2,8 +2,17 @@ package md06.fpoly.gentlewear.models;
 
 public class ProductType {
     private String _id, tenLoai;
+    private boolean isSelected;
 
     public ProductType() {
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     public String get_id() {
