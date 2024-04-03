@@ -50,6 +50,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.tv_namesp.setText(model.getProducts().getProductName());
         holder.tv_price.setText(String.valueOf(model.getProducts().getPrice()));
         holder.tv_quantity.setText(String.valueOf(model.getSoLuong()));
+        holder.tv_color.setText("Màu sắc: "+model.getProducts().getSize().get(0).getColor().get(0).getColorCode().getNameColor());
+        holder.tv_size.setText("Kich cỡ: "+model.getProducts().getSize().get(0).getSizeCode().getSizeCode());
         Glide.with(context).load(model.getProducts().getImage()).apply(RequestOptions.centerCropTransform()).into(holder.image_sp);
         count = model.getSoLuong();
         holder.img_increase.setOnClickListener(view -> {
@@ -85,7 +87,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_namesp, tv_price, tv_quantity,tv_nameloai;
+        private TextView tv_namesp, tv_price, tv_quantity,tv_color, tv_size;
         private ImageView image_sp, img_increase, img_diminish;
 
         public ViewHolder(@NonNull View itemView) {
@@ -93,8 +95,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             tv_namesp = itemView.findViewById(R.id.tv_namesp);
             tv_price = itemView.findViewById(R.id.tv_price_card);
             tv_quantity = itemView.findViewById(R.id.tv_item_quantity_cart);
-            tv_nameloai = itemView.findViewById(R.id.tv_nameloai);
-            image_sp = itemView.findViewById(R.id.image_spcart);
+            image_sp = itemView.findViewById(R.id.image_spcart);\
+            tv_color = itemView.findViewById(R.id.tv_item_color);
+            tv_size = itemView.findViewById(R.id.tv_item_size);
             img_increase = itemView.findViewById(R.id.img_item_add_cart);
             img_diminish = itemView.findViewById(R.id.img_item_remove_cart);
 

@@ -20,6 +20,8 @@ import md06.fpoly.gentlewear.apiServices.UserInterface;
 import md06.fpoly.gentlewear.classs.RetrofitClientAPI;
 import md06.fpoly.gentlewear.classs.SessionManager;
 import md06.fpoly.gentlewear.models.Messages;
+import md06.fpoly.gentlewear.views.fragments.CartFragment;
+import md06.fpoly.gentlewear.views.fragments.ProfileFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -69,13 +71,16 @@ public class Login_Activity extends AppCompatActivity {
                     }
                     Messages res = response.body();
                     if (response.isSuccessful()) {
-                        if (res.getStatus() == 1) {
-                            manager.createLoginSession(res.getData());
-                            startActivity(new Intent(Login_Activity.this, MainActivity.class));
-                            finish();
-                            Toast.makeText(Login_Activity.this, res.getMsg(), Toast.LENGTH_SHORT).show();
-                        } else{
-                            Toast.makeText(Login_Activity.this, res.getMsg(), Toast.LENGTH_SHORT).show();
+                        if (res.getData().isLocked()){
+                            Toast.makeText(Login_Activity.this, "Tài khoản này đã bị khóa, vui lòng liên hệ admin để giải quyết", Toast.LENGTH_SHORT).show();
+                        }else {
+                            if (res.getStatus() == 1) {
+                                manager.createLoginSession(res.getData());
+                                Toast.makeText(Login_Activity.this, res.getMsg(), Toast.LENGTH_SHORT).show();
+                                startScreen(manager.getKeyScreen());
+                            } else{
+                                Toast.makeText(Login_Activity.this, res.getMsg(), Toast.LENGTH_SHORT).show();
+                            }
                         }
                     } else {
                         Toast.makeText(Login_Activity.this, "Có lỗi xảy ra, vui lòng đăng nhập lại", Toast.LENGTH_SHORT).show();
@@ -102,5 +107,21 @@ public class Login_Activity extends AppCompatActivity {
         });
     }
 
+    private void startScreen(int screen){
+        switch (screen){
+            case 1:
+                startActivity(new Intent(Login_Activity.this, CartFragment.class));
+                finish();
+                break;
+            case 2:
+                startActivity(new Intent(Login_Activity.this, ProfileFragment.class));
+                finish();
+                break;
+            default:
+                startActivity(new Intent(Login_Activity.this, MainActivity.class));
+                finish();
+                break;
+        }
+    }
 
 }

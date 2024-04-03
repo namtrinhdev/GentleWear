@@ -152,45 +152,40 @@ public class ThanhToanActivity extends AppCompatActivity {
 
 
         // Xu ly khi bam nut Dat Hang
-        btn_Dat_Hang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String token = txtToken.getText().toString();
-                ZaloPaySDK.getInstance().payOrder(ThanhToanActivity.this, token, "demozpdk://app", new PayOrderListener() {
-                    @Override
-                    public void onPaymentSucceeded(final String transactionId, final String transToken, final String appTransID) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                new AlertDialog.Builder(ThanhToanActivity.this)
-                                        .setTitle("Payment Success")
-                                        .setMessage(String.format("TransactionId: %s - TransToken: %s", transactionId, transToken))
-                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                            }
-                                        })
-                                        .setNegativeButton("Cancel", null).show();
-                            }
-                        });
-                        IsLoading();
-                    }
+        btn_Dat_Hang.setOnClickListener(v -> {
+            String token = txtToken.getText().toString();
+            ZaloPaySDK.getInstance().payOrder(ThanhToanActivity.this, token, "demozpdk://app", new PayOrderListener() {
+                @Override
+                public void onPaymentSucceeded(final String transactionId, final String transToken, final String appTransID) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            new AlertDialog.Builder(ThanhToanActivity.this)
+                                    .setTitle("Payment Success")
+                                    .setMessage(String.format("TransactionId: %s - TransToken: %s", transactionId, transToken))
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .setNegativeButton("Cancel", null).show();
+                        }
+                    });
+                    IsLoading();
+                }
 
-                    @Override
-                    public void onPaymentCanceled(String zpTransToken, String appTransID) {
-                        Toast.makeText(ThanhToanActivity.this, "Thanh toán thất bại", Toast.LENGTH_SHORT).show();
-                    }
+                @Override
+                public void onPaymentCanceled(String zpTransToken, String appTransID) {
+                    Toast.makeText(ThanhToanActivity.this, "Thanh toán thất bại", Toast.LENGTH_SHORT).show();
+                }
 
-                    @Override
-                    public void onPaymentError(ZaloPayError zaloPayError, String zpTransToken, String appTransID) {
-                        Toast.makeText(ThanhToanActivity.this, "Lỗi", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+                @Override
+                public void onPaymentError(ZaloPayError zaloPayError, String zpTransToken, String appTransID) {
+                    Toast.makeText(ThanhToanActivity.this, "Lỗi", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
     }
-
-
 
 
 

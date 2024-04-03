@@ -1,6 +1,8 @@
 package md06.fpoly.gentlewear.models;
 
-public class ColorCode {
+import java.io.Serializable;
+
+public class ColorCode implements Serializable {
     private String _id, colorCode, nameColor;
 
     public ColorCode() {

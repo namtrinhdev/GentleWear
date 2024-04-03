@@ -18,6 +18,7 @@ public class SessionManager {
     private static final String KEY_AVATAR = "avatar";
     private static final String KEY_VAI_TRO = "vaiTro";
     private static final String KEY_MONEY = "money";
+    private static final String KEY_SCREEN = "screen";
     private final SharedPreferences sharedPreferences;
     private final SharedPreferences.Editor editor;
     private final Context context;
@@ -61,6 +62,10 @@ public class SessionManager {
         editor.putString(KEY_FULL_NAME,name);
         editor.apply();
     }
+    public void setKeyScreen(int screen){
+        editor.putInt(KEY_SCREEN,screen);
+        editor.apply();
+    }
     public void checkLogin() {
         if (!isLoggedIn()) {
             // Redirect to the login screen if not logged in
@@ -93,6 +98,9 @@ public class SessionManager {
     public String getFullName() {
         return sharedPreferences.getString(KEY_FULL_NAME, "");
     }
+    public int getKeyScreen() {
+        return sharedPreferences.getInt(KEY_SCREEN, 0);
+    }//key 0: main activity, key 1: fragment Cart, key 2: fragment account
 
     public String getEmail() {
         return sharedPreferences.getString(KEY_EMAIL, "");

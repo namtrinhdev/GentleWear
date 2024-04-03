@@ -20,8 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import md06.fpoly.gentlewear.R;
+import md06.fpoly.gentlewear.activitys.Login_Activity;
 import md06.fpoly.gentlewear.activitys.ThanhToanActivity;
 import md06.fpoly.gentlewear.apiServices.Cart_Update_Interface;
+import md06.fpoly.gentlewear.classs.SessionManager;
 import md06.fpoly.gentlewear.controller.Adapter.CartAdapter;
 import md06.fpoly.gentlewear.models.Cart;
 import md06.fpoly.gentlewear.models.Cart2;
@@ -30,9 +32,11 @@ import md06.fpoly.gentlewear.models.Cart2;
 public class CartFragment extends Fragment {
     private FrameLayout btn_thanhtoan;
     private RecyclerView recyclerView_cart;
-    private TextView tv_price_cart,txt;
+    private TextView tv_price_cart, txt;
     private CartAdapter adapter;
     private List<Cart> list;
+    private SessionManager sessionManager;
+
     public CartFragment() {
         // Required empty public constructor
     }
@@ -41,6 +45,7 @@ public class CartFragment extends Fragment {
         CartFragment fragment = new CartFragment();
         return fragment;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,13 +64,17 @@ public class CartFragment extends Fragment {
         tv_price_cart.setText(Cart2.getInstance().getTotalPrice() + " đ");
 
 
-        btn_thanhtoan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (list.size() !=0){
+        sessionManager = new SessionManager(getContext());
+
+        btn_thanhtoan.setOnClickListener(v -> {
+            if (sessionManager.isLoggedIn()) {
+                if (list.size() != 0) {
                     Intent i = new Intent(getActivity(), ThanhToanActivity.class);
                     startActivity(i);
                 }
+            } else {
+                startActivity(new Intent(getActivity(), Login_Activity.class));
+                sessionManager.setKeyScreen(1);
             }
         });
 
@@ -74,18 +83,12 @@ public class CartFragment extends Fragment {
             public void onDelete(int position) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setMessage("Bạn có muốn xóa khỏi giỏ hàng ?");
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        list.remove(position);
-                        onResume();
-                    }
+                builder.setPositiveButton("OK", (dialogInterface, i) -> {
+                    list.remove(position);
+                    onResume();
                 });
-                builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                builder.setNegativeButton("Hủy", (dialogInterface, i) -> {
 
-                    }
                 });
                 builder.show();
             }
@@ -98,9 +101,10 @@ public class CartFragment extends Fragment {
         loadData();
         //---------------------------------end--------------
     }
+
     private void loadData() {
         adapter.setData((ArrayList<Cart>) list);
-        recyclerView_cart.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+        recyclerView_cart.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView_cart.setAdapter(adapter);
     }
 

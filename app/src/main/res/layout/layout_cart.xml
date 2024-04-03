@@ -30,13 +30,11 @@
 
 
             <LinearLayout
-                android:layout_width="155dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="27dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center|left"
                 android:orientation="vertical"
                 android:padding="5dp">
-
                 <TextView
                     android:id="@+id/tv_namesp"
                     android:layout_width="110dp"
@@ -50,27 +48,37 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_nameloai"
+                    android:id="@+id/tv_item_size"
                     android:layout_width="140dp"
                     android:layout_height="27dp"
                     android:layout_marginLeft="8dp"
                     android:fontFamily="@font/latobold"
-                    android:gravity="center"
-                    android:text="GENTLE COLLECTION"
+                    android:gravity="left|center"
+                    android:text="Size: X"
+                    android:textSize="13sp"
+                    android:textStyle="normal" />
+                <TextView
+                    android:id="@+id/tv_item_color"
+                    android:layout_width="140dp"
+                    android:layout_height="27dp"
+                    android:layout_marginLeft="8dp"
+                    android:fontFamily="@font/latobold"
+                    android:gravity="left|center"
+                    android:text="Màu sắc: Hồng"
                     android:textSize="13sp"
                     android:textStyle="normal" />
 
                 <TextView
                     android:id="@+id/tv_price_card"
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="27dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="15dp"
                     android:fontFamily="@font/latoblack"
 
-                    android:drawableLeft="@drawable/baseline_attach_money_24"
+                    android:drawableLeft="@drawable/vnd_blue"
                     android:text="28"
-                    android:textColor="@color/black"
+                    android:textColor="@color/bg_btn"
                     android:textSize="20dp" />
             </LinearLayout>
 

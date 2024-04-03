@@ -1,6 +1,8 @@
 package md06.fpoly.gentlewear.models;
 
-public class SizeCode {
+import java.io.Serializable;
+
+public class SizeCode implements Serializable {
     private String _id, sizeCode;
 
     public SizeCode() {

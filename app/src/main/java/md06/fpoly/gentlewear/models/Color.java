@@ -1,6 +1,8 @@
 package md06.fpoly.gentlewear.models;
 
-public class Color {
+import java.io.Serializable;
+
+public class Color implements Serializable {
     private String _id;
     private ColorCode colorCode;
     private String image;

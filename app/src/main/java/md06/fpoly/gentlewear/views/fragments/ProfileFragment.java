@@ -31,7 +31,7 @@ public class ProfileFragment extends Fragment {
     private TextView tv_name, tv_email;
     private ImageView img;
 
-    private CardView btn_your_wallet, btn_ql_donNap,btn_ql_food, btn_ql_foodType;
+    private CardView btn_your_wallet;
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -52,9 +52,6 @@ public class ProfileFragment extends Fragment {
         tv_name = view.findViewById(R.id.tv_nameUser_account);
         tv_email = view.findViewById(R.id.tv_email_account);
         btn_your_wallet = view.findViewById(R.id.id_your_wallet);
-        btn_ql_donNap = view.findViewById(R.id.id_qld_napTien);
-        btn_ql_food = view.findViewById(R.id.id_qlfood);
-        btn_ql_foodType = view.findViewById(R.id.id_ql_food_type);
 
         //khoitao
         sessionManager = new SessionManager(getActivity());
@@ -65,10 +62,6 @@ public class ProfileFragment extends Fragment {
         setUIPhanQuyen();
 
 
-        //ql don nap
-        btn_ql_donNap.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), QLDonNapActivity.class));
-        });
 
         // ql don hang
         view.findViewById(R.id.id_qldh).setOnClickListener(v -> {
@@ -94,13 +87,7 @@ public class ProfileFragment extends Fragment {
         });
     }
     private void setUIPhanQuyen() {
-        if (sessionManager.getVaiTro()==0){
             btn_your_wallet.setVisibility(View.GONE);
-        }else {
-            btn_ql_foodType.setVisibility(View.GONE);
-            btn_ql_food.setVisibility(View.GONE);
-            btn_ql_donNap.setVisibility(View.GONE);
-        }
     }
 
     private void setInfoUser() {

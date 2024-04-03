@@ -1,6 +1,7 @@
 package md06.fpoly.gentlewear.activitys;
 
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -21,27 +22,20 @@ import md06.fpoly.gentlewear.models.Products;
 
 public class DetailProductsActivity extends AppCompatActivity {
     private Products products;
-    private TextView tv_mota, tv_namepro, tv_quantity, tv_price;
-
+    private TextView tv_mota, tv_namepro, tv_quantity, tv_price, tv_S, tv_M, tv_L, tv_XL, tv_XXL;
+    private static final String M = "M", L = "L", S = "S", XL = "XL", XXL = "XXL";
     private ImageView img_product, img_backpress, img_add, img_remove;
     private FrameLayout btn_themGH;
-    private int count = 1;
+    private int count = 1, status = 0;
+    private String size;
     private List<Cart> list = Cart2.getInstance().getCart();
+    private Products sp = new Products();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_products);
-
-        tv_mota = findViewById(R.id.description_text);
-        tv_namepro = findViewById(R.id.product_name_text);
-        tv_quantity = findViewById(R.id.tv_number_food_detail);
-        tv_price = findViewById(R.id.product_price_text);
-        img_add = findViewById(R.id.img_add);
-        img_remove = findViewById(R.id.img_remove);
-        img_product = findViewById(R.id.anh_sp);
-        img_backpress = findViewById(R.id.btnback);
-        btn_themGH = findViewById(R.id.btn_themGH);
+        init();
 
         Intent intent = getIntent();
         products = (Products) intent.getSerializableExtra("product_data");
@@ -183,5 +177,94 @@ public class DetailProductsActivity extends AppCompatActivity {
             }
         }
         return -1;
+    }
+
+    private void init() {
+        tv_mota = findViewById(R.id.description_text);
+        tv_namepro = findViewById(R.id.product_name_text);
+        tv_quantity = findViewById(R.id.tv_number_food_detail);
+        tv_price = findViewById(R.id.product_price_text);
+        img_add = findViewById(R.id.img_add);
+        img_remove = findViewById(R.id.img_remove);
+        img_product = findViewById(R.id.anh_sp);
+        img_backpress = findViewById(R.id.btnback);
+        btn_themGH = findViewById(R.id.btn_themGH);
+        tv_S = findViewById(R.id.size_s);
+        tv_M = findViewById(R.id.size_m);
+        tv_L = findViewById(R.id.size_l);
+        tv_XL = findViewById(R.id.size_xl);
+        tv_XXL = findViewById(R.id.size_xxl);
+    }
+
+    private void setBackgroundPick(TextView textView) {
+        // Tạo một đối tượng GradientDrawable để định nghĩa hình dạng nền
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setShape(GradientDrawable.RECTANGLE); // Hình dạng chữ nhật
+        gradientDrawable.setColor(getResources().getColor(R.color.bg_btn)); // Màu nền
+        gradientDrawable.setCornerRadius(30); // Độ cong góc
+        gradientDrawable.setStroke(2, getResources().getColor(R.color.white)); // Viền
+        textView.setTextColor(getResources().getColor(R.color.white));
+
+        // Thiết lập hình dạng nền cho TextView
+        textView.setBackground(gradientDrawable);
+    }
+
+    private void setBackgroundDefault(TextView textView) {
+        // Tạo một đối tượng GradientDrawable để định nghĩa hình dạng nền
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setShape(GradientDrawable.RECTANGLE); // Hình dạng chữ nhật
+        gradientDrawable.setColor(getResources().getColor(R.color.bg_tv_size1)); // Màu nền
+        gradientDrawable.setCornerRadius(30); // Độ cong góc
+        gradientDrawable.setStroke(2, getResources().getColor(R.color.white)); // Viền
+        textView.setTextColor(getResources().getColor(R.color.black));
+
+        // Thiết lập hình dạng nền cho TextView
+        textView.setBackground(gradientDrawable);
+    }
+
+    private void setBackgroundOff(TextView textView) {
+        // Tạo một đối tượng GradientDrawable để định nghĩa hình dạng nền
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setShape(GradientDrawable.RECTANGLE); // Hình dạng chữ nhật
+        gradientDrawable.setColor(getResources().getColor(R.color.bg_tv_size2)); // Màu nền
+        gradientDrawable.setCornerRadius(30); // Độ cong góc
+        gradientDrawable.setStroke(2, getResources().getColor(R.color.white)); // Viền
+
+        // Thiết lập hình dạng nền cho TextView
+        textView.setBackground(gradientDrawable);
+        textView.setTextColor(getResources().getColor(R.color.text_1));
+    }
+
+    private void setSizeExist(String a) {
+        if (a.equals(S)) {
+            setBackgroundDefault(tv_S);
+        } else {
+            tv_S.setClickable(false);
+            setBackgroundOff(tv_S);
+        }
+        if (a.equals(M)) {
+            setBackgroundDefault(tv_M);
+        } else {
+            setBackgroundOff(tv_M);
+            tv_S.setClickable(false);
+        }
+        if (a.equals(L)) {
+            setBackgroundDefault(tv_L);
+        } else {
+            setBackgroundOff(tv_L);
+            tv_S.setClickable(false);
+        }
+        if (a.equals(XL)) {
+            setBackgroundDefault(tv_XL);
+        } else {
+            setBackgroundOff(tv_XL);
+            tv_S.setClickable(false);
+        }
+        if (a.equals(XXL)) {
+            setBackgroundDefault(tv_XXL);
+        } else {
+            setBackgroundOff(tv_XXL);
+            tv_S.setClickable(false);
+        }
     }
 }

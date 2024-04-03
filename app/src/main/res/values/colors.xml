@@ -24,4 +24,6 @@
     <color name="gray">#ccc</color>
     <color name="lavender">#8692f7</color>
     <color name="yellow">#bfff00</color>
+    <color name="bg_tv_size1">#E6E9F0</color>
+    <color name="bg_tv_size2">#F0F3FA</color>
 </resources>
