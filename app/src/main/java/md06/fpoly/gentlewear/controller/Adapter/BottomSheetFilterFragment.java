@@ -23,18 +23,30 @@ import md06.fpoly.gentlewear.apiServices.FilterListener;
 import md06.fpoly.gentlewear.apiServices.ProductAPIServices;
 import md06.fpoly.gentlewear.classs.RetrofitClientAPI;
 import md06.fpoly.gentlewear.models.ProductType;
+import md06.fpoly.gentlewear.models.Products;
+import md06.fpoly.gentlewear.models.ResProduct;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class BottomSheetFilterFragment extends BottomSheetDialogFragment {
+    private static final String TAG = "FrgDia";
 
     private RecyclerView recyclerViewProductType;
     private ProductTypeAdapter productTypeAdapter;
     private Button buttonApply, buttonCancel;
     private ProductAPIServices productAPIServices;
     private OnProductTypeSelectedListener listener;
+
+    private FilterListener filterListener;
+
+    public void setFilterListener(FilterListener filterListener) {
+        this.filterListener = filterListener;
+    }
+    public interface OnProductTypeSelectedListener {
+        void onProductTypeSelected(String productType);
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,15 +66,13 @@ public class BottomSheetFilterFragment extends BottomSheetDialogFragment {
         productAPIServices = retrofit.create(ProductAPIServices.class);
 
 
-
         fetchProductTypes();
 
         return rootView;
 
     }
-    public interface OnProductTypeSelectedListener {
-        void onProductTypeSelected(String productType);
-    }
+
+  
 
     // Method to set the listener
     public void setOnProductTypeSelectedListener(OnProductTypeSelectedListener listener) {
@@ -75,27 +85,30 @@ public class BottomSheetFilterFragment extends BottomSheetDialogFragment {
             listener.onProductTypeSelected(productType);
         }
     }
+
+    public interface FilterListener {
+        void onProductTypeSelected(String productType);
+        void onFilterApplied(List<Products> filteredProductsList);
+    }
+
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
         // Interface for communication with the parent fragment
 
         buttonApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Lấy loại sản phẩm đã chọn từ Adapter
-                String selectedProductType = productTypeAdapter.getSelectedProductType();
-                if (selectedProductType != null) {
-                    // Gọi phương thức áp dụng bộ lọc trong Fragment gốc
-                    if (getActivity() instanceof FilterListener) {
-                        ((FilterListener) getActivity()).onFilterApplied(selectedProductType);
-                    }
-                    // Đóng Bottom Sheet Dialog
-                    dismiss();
+                // Get the selected product type ID
+                String selectedProductTypeId = productTypeAdapter.getSelectedProductTypeId();
+                if (selectedProductTypeId != null) {
+                    // Call the method to filter products by the selected product type
+                    filterProductsByType(selectedProductTypeId);
                 } else {
-                    // Hiển thị thông báo nếu không có loại sản phẩm nào được chọn
+                    // If no product type is selected, display a message
                     Toast.makeText(getContext(), "No product type selected", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -109,6 +122,45 @@ public class BottomSheetFilterFragment extends BottomSheetDialogFragment {
             }
         });
     }
+
+    private void filterProductsByType(String productTypeId) {
+        Log.d(TAG, "Filtering products by product type: " + productTypeId);
+        // Make an API call to filter products by product type
+        Call<List<Products>> call = productAPIServices.filterProductsByType(productTypeId);
+        call.enqueue(new Callback<List<Products>>() {
+            @Override
+            public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "API call successful");
+                    List<Products> filteredProducts = response.body();
+                    // Check if any products are found
+                    if (filteredProducts != null && !filteredProducts.isEmpty()) {
+                        // Update UI with filtered products
+                        filterListener.onFilterApplied(filteredProducts);
+                        // Dismiss the BottomSheetDialog
+                        dismiss();
+                    } else {
+                        // If no products are found for the specified product type, return a message
+                        Toast.makeText(getContext(), "No products found for the specified product type.", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "No products found for the specified product type");
+                    }
+                } else {
+                    // Handle unsuccessful response
+                    Log.e(TAG, "Unsuccessful response: " + response.code());
+                    Toast.makeText(getContext(), "Failed to filter products", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Products>> call, Throwable t) {
+                // Handle failure
+                Log.e(TAG, "API call failed: " + t.getMessage(), t);
+                Toast.makeText(getContext(), "Failed to filter products", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
 
     private void fetchProductTypes() {
         Call<List<ProductType>> call = productAPIServices.getProductType();
@@ -133,4 +185,6 @@ public class BottomSheetFilterFragment extends BottomSheetDialogFragment {
             }
         });
     }
+
+
 }

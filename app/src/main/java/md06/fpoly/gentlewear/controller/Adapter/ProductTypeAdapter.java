@@ -44,6 +44,8 @@ public class ProductTypeAdapter extends RecyclerView.Adapter<ProductTypeAdapter.
         ProductType productType = productTypes.get(position);
         holder.bind(productType);
 
+        // Đặt trạng thái của checkbox dựa trên trạng thái đã chọn của loại sản phẩm
+        holder.checkBox.setChecked(productType.isSelected());
 
         // Xử lý sự kiện chọn loại sản phẩm
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -55,6 +57,15 @@ public class ProductTypeAdapter extends RecyclerView.Adapter<ProductTypeAdapter.
     }
 
 
+    public String getSelectedProductTypeId() {
+        // Iterate through the list of product types to find the selected one
+        for (ProductType productType : productTypes) {
+            if (productType.isSelected()) {
+                return productType.get_id();
+            }
+        }
+        return null; // Return null if no product type is selected
+    }
     @Override
     public int getItemCount() {
         return productTypes.size();

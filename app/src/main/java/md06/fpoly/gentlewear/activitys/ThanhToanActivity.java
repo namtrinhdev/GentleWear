@@ -73,7 +73,7 @@ public class ThanhToanActivity extends AppCompatActivity {
     }
 
     private void IsDone() {
-        lblZpTransToken.setVisibility(View.VISIBLE);
+        lblZpTransToken.setVisibility(View.INVISIBLE);
         txtToken.setVisibility(View.VISIBLE);
     }
     String amount = "10000";
@@ -134,9 +134,9 @@ public class ThanhToanActivity extends AppCompatActivity {
                 try {
                     // Pass total price as a string
                     JSONObject data = orderApi.createOrder(amount);
-                    lblZpTransToken.setVisibility(View.VISIBLE);
+                    lblZpTransToken.setVisibility(View.INVISIBLE);
                     String code = data.getString("return_code");
-                    Toast.makeText(getApplicationContext(), "return_code: " + code, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Tao don hang thanh cong " , Toast.LENGTH_LONG).show();
 
                     if (code.equals("1")) {
                         lblZpTransToken.setText("zptranstoken");

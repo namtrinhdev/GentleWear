@@ -6,13 +6,13 @@ import java.util.List;
 public class Products implements Serializable {
     private String _id, productName;
     private int price, quantity;
-    private List<ProductType> productType;
+    private ProductType productType;
     private List<Size> size;
     private int quantitySold;
     private String image, mota;
 
 
-    public Products(String _id, String productName, int price, int quantity, List<ProductType> productType, List<Size> size, int quantitySold, String image, String mota) {
+    public Products(String _id, String productName, int price, int quantity, ProductType productType, List<Size> size, int quantitySold, String image, String mota) {
         this._id = _id;
         this.productName = productName;
         this.price = price;
@@ -76,11 +76,11 @@ public class Products implements Serializable {
         this.quantity = quantity;
     }
 
-    public List<ProductType> getProductType() {
+    public ProductType getProductType() {
         return productType;
     }
 
-    public void setProductType(List<ProductType> productType) {
+    public void setProductType(ProductType productType) {
         this.productType = productType;
     }
 

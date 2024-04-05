@@ -10,7 +10,7 @@ public class Size implements Serializable {
     private List<Color> color;
     private int quantity;
 
-    public Size() {
+    public Size(String sizeId) {
     }
 
     public Size(String _id, SizeCode sizeCode, List<Color> color, int quantity) {

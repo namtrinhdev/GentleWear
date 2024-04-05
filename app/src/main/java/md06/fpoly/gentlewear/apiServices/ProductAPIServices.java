@@ -23,7 +23,8 @@ public interface ProductAPIServices {
 
 
     @GET("api/products/filter")
-    Call<ResProduct> getProductWithFilter(@Query("productType") String productType, @Query("page") int page, @Query("pageSize") int pageSize);
+    Call<List<Products>> filterProductsByType(@Query("_id") String productTypeId);
+
 
     @GET("api/products/pt")
     Call<List<ProductType>> getProductType();

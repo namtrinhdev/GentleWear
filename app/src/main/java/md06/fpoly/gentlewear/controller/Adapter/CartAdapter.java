@@ -23,7 +23,7 @@ import md06.fpoly.gentlewear.models.Cart;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     Context context;
-    private ArrayList<Cart> arrayList;
+    private ArrayList<Cart> arrayList = new ArrayList<>();
     private Cart_Update_Interface anInterface;
     private int count;
 
@@ -47,12 +47,24 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Cart model = arrayList.get(position);
-        holder.tv_namesp.setText(model.getProducts().getProductName());
-        holder.tv_price.setText(String.valueOf(model.getProducts().getPrice()));
-        holder.tv_quantity.setText(String.valueOf(model.getSoLuong()));
-        holder.tv_color.setText("Màu sắc: "+model.getProducts().getSize().get(0).getColor().get(0).getColorCode().getNameColor());
-        holder.tv_size.setText("Kich cỡ: "+model.getProducts().getSize().get(0).getSizeCode().getSizeCode());
-        Glide.with(context).load(model.getProducts().getImage()).apply(RequestOptions.centerCropTransform()).into(holder.image_sp);
+        if (model != null && model.getProducts() != null) {
+            holder.tv_namesp.setText(model.getProducts().getProductName());
+            holder.tv_price.setText(String.valueOf(model.getProducts().getPrice()));
+            holder.tv_quantity.setText(String.valueOf(model.getSoLuong()));
+
+            // Safely accessing the nested properties with checks
+            if (!model.getProducts().getSize().isEmpty() && !model.getProducts().getSize().get(0).getColor().isEmpty()) {
+                String color = model.getProducts().getSize().get(0).getColor().get(0).getColorCode().getNameColor();
+                holder.tv_color.setText("Màu sắc: " + color);
+                String sizeCode = model.getProducts().getSize().get(0).getSizeCode().getSizeCode();
+                holder.tv_size.setText("Kích cỡ: " + sizeCode);
+            }
+
+            Glide.with(context)
+                    .load(model.getProducts().getImage())
+                    .apply(RequestOptions.centerCropTransform())
+                    .into(holder.image_sp);
+        }
         count = model.getSoLuong();
         holder.img_increase.setOnClickListener(view -> {
             if (count < model.getProducts().getQuantity() && count < 15){
@@ -95,7 +107,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             tv_namesp = itemView.findViewById(R.id.tv_namesp);
             tv_price = itemView.findViewById(R.id.tv_price_card);
             tv_quantity = itemView.findViewById(R.id.tv_item_quantity_cart);
-            image_sp = itemView.findViewById(R.id.image_spcart);\
+            image_sp = itemView.findViewById(R.id.image_spcart);
             tv_color = itemView.findViewById(R.id.tv_item_color);
             tv_size = itemView.findViewById(R.id.tv_item_size);
             img_increase = itemView.findViewById(R.id.img_item_add_cart);

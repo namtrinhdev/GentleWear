@@ -26,6 +26,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,14 +43,16 @@ import md06.fpoly.gentlewear.classs.RetrofitClientAPI;
 import md06.fpoly.gentlewear.classs.SessionManager;
 import md06.fpoly.gentlewear.controller.Adapter.BottomSheetFilterFragment;
 import md06.fpoly.gentlewear.controller.Adapter.HomeAdapter;
+import md06.fpoly.gentlewear.models.ProductType;
 import md06.fpoly.gentlewear.models.Products;
 import md06.fpoly.gentlewear.models.ResProduct;
+import md06.fpoly.gentlewear.models.Size;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class HomeFragment extends Fragment implements FilterListener, BottomSheetFilterFragment.OnProductTypeSelectedListener {
+public class HomeFragment extends Fragment implements BottomSheetFilterFragment.FilterListener {
     private static final String TAG = "HomeFrg";
     private ImageView img_search, img_avatar;
     private ProductAPIServices apiServices;
@@ -54,6 +60,7 @@ public class HomeFragment extends Fragment implements FilterListener, BottomShee
     private RecyclerView recyclerView;
     private List<Products> productList;
     private HomeAdapter adapter;
+    BottomSheetFilterFragment fragmentAdapter;
     private ProgressBar progressBar;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Spinner spinnerSort;
@@ -61,7 +68,7 @@ public class HomeFragment extends Fragment implements FilterListener, BottomShee
 
     int page = 1;
     int pageSize = 10;
-
+    private List<Products> originalProductList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,7 +87,7 @@ public class HomeFragment extends Fragment implements FilterListener, BottomShee
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        originalProductList = new ArrayList<>();
         adapter = new HomeAdapter(getContext(), new Next_interface() {
             @Override
             public void onNextPage(Products products) {
@@ -146,7 +153,8 @@ public class HomeFragment extends Fragment implements FilterListener, BottomShee
             @Override
             public void onRefresh() {
                 // Call your method to reload data
-                loadData();
+                reloadAllData();
+                restoreOriginalProductList();
             }
         });
         // Handle click on search button
@@ -168,12 +176,13 @@ public class HomeFragment extends Fragment implements FilterListener, BottomShee
                 showBottomSheetFilter();
             }
         });
+
     }
 
-
-
-
-
+    private void reloadAllData() {
+        // Gọi lại phương thức loadData để tải lại toàn bộ dữ liệu
+        loadData();
+    }
     private void loadData() {
         Call<ResProduct> call = apiServices.getProduct(page, pageSize);
         call.enqueue(new Callback<ResProduct>() {
@@ -188,7 +197,7 @@ public class HomeFragment extends Fragment implements FilterListener, BottomShee
 
                             adapter.setData((ArrayList<Products>) productList);
                             adapter.notifyDataSetChanged(); // Notify adapter of data change
-                            swipeRefreshLayout.setRefreshing(false);
+
                         }
                     } else {
                         Log.e(TAG, "Response body is null");
@@ -198,12 +207,13 @@ public class HomeFragment extends Fragment implements FilterListener, BottomShee
                     Log.e(TAG, "Unsuccessful response: " + response.code());
                     Toast.makeText(getContext(), "Failed to load data", Toast.LENGTH_SHORT).show();
                 }
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onFailure(Call<ResProduct> call, Throwable t) {
 
-                progressBar.setVisibility(View.GONE);
+
                 Log.e(TAG, "onFailure: ", t);
 
                 Toast.makeText(getContext(), "Failed to load data", Toast.LENGTH_SHORT).show();
@@ -258,65 +268,71 @@ public class HomeFragment extends Fragment implements FilterListener, BottomShee
             }
         });
     }
-    private void filterProducts(String productType) {
-        // Kiểm tra xem loại sản phẩm được chọn có hợp lệ hay không
-        if (productType != null && !productType.isEmpty()) {
-            // Gọi API để lấy danh sách sản phẩm dựa trên loại sản phẩm đã chọn
-            Call<ResProduct> call = apiServices.getProductWithFilter(productType, page, pageSize);
-            call.enqueue(new Callback<ResProduct>() {
-                @Override
-                public void onResponse(Call<ResProduct> call, Response<ResProduct> response) {
-                    if (response.isSuccessful()) {
-                        ResProduct filteredProductResponse = response.body();
-                        if (filteredProductResponse != null && filteredProductResponse.getData() != null) {
-                            List<Products> filteredProducts = filteredProductResponse.getData();
-                            // Cập nhật RecyclerView với danh sách sản phẩm đã lọc
-                            adapter.setData((ArrayList<Products>) filteredProducts);
-                            // Hiển thị danh sách sản phẩm đã lọc
-                            adapter.notifyDataSetChanged();
-                        }
-                    } else {
-                        // Xử lý trường hợp không thành công
-                        Log.e(TAG, "Unsuccessful response: " + response.code());
-                        Toast.makeText(getContext(), "Failed to filter products", Toast.LENGTH_SHORT).show();
-                    }
-                }
 
-                @Override
-                public void onFailure(Call<ResProduct> call, Throwable t) {
-                    // Xử lý khi gọi API thất bại
-                    Log.e(TAG, "API call failed: " + t.getMessage());
-                    Toast.makeText(getContext(), "Failed to filter products", Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else {
-            // Nếu loại sản phẩm không hợp lệ, thông báo cho người dùng
-            Toast.makeText(getContext(), "No product type selected", Toast.LENGTH_SHORT).show();
-        }
-    }
     private void showBottomSheetFilter() {
         // Create instance of your bottom sheet fragment
         BottomSheetFilterFragment bottomSheetFragment = new BottomSheetFilterFragment();
-
-        // Show the bottom sheet fragment
+        bottomSheetFragment.setFilterListener(this); // Pass reference of HomeFragment
         bottomSheetFragment.show(getChildFragmentManager(), bottomSheetFragment.getTag());
     }
 
     @Override
-    public void onFilterApplied(String productType) {
-        filterProducts(productType);
-    }
-
-    @Override
-    public void onCancel() {
-        loadData();
-    }
-
-    @Override
     public void onProductTypeSelected(String productType) {
-        filterProducts(productType);
-
+        // Handle the selected product type
+        // You can update the UI or perform any other action here
+        Toast.makeText(getContext(), "Selected product type: " + productType, Toast.LENGTH_SHORT).show();
     }
-}
 
+
+
+
+    @Override
+    public void onFilterApplied(List<Products> filteredProductsList) {
+        if (!filteredProductsList.isEmpty()) {
+            // Lưu trữ danh sách sản phẩm gốc trước khi áp dụng bộ lọc
+            originalProductList = new ArrayList<>(productList);
+            // Hiển thị danh sách sản phẩm đã lọc
+
+            adapter.setData((ArrayList<Products>) filteredProductsList);
+            adapter.notifyDataSetChanged();
+            swipeRefreshLayout.setRefreshing(false);
+            HomeAdapter filteredAdapter = new HomeAdapter(getContext(), new Next_interface() {
+                @Override
+                public void onNextPage(Products products) {
+                    try {
+                        if (getActivity() != null) {
+                            // Navigate to detail screen with the selected product
+                            Intent intent = new Intent(getActivity(), DetailProductsActivity.class);
+                            intent.putExtra("product_data", products);
+                            startActivity(intent);
+                        } else {
+                            Log.e(TAG, "Activity is null");
+                            Toast.makeText(getContext(), "Error navigating to detail screen", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error navigating to detail screen: " + e.getMessage());
+                        Toast.makeText(getContext(), "Error navigating to detail screen", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onClickItem(String id) {
+                    // Handle click on item
+                }
+            });
+        } else {
+            Toast.makeText(getContext(), "Không tìm thấy sản phẩm cho loại sản phẩm đã chọn.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void restoreOriginalProductList() {
+        if (originalProductList != null && !originalProductList.isEmpty()) {
+            // Hiển thị lại toàn bộ danh sách sản phẩm gốc
+            adapter.setData((ArrayList<Products>) originalProductList);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+
+}
 
