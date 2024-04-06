@@ -4,27 +4,28 @@
     android:layout_width="match_parent"
     android:layout_height="240dp"
     android:padding="15dp">
-    <RadioGroup
-        android:id="@+id/rd_group_thanhToan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp">
-        <RadioButton
-            android:id="@+id/rd_cash"
+        <TextView
+            android:id="@+id/tv_cash"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:text="Thanh toán bằng tiền mặt"
+            android:text="@string/payCash"
             android:padding="12dp"
-            android:background="@drawable/shape_item_food"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/latobold"
+            android:background="@drawable/shape_item"
+            android:textColor="@color/bg_btn"
             android:textSize="18sp"/>
-        <RadioButton
-            android:id="@+id/rd_zalopay"
+        <TextView
+            android:id="@+id/tv_zalopay"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:background="@drawable/shape_item_food"
+            android:gravity="center_vertical"
+            android:background="@drawable/shape_zalopayment"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/latobold"
             android:padding="12dp"
-            android:text="Thanh toán qua ZaloPay"
+            android:text="@string/payWithZalo"
+            android:textColor="#0791E5"
+            android:drawableRight="@drawable/zalopaylogo"
             android:textSize="18sp"/>
-    </RadioGroup>
 </LinearLayout>

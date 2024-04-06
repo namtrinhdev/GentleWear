@@ -26,5 +26,7 @@
     <string name="product_color_circle">Product Color Circle</string>
     <string name="product_type_icon">Áo Polo</string>
     <string name="lbl_zptranstoken">zptranstoken</string>
+    <string name="payCash">Thanh toán sau khi nhận hàng</string>
+    <string name="payWithZalo">Thanh toán qua ZaloPay</string>
 
 </resources>
