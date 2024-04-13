@@ -5,23 +5,32 @@ import java.util.List;
 
 public class Products implements Serializable {
     private String _id, productName;
-    private int price, quantity;
+    private int price, quantity,soTien;
     private ProductType productType;
-    private List<Size> size;
+    private List<Sizes> size;
     private int quantitySold;
     private String image, mota;
 
 
-    public Products(String _id, String productName, int price, int quantity, ProductType productType, List<Size> size, int quantitySold, String image, String mota) {
+    public Products(String _id, String productName, int price, int quantity, int soTien, ProductType productType, List<Sizes> size, int quantitySold, String image, String mota) {
         this._id = _id;
         this.productName = productName;
         this.price = price;
         this.quantity = quantity;
+        this.soTien = soTien;
         this.productType = productType;
         this.size = size;
         this.quantitySold = quantitySold;
         this.image = image;
         this.mota = mota;
+    }
+
+    public int getSoTien() {
+        return soTien;
+    }
+
+    public void setSoTien(int soTien) {
+        this.soTien = soTien;
     }
 
     public Products() {
@@ -84,11 +93,11 @@ public class Products implements Serializable {
         this.productType = productType;
     }
 
-    public List<Size> getSize() {
+    public List<Sizes> getSize() {
         return size;
     }
 
-    public void setSize(List<Size> size) {
+    public void setSize(List<Sizes> size) {
         this.size = size;
     }
 

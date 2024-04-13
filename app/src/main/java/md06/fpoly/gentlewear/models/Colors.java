@@ -2,13 +2,12 @@ package md06.fpoly.gentlewear.models;
 
 import java.io.Serializable;
 
-public class Color implements Serializable {
+public class Colors implements Serializable {
     private String _id;
-    private ColorCode colorCode;
-    private String image;
+    private ColorCodes colorCode;
     private int quantity;
 
-    public Color() {
+    public Colors() {
     }
 
     public String get_id() {
@@ -19,20 +18,12 @@ public class Color implements Serializable {
         this._id = _id;
     }
 
-    public ColorCode getColorCode() {
+    public ColorCodes getColorCode() {
         return colorCode;
     }
 
-    public void setColorCode(ColorCode colorCode) {
+    public void setColorCode(ColorCodes colorCode) {
         this.colorCode = colorCode;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public int getQuantity() {

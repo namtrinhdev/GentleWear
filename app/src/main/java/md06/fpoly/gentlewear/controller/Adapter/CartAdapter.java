@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import md06.fpoly.gentlewear.R;
 import md06.fpoly.gentlewear.activitys.MainActivity;
@@ -23,15 +24,20 @@ import md06.fpoly.gentlewear.models.Cart;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     Context context;
-    private ArrayList<Cart> arrayList = new ArrayList<>();
+    private List<Cart> arrayList = new ArrayList<>();
     private Cart_Update_Interface anInterface;
     private int count;
-
+    private String selectedSize;
     public CartAdapter(Context context, Cart_Update_Interface anInterface) {
         this.context = context;
         this.anInterface = anInterface;
     }
-    public void setData(ArrayList<Cart> arrayList){
+
+    public CartAdapter() {
+
+    }
+
+    public void setData(List<Cart> arrayList){
         this.arrayList = arrayList;
         notifyDataSetChanged();
     }
@@ -51,15 +57,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             holder.tv_namesp.setText(model.getProducts().getProductName());
             holder.tv_price.setText(String.valueOf(model.getProducts().getPrice()));
             holder.tv_quantity.setText(String.valueOf(model.getSoLuong()));
-
-            // Safely accessing the nested properties with checks
-            if (!model.getProducts().getSize().isEmpty() && !model.getProducts().getSize().get(0).getColor().isEmpty()) {
-                String color = model.getProducts().getSize().get(0).getColor().get(0).getColorCode().getNameColor();
-                holder.tv_color.setText("Màu sắc: " + color);
-                String sizeCode = model.getProducts().getSize().get(0).getSizeCode().getSizeCode();
-                holder.tv_size.setText("Kích cỡ: " + sizeCode);
-            }
-
+            holder.tv_size.setText("Kích cỡ: " + model.getSize());
+            selectedSize = model.getSize();
             Glide.with(context)
                     .load(model.getProducts().getImage())
                     .apply(RequestOptions.centerCropTransform())
@@ -97,7 +96,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         }
         return 0;
     }
-
+    public String getSelectedSize() {
+        return selectedSize;
+    }
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tv_namesp, tv_price, tv_quantity,tv_color, tv_size;
         private ImageView image_sp, img_increase, img_diminish;

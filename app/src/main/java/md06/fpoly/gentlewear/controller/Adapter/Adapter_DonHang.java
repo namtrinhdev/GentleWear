@@ -43,6 +43,7 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.DonHan
         holder.tv_nameproducts.setText(model.getProducts().getProductName());
         holder.tv_price.setText(model.getProducts().getPrice()+" đ");
         holder.tv_quantity.setText(model.getSoLuong()+"");
+        holder.tv_item_size_donHang.setText("Kích cỡ: " +model.getSize());
         Glide.with(context).load(model.getProducts().getImage()).apply(RequestOptions.centerCropTransform()).into(holder.img);
     }
 
@@ -55,10 +56,11 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.DonHan
     }
 
     public class DonHangViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_nameproducts, tv_price, tv_quantity;
+        private TextView tv_nameproducts, tv_price, tv_quantity,tv_item_size_donHang;
         private ImageView img;
         public DonHangViewHolder(@NonNull View itemView) {
             super(itemView);
+            tv_item_size_donHang = itemView.findViewById(R.id.tv_item_size_donHang);
             tv_nameproducts = itemView.findViewById(R.id.tv_item_namepro_donhang);
             tv_price = itemView.findViewById(R.id.tv_item_price_donHang);
             tv_quantity = itemView.findViewById(R.id.tv_item_quantity_donHang);

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="15dp"
+    app:cardElevation="5dp"
+    app:cardCornerRadius="7dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_ed">
+            <TextView
+                android:id="@+id/tv_item_nameUser_qldh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Đơn hàng của thầy 5"
+                android:textSize="25sp"
+                android:fontFamily="@font/font1_semibold"
+                android:textColor="@color/text_red"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/id_recycle_item_qldh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_item_nameUser_qldh"/>
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="20dp"
+         >
+            <TextView
+                android:id="@+id/tv_item_total_price_qldh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tổng tiền : "
+                android:fontFamily="@font/font1_semibold"
+                android:layout_gravity="center_vertical"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="10dp"/>
+            <FrameLayout
+                android:id="@+id/btn_item_change_status_qldh"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:visibility="visible"
+                android:background="@drawable/button_custom_1">
+                <TextView
+                    android:id="@+id/tv_item_change_status_qldh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/bg_white"
+                    android:textSize="15sp"
+                    android:layout_gravity="center"/>
+            </FrameLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -2,7 +2,6 @@ package md06.fpoly.gentlewear.views.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,27 +25,21 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import md06.fpoly.gentlewear.R;
 import md06.fpoly.gentlewear.activitys.DetailProductsActivity;
+import md06.fpoly.gentlewear.activitys.InformationActivity;
 import md06.fpoly.gentlewear.activitys.SearchActivity;
-import md06.fpoly.gentlewear.apiServices.FilterListener;
 import md06.fpoly.gentlewear.apiServices.Next_interface;
 import md06.fpoly.gentlewear.apiServices.ProductAPIServices;
 import md06.fpoly.gentlewear.classs.RetrofitClientAPI;
 import md06.fpoly.gentlewear.classs.SessionManager;
 import md06.fpoly.gentlewear.controller.Adapter.BottomSheetFilterFragment;
 import md06.fpoly.gentlewear.controller.Adapter.HomeAdapter;
-import md06.fpoly.gentlewear.models.ProductType;
 import md06.fpoly.gentlewear.models.Products;
 import md06.fpoly.gentlewear.models.ResProduct;
-import md06.fpoly.gentlewear.models.Size;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -69,6 +62,7 @@ public class HomeFragment extends Fragment implements BottomSheetFilterFragment.
     int page = 1;
     int pageSize = 10;
     private List<Products> originalProductList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,7 +89,7 @@ public class HomeFragment extends Fragment implements BottomSheetFilterFragment.
                     if (getActivity() != null) {
                         // Navigate to detail screen with the selected product
                         Intent intent = new Intent(getActivity(), DetailProductsActivity.class);
-                        intent.putExtra("product_data", products);
+                        intent.putExtra("product_data", products); // Ensure 'products' is properly populated
                         startActivity(intent);
                     } else {
                         Log.e(TAG, "Activity is null");
@@ -162,7 +156,13 @@ public class HomeFragment extends Fragment implements BottomSheetFilterFragment.
             Intent intent = new Intent(getContext(), SearchActivity.class);
             startActivity(intent);
         });
-
+        img_avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), InformationActivity.class);
+                startActivity(intent);
+            }
+        });
         // Load avatar image
         sessionManager = new SessionManager(getContext());
         if (!sessionManager.getAvatar().equals("")) {
@@ -183,6 +183,7 @@ public class HomeFragment extends Fragment implements BottomSheetFilterFragment.
         // Gọi lại phương thức loadData để tải lại toàn bộ dữ liệu
         loadData();
     }
+
     private void loadData() {
         Call<ResProduct> call = apiServices.getProduct(page, pageSize);
         call.enqueue(new Callback<ResProduct>() {
@@ -282,8 +283,6 @@ public class HomeFragment extends Fragment implements BottomSheetFilterFragment.
         // You can update the UI or perform any other action here
         Toast.makeText(getContext(), "Selected product type: " + productType, Toast.LENGTH_SHORT).show();
     }
-
-
 
 
     @Override

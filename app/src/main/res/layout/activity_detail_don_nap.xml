@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".DetailDonNapActivity">
+
+        <ImageView
+            android:id="@+id/img_backpress_detail_donnap"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+
+            android:padding="10dp"
+            android:src="@drawable/back_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/zzz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:text="Chi tiết đơn nạp"
+            android:textColor="@color/text_normal"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.334"
+            app:layout_constraintStart_toEndOf="@+id/img_backpress_detail_donnap"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="10dp"
+            app:cardCornerRadius="10dp"
+            android:layout_below="@+id/zzz"
+            android:layout_marginTop="30dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_money_detail_donnap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="200000"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"/>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/z"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_below="@+id/tv_money_detail_donnap"
+                    app:cardCornerRadius="100dp"
+                    app:cardElevation="0dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="10dp">
+
+                    <ImageView
+                        android:id="@+id/img_userDetailDonNap"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/tv_nameUserDetailDonNap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_money_detail_donnap"
+                    android:layout_toRightOf="@+id/z"
+                    android:text="Nam Trinh"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="10dp"/>
+                <TextView
+                    android:id="@+id/tv_maDonNap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/z"
+                    android:text="Mã đơn nạp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/zz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_maDonNap"
+                    android:text="Trạng thái đơn hàng"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="16sp" />
+                <RelativeLayout
+                    android:id="@+id/choxacnhanDetailDonNap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/zz">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="Đã gửi yêu cầu nạp tiền"
+                        android:textColor="@color/text_2"
+                        android:textStyle="bold"
+                        android:drawableLeft="@drawable/baseline_check_circle_24"
+                        android:paddingStart="5dp"
+                        android:drawablePadding="10dp"/>
+                    <TextView
+                        android:id="@+id/tv_time_choXacNhan_detailDonNap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="20:11 12/11/2023"
+                        android:textColor="@color/text_1"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="5dp"
+                        android:textStyle="bold"/>
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/daxacnhanDetailDonNap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/choxacnhanDetailDonNap">
+                    <View
+                        android:id="@+id/line1"
+                        android:layout_width="3dp"
+                        android:layout_height="30dp"
+                        android:background="?android:attr/listDivider"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_centerHorizontal="true"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="Đã xác nhận đơn nạp"
+                        android:textColor="@color/text_2"
+                        android:textStyle="bold"
+                        android:drawableLeft="@drawable/baseline_check_circle_24"
+                        android:layout_below="@+id/line1"
+                        android:paddingStart="5dp"
+                        android:drawablePadding="10dp"/>
+                    <TextView
+                        android:id="@+id/tv_time_daXacNhan_detailDonNap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/line1"
+                        android:textSize="18sp"
+                        android:text="20:11 12/11/2023"
+                        android:textColor="@color/text_1"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="5dp"
+                        android:textStyle="bold"/>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/dahuyDetailDonNap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/daxacnhanDetailDonNap"
+                    >
+                    <View
+                        android:id="@+id/line2"
+                        android:layout_width="3dp"
+                        android:layout_height="30dp"
+                        android:background="?android:attr/listDivider"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_centerHorizontal="true"/>
+                    <TextView
+                        android:layout_below="@+id/line2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="Đã hủy đơn nạp"
+                        android:textColor="@color/text_2"
+                        android:textStyle="bold"
+                        android:drawableLeft="@drawable/baseline_cancel_24"
+                        android:paddingStart="5dp"
+                        android:drawablePadding="10dp"/>
+                    <TextView
+                        android:id="@+id/tv_time_daHuy_detailDonNap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="20:11 12/11/2023"
+                        android:textColor="@color/text_1"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="5dp"
+                        android:layout_below="@id/line2"
+                        android:textStyle="bold"/>
+                </RelativeLayout>
+                <ImageView
+                    android:id="@+id/img_GD_detailDonNap"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_centerHorizontal="true"
+                    android:scaleType="centerInside"
+                    android:layout_below="@id/dahuyDetailDonNap"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"/>
+            </RelativeLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+</layout>

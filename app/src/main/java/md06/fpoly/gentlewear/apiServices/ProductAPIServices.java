@@ -2,7 +2,6 @@ package md06.fpoly.gentlewear.apiServices;
 
 import java.util.List;
 
-import md06.fpoly.gentlewear.models.ColorCode;
 import md06.fpoly.gentlewear.models.ProductType;
 import md06.fpoly.gentlewear.models.Products;
 import md06.fpoly.gentlewear.models.ResProduct;

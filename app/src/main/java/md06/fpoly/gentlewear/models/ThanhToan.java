@@ -12,6 +12,7 @@ public class ThanhToan implements Serializable {
     private int trangThai;
     private List<StatusUpdate> statusUpdates;
     private int payOptions;
+    private List<Products> productList;
 
     public ThanhToan() {
     }
@@ -25,6 +26,13 @@ public class ThanhToan implements Serializable {
         this.trangThai = trangThai;
         this.statusUpdates = statusUpdates;
         this.payOptions = payOptions;
+    }
+    public List<Products> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Products> productList) {
+        this.productList = productList;
     }
 
     public String getThoiGian() {

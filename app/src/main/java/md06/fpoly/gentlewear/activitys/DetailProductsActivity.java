@@ -3,34 +3,47 @@ package md06.fpoly.gentlewear.activitys;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import md06.fpoly.gentlewear.R;
+import md06.fpoly.gentlewear.controller.Adapter.CartAdapter;
+import md06.fpoly.gentlewear.controller.Adapter.Color_Adapter;
 import md06.fpoly.gentlewear.models.Cart;
 import md06.fpoly.gentlewear.models.Cart2;
+import md06.fpoly.gentlewear.models.Colors;
+import md06.fpoly.gentlewear.models.ColorCodes;
+import md06.fpoly.gentlewear.models.ProductType;
 import md06.fpoly.gentlewear.models.Products;
+import md06.fpoly.gentlewear.models.Sizes;
+import md06.fpoly.gentlewear.models.SizeCodes;
 
 public class DetailProductsActivity extends AppCompatActivity {
     private Products products;
+    private RecyclerView colorsRecyclerView;
     private TextView tv_mota, tv_namepro, tv_quantity, tv_price, tv_S, tv_M, tv_L, tv_XL, tv_XXL;
     private static final String M = "M", L = "L", S = "S", XL = "XL", XXL = "XXL";
     private ImageView img_product, img_backpress, img_add, img_remove;
     private FrameLayout btn_themGH;
     private int count = 1, status = 0;
     private String size;
+    private Color_Adapter colorAdapter;
     private List<Cart> list = Cart2.getInstance().getCart();
     private Products sp = new Products();
-
+    private String selectedSize;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +53,56 @@ public class DetailProductsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         products = (Products) intent.getSerializableExtra("product_data");
 
+
+        TextView sizeS = findViewById(R.id.size_s);
+        TextView sizeM = findViewById(R.id.size_m);
+        TextView sizeL = findViewById(R.id.size_l);
+        TextView sizeXL = findViewById(R.id.size_xl);
+        TextView sizeXXL = findViewById(R.id.size_xxl);
+
+        CartAdapter cartAdapter = new CartAdapter();
+
+        // Khởi tạo RecyclerView và adapter
+        List<Colors> colorsList = new ArrayList<>();
+        colorsRecyclerView = findViewById(R.id.rc_mau);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        colorsRecyclerView.setLayoutManager(layoutManager);
+        colorAdapter = new Color_Adapter(colorsList, this);
+        colorsRecyclerView.setAdapter(colorAdapter);
+
+
+        for (Sizes size : products.getSize()) {
+            for (Colors color : size.getColor()) {
+                colorsList.add(color); // Thêm đối tượng Colors vào danh sách
+            }
+        }
+
+        colorAdapter.setdata(colorsList);
+
+
+        View.OnClickListener sizeListener = v -> {
+            // Initialize selectedSize variable
+            int id = v.getId();
+            if (id == R.id.size_s) {
+                selectedSize = S;
+            } else if (id == R.id.size_m) {
+                selectedSize = M;
+            } else if (id == R.id.size_l) {
+                selectedSize = L;
+            } else if (id == R.id.size_xl) {
+                selectedSize = XL;
+            } else if (id == R.id.size_xxl) {
+                selectedSize = XXL;
+            }
+            setSizeExist(selectedSize); // Update UI based on the selected size
+        };
+
+// Remember to attach this listener to your size TextViews
+        sizeS.setOnClickListener(sizeListener);
+        sizeM.setOnClickListener(sizeListener);
+        sizeL.setOnClickListener(sizeListener);
+        sizeXL.setOnClickListener(sizeListener);
+        sizeXXL.setOnClickListener(sizeListener);
         tv_namepro.setText(products.getProductName());
         tv_mota.setText(products.getMota());
 
@@ -106,7 +169,7 @@ public class DetailProductsActivity extends AppCompatActivity {
 
         btn_themGH.setOnClickListener(view -> {
             if (count != 0) {
-                Cart cart = new Cart(products, count);
+                Cart cart = new Cart(products, count, selectedSize);
                 if (list.size() == 0) {
                     list.add(cart);
                     Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
@@ -158,6 +221,18 @@ public class DetailProductsActivity extends AppCompatActivity {
         });
     }
 
+    private void mProducts (){
+        Products products1 = new Products();
+        ColorCodes colorCode = new ColorCodes();
+        ProductType productType = new ProductType();
+        Sizes size1 = new Sizes();
+        SizeCodes sizeCode = new SizeCodes();
+        size1.get_id();
+        size1.getSizeCode();
+    }
+
+// Set other properties as needed
+
     private int getQuantity() {
         if (list.size() != 0) {
             if (getIndex() != -1) {
@@ -189,6 +264,7 @@ public class DetailProductsActivity extends AppCompatActivity {
         img_product = findViewById(R.id.anh_sp);
         img_backpress = findViewById(R.id.btnback);
         btn_themGH = findViewById(R.id.btn_themGH);
+
         tv_S = findViewById(R.id.size_s);
         tv_M = findViewById(R.id.size_m);
         tv_L = findViewById(R.id.size_l);
