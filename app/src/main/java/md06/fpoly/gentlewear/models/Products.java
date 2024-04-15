@@ -7,12 +7,12 @@ public class Products implements Serializable {
     private String _id, productName;
     private int price, quantity;
     private ProductType productType;
-    private List<Size> size;
+    private List<Sizes> size;
     private int quantitySold;
     private String mota;
 
 
-    public Products(String _id, String productName, int price, int quantity, ProductType productType, List<Size> size, int quantitySold, String mota) {
+    public Products(String _id, String productName, int price, int quantity, ProductType productType, List<Sizes> size, int quantitySold, String mota) {
         this._id = _id;
         this.productName = productName;
         this.price = price;
@@ -75,11 +75,11 @@ public class Products implements Serializable {
         this.productType = productType;
     }
 
-    public List<Size> getSize() {
+    public List<Sizes> getSize() {
         return size;
     }
 
-    public void setSize(List<Size> size) {
+    public void setSize(List<Sizes> size) {
         this.size = size;
     }
 

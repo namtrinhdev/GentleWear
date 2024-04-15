@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import md06.fpoly.gentlewear.R;
 import md06.fpoly.gentlewear.activitys.MainActivity;
@@ -23,18 +24,21 @@ import md06.fpoly.gentlewear.models.Cart;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     Context context;
-    private ArrayList<Cart> arrayList = new ArrayList<>();
+    private List<Cart> arrayList = new ArrayList<>();
     private Cart_Update_Interface anInterface;
     private int count;
+    private String selectedSize;
 
     public CartAdapter(Context context, Cart_Update_Interface anInterface) {
         this.context = context;
         this.anInterface = anInterface;
     }
-    public void setData(ArrayList<Cart> arrayList){
+
+    public void setData(List<Cart> arrayList) {
         this.arrayList = arrayList;
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -64,10 +68,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 //                    .load(model.getProducts().getImage())
 //                    .apply(RequestOptions.centerCropTransform())
 //                    .into(holder.image_sp);
+            holder.tv_size.setText("Kích cỡ: " + model.getProducts().getSize().get(0).getSizeCode().getSizeCode());
+            Glide.with(context)
+                    .load(model.getProducts().getSize().get(0).getColor().get(0).getImage())
+                    .apply(RequestOptions.centerCropTransform())
+                    .into(holder.image_sp);
         }
         count = model.getSoLuong();
         holder.img_increase.setOnClickListener(view -> {
-            if (count < model.getProducts().getQuantity() && count < 15){
+            if (count < model.getProducts().getQuantity() && count < 15) {
                 count++;
                 holder.tv_quantity.setText(String.valueOf(count));
                 model.setSoLuong(count);
@@ -75,12 +84,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             }
         });
         holder.img_diminish.setOnClickListener(view -> {
-            if (count > 1){
+            if (count > 1) {
                 count--;
                 holder.tv_quantity.setText(String.valueOf(count));
                 model.setSoLuong(count);
                 anInterface.onUpdateCount();
-            }else {
+            } else {
                 anInterface.onDelete(holder.getAdapterPosition());
             }
         });
@@ -92,14 +101,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (arrayList.size() !=0 ){
+        if (arrayList.size() != 0) {
             return arrayList.size();
         }
         return 0;
     }
 
+    public String getSelectedSize() {
+        return selectedSize;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_namesp, tv_price, tv_quantity,tv_color, tv_size;
+        private TextView tv_namesp, tv_price, tv_quantity, tv_color, tv_size;
         private ImageView image_sp, img_increase, img_diminish;
 
         public ViewHolder(@NonNull View itemView) {
@@ -112,7 +125,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             tv_size = itemView.findViewById(R.id.tv_item_size);
             img_increase = itemView.findViewById(R.id.img_item_add_cart);
             img_diminish = itemView.findViewById(R.id.img_item_remove_cart);
-
 
 
         }

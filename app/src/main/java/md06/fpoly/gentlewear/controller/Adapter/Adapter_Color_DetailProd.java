@@ -14,13 +14,13 @@ import java.util.List;
 
 import md06.fpoly.gentlewear.R;
 import md06.fpoly.gentlewear.interfaces.DetailProd_Color_Interface;
-import md06.fpoly.gentlewear.models.ColorCode;
+import md06.fpoly.gentlewear.models.ColorCodes;
 
 public class Adapter_Color_DetailProd extends RecyclerView.Adapter<Adapter_Color_DetailProd.ColorViewHolder> {
-    private List<ColorCode> list;
+    private List<ColorCodes> list;
     private DetailProd_Color_Interface mInterface;
 
-    public Adapter_Color_DetailProd(List<ColorCode> list, DetailProd_Color_Interface mInterface) {
+    public Adapter_Color_DetailProd(List<ColorCodes> list, DetailProd_Color_Interface mInterface) {
         this.list = list;
         this.mInterface = mInterface;
     }
@@ -34,7 +34,7 @@ public class Adapter_Color_DetailProd extends RecyclerView.Adapter<Adapter_Color
 
     @Override
     public void onBindViewHolder(@NonNull Adapter_Color_DetailProd.ColorViewHolder holder, int position) {
-        ColorCode model = list.get(position);
+        ColorCodes model = list.get(position);
         holder.img.setBackgroundColor(Color.parseColor(model.getColorCode()));
         holder.itemView.setOnClickListener(v -> {
             mInterface.chooseColor(model);

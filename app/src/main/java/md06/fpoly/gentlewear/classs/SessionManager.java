@@ -37,6 +37,7 @@ public class SessionManager {
         editor.putString(KEY_PHONE_NUMBER, users.getSdt());
         editor.putInt(KEY_VAI_TRO, users.getStatus());
         editor.putString(KEY_AVATAR, users.getAvatar());
+        editor.putInt(KEY_MONEY, users.getSoTien());
         editor.apply();
     }
 
@@ -90,6 +91,7 @@ public class SessionManager {
         users.setPasswd(sharedPreferences.getString(KEY_TOKEN, ""));
         users.setStatus(sharedPreferences.getInt(KEY_VAI_TRO, 1));
         users.setAvatar(sharedPreferences.getString(KEY_AVATAR, ""));
+        users.setSoTien(sharedPreferences.getInt(KEY_MONEY,0 ));
         return users;
     }
     public String getIdUser() {
@@ -112,9 +114,7 @@ public class SessionManager {
         editor.putInt(KEY_MONEY,soTien);
         editor.apply();
     }
-    public int getMoney() {
-        return sharedPreferences.getInt(KEY_MONEY, 0);
-    }
+
     public String getPhoneNumber() {
         return sharedPreferences.getString(KEY_PHONE_NUMBER, "");
     }
@@ -127,5 +127,8 @@ public class SessionManager {
     }
     public String getAvatar() {
         return sharedPreferences.getString(KEY_AVATAR, "");
+    }
+    public int getMoney() {
+        return sharedPreferences.getInt(KEY_MONEY,0);
     }
 }

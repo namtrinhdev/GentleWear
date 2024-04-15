@@ -3,13 +3,13 @@ package md06.fpoly.gentlewear.models;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Color implements Serializable {
+public class Colors implements Serializable {
     private String _id;
-    private ColorCode colorCode;
-    private String image;
+    private ColorCodes colorCode;
     private int quantity;
+    private String image;
 
-    public Color() {
+    public Colors() {
     }
 
     public String get_id() {
@@ -20,12 +20,20 @@ public class Color implements Serializable {
         this._id = _id;
     }
 
-    public ColorCode getColorCode() {
+    public ColorCodes getColorCode() {
         return colorCode;
     }
 
-    public void setColorCode(ColorCode colorCode) {
+    public void setColorCode(ColorCodes colorCode) {
         this.colorCode = colorCode;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getImage() {
@@ -36,18 +44,11 @@ public class Color implements Serializable {
         this.image = image;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        Color color = (Color) obj;
+        Colors color = (Colors) obj;
         return quantity == color.quantity &&
                 Objects.equals(_id, color._id) &&
                 Objects.equals(colorCode, color.colorCode) &&

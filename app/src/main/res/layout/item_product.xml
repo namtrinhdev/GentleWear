@@ -54,6 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/vnd_blue"
+        android:drawableRight="@drawable/vnd_blue"
         android:fontFamily="@font/latoblack"
         android:gravity="center"
         android:text="40.00"

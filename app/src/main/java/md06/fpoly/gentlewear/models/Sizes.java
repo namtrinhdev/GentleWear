@@ -4,19 +4,16 @@ package md06.fpoly.gentlewear.models;
 import java.io.Serializable;
 import java.util.List;
 
-public class Size implements Serializable {
+public class Sizes implements Serializable {
     private String _id;
-    private SizeCode sizeCode;
-    private List<Color> color;
+    private SizeCodes sizeCode;
+    private List<Colors> color;
     private int quantity;
 
-    public Size() {
+    public Sizes() {
     }
 
-    public Size(String sizeId) {
-    }
-
-    public Size(String _id, SizeCode sizeCode, List<Color> color, int quantity) {
+    public Sizes(String _id, SizeCodes sizeCode, List<Colors> color, int quantity) {
         this._id = _id;
         this.sizeCode = sizeCode;
         this.color = color;
@@ -31,19 +28,19 @@ public class Size implements Serializable {
         this._id = _id;
     }
 
-    public SizeCode getSizeCode() {
+    public SizeCodes getSizeCode() {
         return sizeCode;
     }
 
-    public void setSizeCode(SizeCode sizeCode) {
+    public void setSizeCode(SizeCodes sizeCode) {
         this.sizeCode = sizeCode;
     }
 
-    public List<Color> getColor() {
+    public List<Colors> getColor() {
         return color;
     }
 
-    public void setColor(List<Color> color) {
+    public void setColor(List<Colors> color) {
         this.color = color;
     }
 

@@ -9,30 +9,31 @@
     <!-- CheckBox to select the color -->
     <CheckBox
         android:id="@+id/checkBoxProductColor"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_gravity="center_vertical"
         android:checked="false"
-        android:button="@null" />
+      />
 
     <!-- Circular shape to represent the color -->
-    <View
-        android:id="@+id/viewColorCircle"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+    <ImageView
+        android:id="@+id/ImageColor"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_gravity="center_vertical"
-        android:background="@drawable/circle_shape"
+        android:background="@drawable/ao2"
         android:contentDescription="@string/product_color_circle" />
 
     <!-- Text view to display the color name -->
     <TextView
         android:id="@+id/textViewProductColorName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:paddingStart="8dp"
-        android:text="Màu cam"
+        android:text="Đen"
         android:textSize="16sp"
+        android:textColor="@color/black"
         android:textStyle="bold" />
 
 </LinearLayout>

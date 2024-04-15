@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class Cart implements Serializable {
     private Products products;
     private int soLuong;
-
     public Cart() {
     }
 

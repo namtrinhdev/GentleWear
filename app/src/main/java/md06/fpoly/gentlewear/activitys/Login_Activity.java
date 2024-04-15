@@ -103,7 +103,8 @@ public class Login_Activity extends AppCompatActivity {
         });
         back = findViewById(R.id.back);
         back.setOnClickListener(view -> {
-            onBackPressed();
+            Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+            startActivity(intent);
         });
     }
 

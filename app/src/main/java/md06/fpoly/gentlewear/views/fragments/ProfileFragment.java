@@ -59,9 +59,6 @@ public class ProfileFragment extends Fragment {
         //set info user
         setInfoUser();
         //set visibility
-        setUIPhanQuyen();
-
-
 
         // ql don hang
         view.findViewById(R.id.id_qldh).setOnClickListener(v -> {
@@ -85,10 +82,14 @@ public class ProfileFragment extends Fragment {
             Cart2.getInstance().clear();
             getActivity().finish();
         });
+        view.findViewById(R.id.id_login).setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), Login_Activity.class));
+            sessionManager.logoutUser();
+            Cart2.getInstance().clear();
+            getActivity().finish();
+        });
     }
-    private void setUIPhanQuyen() {
-            btn_your_wallet.setVisibility(View.GONE);
-    }
+
 
     private void setInfoUser() {
         if (!sessionManager.getAvatar().equals("")){

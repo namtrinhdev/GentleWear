@@ -1,17 +1,12 @@
 package md06.fpoly.gentlewear.activitys;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -19,7 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,12 +26,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import md06.fpoly.gentlewear.R;
+import md06.fpoly.gentlewear.apiServices.Cart_Update_Interface;
 import md06.fpoly.gentlewear.apiServices.ThanhToanAPI_Interface;
 import md06.fpoly.gentlewear.classs.RetrofitClientAPI;
 import md06.fpoly.gentlewear.classs.SessionManager;
-import md06.fpoly.gentlewear.controller.Adapter.Adapter_DonHang;
-import md06.fpoly.gentlewear.controller.Adapter.Adapter_DonHang;
 
+import md06.fpoly.gentlewear.controller.Adapter.CartAdapter;
 import md06.fpoly.gentlewear.models.Cart2;
 import md06.fpoly.gentlewear.models.CreateOrder;
 import md06.fpoly.gentlewear.models.Messages;
@@ -54,12 +48,13 @@ import vn.zalopay.sdk.listeners.PayOrderListener;
 public class ThanhToanActivity extends AppCompatActivity {
     private SessionManager sessionManager;
     private RecyclerView recyclerView;
-    private FrameLayout btn_address, btn_option_thanhToan, btn_Dat_Hang;
+    private FrameLayout btn_address, btn_option_thanhToan, btn_Dat_Hang, btn_choose_thanhToan;
     private RelativeLayout view_viTien;
     private TextView tv_address, tv_pt_thanhToan, tv_Total_Price;
-    private int optionPay;
+    private boolean tag;
+    private TextView tv_soDuHT, tv_tongDonHang, tv_soDuMoi, tv_msg, tv_title;
     private ThanhToanAPI_Interface mInterface;
-    private Adapter_DonHang adapter;
+    private CartAdapter adapter;
     TextView lblZpTransToken, txtToken;
 
     private void BindView() {
@@ -78,8 +73,6 @@ public class ThanhToanActivity extends AppCompatActivity {
         txtToken.setVisibility(View.VISIBLE);
     }
 
-    private String totalPrice, token;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,13 +88,13 @@ public class ThanhToanActivity extends AppCompatActivity {
         ZaloPaySDK.init(AppInfo.APP_ID, Environment.SANDBOX);
         BindView();
         // handle CreateOrder
-
         // Set dia chi giao hang
         if (sessionManager.getAddress().equals("")) {
             tv_address.setText("Thêm địa chỉ giao hàng");
         } else {
             tv_address.setText(sessionManager.getAddress());
         }
+
         btn_address.setOnClickListener(view -> {
             if (sessionManager.getAddress().equals("")) {
                 startActivity(new Intent(ThanhToanActivity.this, InformationActivity.class));
@@ -109,19 +102,29 @@ public class ThanhToanActivity extends AppCompatActivity {
         });
 
         // Hien thi danh sach don hang
-        adapter = new Adapter_DonHang(this);
+        adapter = new CartAdapter(this, new Cart_Update_Interface() {
+            @Override
+            public void onDelete(int position) {
+
+            }
+
+            @Override
+            public void onUpdateCount() {
+
+            }
+        });
         adapter.setData(Cart2.getInstance().getCart());
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);
 
         // Hide wallet, set total price
+        setVisibilityVi(false);
         tv_Total_Price.setText(Cart2.getInstance().getTotalPrice() + " đ");
-        totalPrice = String.valueOf(Cart2.getInstance().getTotalPrice());
 
         // Click option thanh toan
-        optionPay = 0;
-        btn_option_thanhToan.setOnClickListener(view -> {
-            openDialogPayment();
+        tag = true;
+        btn_choose_thanhToan.setOnClickListener(view -> {
+            openDialogBottom();
         });
 
         // Back press
@@ -129,17 +132,51 @@ public class ThanhToanActivity extends AppCompatActivity {
             onBackPressed();
         });
 
-//        btn_option_thanhToanZalo.setOnClickListener(v -> {
-//            checkInfoOrder();
-//        });
+        btn_Dat_Hang.setOnClickListener(view -> {
+            if (sessionManager.getAddress().equals("")) {
+                Toast.makeText(this, "Vui lòng thêm địa chỉ giao hàng", Toast.LENGTH_SHORT).show();
+            } else {
+                if (!tag) {
+                    if (!checkMoney()) {
+                        Toast.makeText(this, "Số dư không đủ, vui lòng chọn phương thức thanh toán khác", Toast.LENGTH_SHORT).show();
+                    } else {
+                        postData(0);
+                        sessionManager.setMoney(sessionManager.getMoney() - Cart2.getInstance().getTotalPrice());
+                        Cart2.getInstance().clear();
+                        startActivity(new Intent(ThanhToanActivity.this, QLDH_Activity.class));
+                        finish();
+                    }
+                } else {
+                    //
+                    createTokenOrder();
+                    // Xu ly khi bam nut Dat Hang
 
-
-        // Xu ly khi bam nut Dat Hang
-        btn_Dat_Hang.setOnClickListener(v -> {
-            createOrderToken();
+                }
+            }
         });
     }
-    private void startPayWithZaloPay(String token){
+
+    private void createTokenOrder() {
+        CreateOrder orderApi = new CreateOrder();
+        try {
+            // Pass total price as a string
+            JSONObject data = orderApi.createOrder(String.valueOf(Cart2.getInstance().getTotalPrice()));
+            lblZpTransToken.setVisibility(View.VISIBLE);
+            String code = data.getString("return_code");
+            Toast.makeText(getApplicationContext(), "Tạo đơn hàng thành công", Toast.LENGTH_LONG).show();
+
+            if (code.equals("1")) {
+                String token = data.getString("zp_trans_token");
+                startPayWithZaloPay(token);
+                IsDone();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void startPayWithZaloPay(String token) {
         ZaloPaySDK.getInstance().payOrder(ThanhToanActivity.this, token, "demozpdk://app", new PayOrderListener() {
             @Override
             public void onPaymentSucceeded(final String transactionId, final String transToken, final String appTransID) {
@@ -150,7 +187,8 @@ public class ThanhToanActivity extends AppCompatActivity {
                         })
                         .setNegativeButton("Cancel", null).show());
                 postData(1);
-
+                startActivity(new Intent(ThanhToanActivity.this, QLDH_Activity.class));
+                finish();
 
             }
 
@@ -165,41 +203,8 @@ public class ThanhToanActivity extends AppCompatActivity {
             }
         });
     }
-    private void createOrderToken(){
-        CreateOrder orderApi = new CreateOrder();
-        try {
-            // Pass total price as a string
-            JSONObject data = orderApi.createOrder(totalPrice);
-            String code = data.getString("return_code");
-            Toast.makeText(getApplicationContext(), "Tạo đơn hàng thành công ", Toast.LENGTH_LONG).show();
 
-            if (code.equals("1")) {
-                token = data.getString("zp_trans_token");
-
-                startPayWithZaloPay(token);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void checkInfoOrder(){
-        if (tv_address.getText().toString().equals("Thêm địa chỉ giao hàng")){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Bạn chưa chọn địa chỉ giao hàng !");
-            builder.setPositiveButton("Đóng", (dialog, which) -> {
-            });
-            builder.show();
-        } else {
-            if (optionPay == 1){
-                createOrderToken();
-            }else {
-                postData(0);
-            }
-        }
-    }
-    private void postData(int payOption) {
+    private void postData(int optionPay) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         String thoiGian = sdf.format(new Date());
         ThanhToan data = new ThanhToan();
@@ -207,8 +212,9 @@ public class ThanhToanActivity extends AppCompatActivity {
         data.setUser(sessionManager.getUsers());
         data.setTongTien(Cart2.getInstance().getTotalPrice());
         data.setThoiGian(thoiGian);
-        data.setPayOptions(payOption);
+        data.setPayOptions(optionPay);
         Call<Messages> call = mInterface.postDonHang(data);
+
         call.enqueue(new Callback<Messages>() {
             @Override
             public void onResponse(Call<Messages> call, Response<Messages> response) {
@@ -229,37 +235,68 @@ public class ThanhToanActivity extends AppCompatActivity {
     }
 
 
+    private int optionPayment() {
+        if (checkMoney()) {
+            return tag ? 0 : 1;
+        }
+        return 0;
+    }
+
+
+    private boolean checkMoney() {
+        return Cart2.getInstance().getTotalPrice() <= sessionManager.getMoney();
+    }
+
     private void anhxa() {
         tv_address = findViewById(R.id.tv_address_thanhToan);
         tv_pt_thanhToan = findViewById(R.id.tv_phuongThuc_thanhToan);
         tv_Total_Price = findViewById(R.id.tv_price_thanhToan);
         btn_address = findViewById(R.id.id_address_thanhToan);
-        btn_option_thanhToan = findViewById(R.id.btn_option_thanhToan);
+//        btn_option_thanhToanZalo = findViewById(R.id.btn_option_thanhToanZalo);
         btn_Dat_Hang = findViewById(R.id.btn_dat_hang);
         recyclerView = findViewById(R.id.id_recycle_thanhToan);
+        btn_choose_thanhToan = findViewById(R.id.btn_option_thanhToan);
+
+        tv_soDuHT = findViewById(R.id.tv_soDu_thanhToan);
+        tv_tongDonHang = findViewById(R.id.tv_soTienPhai_thanhToan);
+        tv_soDuMoi = findViewById(R.id.tv_finalMoney_thanhToan);
+        tv_msg = findViewById(R.id.tv_msg_thanhToan);
+
+        tv_title = findViewById(R.id.tv_title_money_thanhToan);
+        view_viTien = findViewById(R.id.id_yourMoney_thanhToan);
     }
 
-    private void openDialogPayment(){
+    private void setVisibilityVi(boolean visible) {
+        if (visible) {
+            int totalPrice = Cart2.getInstance().getTotalPrice();
+            tv_title.setVisibility(View.VISIBLE);
+            view_viTien.setVisibility(View.VISIBLE);
+            tv_soDuHT.setText(sessionManager.getMoney() + " đ");
+            tv_tongDonHang.setText(totalPrice + " đ");
+            tv_soDuMoi.setText(sessionManager.getMoney() - totalPrice + " đ");
+            if (sessionManager.getMoney() < totalPrice) {
+                tv_msg.setVisibility(View.VISIBLE);
+            } else {
+                tv_msg.setVisibility(View.INVISIBLE);
+            }
+            Log.d("Số dư người dùng", "Số dư: " + sessionManager.getMoney());
+        } else {
+            tv_title.setVisibility(View.INVISIBLE);
+            view_viTien.setVisibility(View.INVISIBLE);
+            tv_msg.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void openDialogBottom() {
         View view = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_tt, null);
         BottomSheetDialog dialog = new BottomSheetDialog(this);
         dialog.setContentView(view);
         dialog.show();
-
-        TextView btn_cash = view.findViewById(R.id.tv_cash);
-        TextView btn_zalo = view.findViewById(R.id.tv_zalopay);
-        btn_cash.setOnClickListener(v -> {
-            optionPay = 0;
-            tv_pt_thanhToan.setText(R.string.payCash);
-            dialog.dismiss();
-        });
-        btn_zalo.setOnClickListener(v -> {
-            optionPay = 1;
-            tv_pt_thanhToan.setText(R.string.payWithZalo);
-            dialog.dismiss();
-        });
+//        bottomSheetDialog.setCancelable(false);//tat cancel
+        TextView tv_cash = view.findViewById(R.id.tv_cash);
+        TextView tv_zaloPay = view.findViewById(R.id.tv_zalopay);
 
     }
-
 
     @Override
     protected void onNewIntent(Intent intent) {
