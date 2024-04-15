@@ -60,10 +60,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 holder.tv_size.setText("Kích cỡ: " + sizeCode);
             }
 
-            Glide.with(context)
-                    .load(model.getProducts().getImage())
-                    .apply(RequestOptions.centerCropTransform())
-                    .into(holder.image_sp);
+//            Glide.with(context)
+//                    .load(model.getProducts().getImage())
+//                    .apply(RequestOptions.centerCropTransform())
+//                    .into(holder.image_sp);
         }
         count = model.getSoLuong();
         holder.img_increase.setOnClickListener(view -> {

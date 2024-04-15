@@ -18,7 +18,7 @@
     <string name="login_register">Bạn đã có tài khoản ?  Đăng nhập</string>
     <string name="welcome_login">Yay! You are back! Thanks for shopping with us. We have excited deals and promotions going on, grab your pick now! </string>
     <string name="description_detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book...detail</string>
-    <string name="description">Description</string>
+    <string name="description">Mô tả</string>
     <string name="search">Tìm kiếm sản phẩm</string>
     <string name="searchYour">Tìm kiếm</string>
     <string name="Filter">Bộ Lọc</string>

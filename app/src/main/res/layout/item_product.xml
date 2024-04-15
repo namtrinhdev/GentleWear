@@ -46,20 +46,20 @@
         android:layout_below="@+id/item1"
         android:layout_marginTop="5dp"
         android:layout_centerHorizontal="true"
-        android:textColor="@android:color/black"
-        android:textSize="16dp" />
+        android:textColor="@color/text_3"
+        android:textSize="15dp" />
 
     <TextView
         android:id="@+id/gia_product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/vnd_black"
+        android:drawableLeft="@drawable/vnd_blue"
         android:fontFamily="@font/latoblack"
         android:gravity="center"
         android:text="40.00"
         android:layout_below="@+id/name_product"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/black"
-        android:textSize="16dp" />
+        android:textColor="@color/bg_btn"
+        android:textSize="17dp" />
 
 </RelativeLayout>

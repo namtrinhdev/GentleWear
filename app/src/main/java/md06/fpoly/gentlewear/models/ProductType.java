@@ -6,6 +6,9 @@ public class ProductType implements Serializable {
     private String _id, tenLoai;
     private boolean isSelected;
 
+    public ProductType() {
+    }
+
     public ProductType(String productTypeId) {
     }
 

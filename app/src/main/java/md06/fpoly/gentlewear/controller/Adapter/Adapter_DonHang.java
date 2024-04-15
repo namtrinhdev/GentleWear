@@ -43,7 +43,7 @@ public class Adapter_DonHang extends RecyclerView.Adapter<Adapter_DonHang.DonHan
         holder.tv_nameproducts.setText(model.getProducts().getProductName());
         holder.tv_price.setText(model.getProducts().getPrice()+" đ");
         holder.tv_quantity.setText(model.getSoLuong()+"");
-        Glide.with(context).load(model.getProducts().getImage()).apply(RequestOptions.centerCropTransform()).into(holder.img);
+//        Glide.with(context).load(model.getProducts().getImage()).apply(RequestOptions.centerCropTransform()).into(holder.img);
     }
 
     @Override

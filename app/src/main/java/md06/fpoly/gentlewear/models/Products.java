@@ -9,10 +9,10 @@ public class Products implements Serializable {
     private ProductType productType;
     private List<Size> size;
     private int quantitySold;
-    private String image, mota;
+    private String mota;
 
 
-    public Products(String _id, String productName, int price, int quantity, ProductType productType, List<Size> size, int quantitySold, String image, String mota) {
+    public Products(String _id, String productName, int price, int quantity, ProductType productType, List<Size> size, int quantitySold, String mota) {
         this._id = _id;
         this.productName = productName;
         this.price = price;
@@ -20,20 +20,11 @@ public class Products implements Serializable {
         this.productType = productType;
         this.size = size;
         this.quantitySold = quantitySold;
-        this.image = image;
         this.mota = mota;
     }
 
     public Products() {
 
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getMota() {

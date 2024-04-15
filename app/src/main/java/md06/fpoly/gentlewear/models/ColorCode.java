@@ -1,6 +1,9 @@
 package md06.fpoly.gentlewear.models;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
+import java.util.Objects;
 
 public class ColorCode implements Serializable {
     private String _id, colorCode, nameColor;
@@ -30,5 +33,20 @@ public class ColorCode implements Serializable {
 
     public void setNameColor(String nameColor) {
         this.nameColor = nameColor;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        ColorCode colorCode = (ColorCode) obj;
+        return Objects.equals(_id, colorCode._id) &&
+                Objects.equals(this.colorCode, colorCode.colorCode) &&
+                Objects.equals(this.nameColor, colorCode.nameColor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_id, colorCode, nameColor);
     }
 }

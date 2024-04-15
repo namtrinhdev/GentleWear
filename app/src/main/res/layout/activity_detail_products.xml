@@ -49,14 +49,26 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/anh_sp"
-                android:layout_width="195dp"
-                android:layout_height="280dp"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/hoodie2" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/anh_sp"
+                    android:layout_width="195dp"
+                    android:layout_height="280dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ao4" />
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/heart1"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"/>
+            </FrameLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -201,7 +213,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:text="Chọn size"
+                        android:text="Kích cỡ"
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -304,58 +316,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:text="SELECT COLOR"
+                        android:text="Màu sắc"
                         android:textColor="@color/black"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
 
-                    <RelativeLayout
-                        android:id="@+id/color_selection_layout"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/ryc_color_detail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/select_color_title">
-
-                        <ImageView
-                            android:id="@+id/mau1"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:background="@drawable/border_size"
-                            android:gravity="center"
-                            android:src="@drawable/ao1" />
-
-                        <ImageView
-                            android:id="@+id/mau2"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_alignLeft="@+id/mau1"
-                            android:layout_marginStart="69dp"
-                            android:background="@drawable/border_size"
-                            android:gravity="center"
-                            android:src="@drawable/ao2" />
-
-                        <ImageView
-                            android:id="@+id/mau3"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_alignLeft="@+id/mau2"
-                            android:layout_marginStart="69dp"
-                            android:background="@drawable/border_size"
-                            android:gravity="center"
-                            android:src="@drawable/ao3" />
-
-                        <ImageView
-                            android:id="@+id/mau4"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_alignLeft="@+id/mau3"
-                            android:layout_marginStart="69dp"
-                            android:background="@drawable/border_size"
-                            android:gravity="center"
-                            android:src="@drawable/ao4" />
-
-
-                    </RelativeLayout>
+                        android:layout_below="@+id/select_color_title"/>
 
 
                 </RelativeLayout>
