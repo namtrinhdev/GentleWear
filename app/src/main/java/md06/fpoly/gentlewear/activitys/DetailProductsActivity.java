@@ -3,6 +3,7 @@ package md06.fpoly.gentlewear.activitys;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -14,43 +15,39 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import md06.fpoly.gentlewear.R;
+import md06.fpoly.gentlewear.apiServices.Favorite_API_Services;
+import md06.fpoly.gentlewear.classs.RetrofitClientAPI;
+import md06.fpoly.gentlewear.classs.SessionManager;
 import md06.fpoly.gentlewear.controller.Adapter.Adapter_Color_DetailProd;
-import md06.fpoly.gentlewear.interfaces.DetailProd_Color_Interface;
 import md06.fpoly.gentlewear.models.Cart;
 import md06.fpoly.gentlewear.models.Cart2;
+import md06.fpoly.gentlewear.models.Messages;
 import md06.fpoly.gentlewear.models.Products;
-import md06.fpoly.gentlewear.controller.Adapter.CartAdapter;
-import md06.fpoly.gentlewear.controller.Adapter.Color_Adapter;
-import md06.fpoly.gentlewear.models.Cart;
-import md06.fpoly.gentlewear.models.Cart2;
 import md06.fpoly.gentlewear.models.Colors;
 import md06.fpoly.gentlewear.models.ColorCodes;
-import md06.fpoly.gentlewear.models.ProductType;
-import md06.fpoly.gentlewear.models.Products;
 import md06.fpoly.gentlewear.models.Sizes;
 import md06.fpoly.gentlewear.models.SizeCodes;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetailProductsActivity extends AppCompatActivity {
     private Products products;
     private RecyclerView colorsRecyclerView;
-    private TextView tv_mota, tv_namepro, tv_quantity, tv_price, tv_S, tv_M, tv_L, tv_XL, tv_XXL;
+    private TextView tv_mota, tv_namepro, tv_quantity, tv_price, tv_S, tv_M, tv_L, tv_XL, tv_XXL, selectedTV;
     private static final String M = "M", L = "L", S = "S", XL = "XL", XXL = "XXL";
-    private ImageView img_product, img_backpress, img_add, img_remove;
+    private ImageView img_product, img_backpress, img_add, img_remove, img_favorite;
     private FrameLayout btn_themGH;
     private int count = 1, status = 0;
     private String size;
-    private Color_Adapter colorAdapter;
     private List<Cart> list = Cart2.getInstance().getCart();
     private Products sp = new Products();
     private Sizes s;
-    private SizeCodes sc =new SizeCodes();
+    private SizeCodes sc = new SizeCodes();
     private Colors color;
     private ColorCodes cCode = new ColorCodes();
     private Adapter_Color_DetailProd adapter;
@@ -60,65 +57,25 @@ public class DetailProductsActivity extends AppCompatActivity {
     private int sizeCount = 0;
     private int colorCount = 0;
     private String selectedSize;
+    private SessionManager sessionManager;
+    private Favorite_API_Services toggleFavorite;
+    private boolean ss = false, sm = false, sl = false, sxl = false, sxxl = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_products);
         init();
 
+        sessionManager = new SessionManager(this);
+        toggleFavorite = RetrofitClientAPI.getRetrofitInstance().create(Favorite_API_Services.class);
+
         Intent intent = getIntent();
         products = (Products) intent.getSerializableExtra("product_data");
 
-
-        TextView sizeS = findViewById(R.id.size_s);
-        TextView sizeM = findViewById(R.id.size_m);
-        TextView sizeL = findViewById(R.id.size_l);
-        TextView sizeXL = findViewById(R.id.size_xl);
-        TextView sizeXXL = findViewById(R.id.size_xxl);
-
-        CartAdapter cartAdapter = new CartAdapter();
-
         // Khởi tạo RecyclerView và adapter
         List<Colors> colorsList = new ArrayList<>();
-        colorsRecyclerView = findViewById(R.id.rc_mau);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        colorsRecyclerView.setLayoutManager(layoutManager);
-        colorAdapter = new Color_Adapter(colorsList, this);
-        colorsRecyclerView.setAdapter(colorAdapter);
 
-
-        for (Sizes size : products.getSize()) {
-            for (Colors color : size.getColor()) {
-                colorsList.add(color); // Thêm đối tượng Colors vào danh sách
-            }
-        }
-
-        colorAdapter.setdata(colorsList);
-
-
-        View.OnClickListener sizeListener = v -> {
-            // Initialize selectedSize variable
-            int id = v.getId();
-            if (id == R.id.size_s) {
-                selectedSize = S;
-            } else if (id == R.id.size_m) {
-                selectedSize = M;
-            } else if (id == R.id.size_l) {
-                selectedSize = L;
-            } else if (id == R.id.size_xl) {
-                selectedSize = XL;
-            } else if (id == R.id.size_xxl) {
-                selectedSize = XXL;
-            }
-            setSizeExist(selectedSize); // Update UI based on the selected size
-        };
-
-// Remember to attach this listener to your size TextViews
-        sizeS.setOnClickListener(sizeListener);
-        sizeM.setOnClickListener(sizeListener);
-        sizeL.setOnClickListener(sizeListener);
-        sizeXL.setOnClickListener(sizeListener);
-        sizeXXL.setOnClickListener(sizeListener);
         tv_namepro.setText(products.getProductName());
         tv_mota.setText(products.getMota());
 
@@ -134,43 +91,12 @@ public class DetailProductsActivity extends AppCompatActivity {
             tv_quantity.setText(String.valueOf(count));
             tv_price.setText(count + " đ");
         }
-        //
+        //tăng số lượng
         img_add.setOnClickListener(view -> {
-            if (list.size() != 0) {
-                int index = -1;
-                for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).getProducts().get_id().equals(products.get_id())) {
-                        index = i;
-                        break;
-                    }
-                }
-                if (index != -1) {
-                    if (list.get(index).getSoLuong() <= products.getQuantity()) {
-                        if (count < products.getQuantity() - list.get(index).getSoLuong() && count < 15) {
-                            count++;
-                            tv_quantity.setText(String.valueOf(count));
-                            tv_price.setText(products.getPrice() * count + " đ");
-                        }
-                    }
-                } else {
-                    if (count < products.getQuantity() && count < 15) {
-                        count++;
-                        tv_quantity.setText(String.valueOf(count));
-                        tv_price.setText(products.getPrice() * count + " đ");
-                    }
-                }
-
-            } else {
-                //list null
-                if (count < products.getQuantity() && count < 15) {
-                    count++;
-                    tv_quantity.setText(String.valueOf(count));
-                    tv_price.setText(products.getPrice() * count + " đ");
-                }
-            }
+            actionIncreaseProduct();
 
         });
-
+        //giam so luong
         img_remove.setOnClickListener(view -> {
             if (count > 1) {
                 count--;
@@ -178,29 +104,38 @@ public class DetailProductsActivity extends AppCompatActivity {
                 tv_price.setText(products.getPrice() * count + " đ");
             }
         });
+        //click back
         img_backpress.setOnClickListener(view -> {
             onBackPressed();
         });
 
+        //set toggle favorite
+        checkFavorite();
+        img_favorite.setOnClickListener(v -> {
+            if (sessionManager.isLoggedIn()) {
+                actionToggleFavorite();
+            } else {
+                startActivity(new Intent(DetailProductsActivity.this, Login_Activity.class));
+            }
+        });
+
         //lay ds color
         setDataListColor();
-        //load ds color
         loadColor(codeList);
 
         //set size
         List<String> sList = new ArrayList<>();
         List<SizeCodes> sCodeList = new ArrayList<>();
-        for (int i = 0; i<sizeCount; i++){
+        for (int i = 0; i < sizeCount; i++) {
             sList.add(products.getSize().get(i).getSizeCode().getSizeCode());
-            setSizeExist(products.getSize().get(i).getSizeCode().getSizeCode());
             sCodeList.add(products.getSize().get(i).getSizeCode());
-            if (products.getSize().get(i).getQuantity()<1){
-              SizeExistButNoQty(products.getSize().get(i).getSizeCode().getSizeCode());
+            if (products.getSize().get(i).getQuantity() < 1) {
+                SizeExistButNoQty(products.getSize().get(i).getSizeCode().getSizeCode());
             }
         }
-        for (String a : sList){
-            setSizeExist(a);
-        }
+
+        setSizeExist(sList);
+
 
         //check click size
         tv_S.setOnClickListener(v -> {
@@ -218,7 +153,6 @@ public class DetailProductsActivity extends AppCompatActivity {
         tv_XXL.setOnClickListener(v -> {
             Toast.makeText(this, "XXL", Toast.LENGTH_SHORT).show();
         });
-
 
 
         //set product
@@ -278,11 +212,114 @@ public class DetailProductsActivity extends AppCompatActivity {
         });
 
     }
+
+    private void actionToggleFavorite() {
+        Call<Messages> call = toggleFavorite.toggleFavorite(products.get_id(), sessionManager.getIdUser());
+        call.enqueue(new Callback<Messages>() {
+            @Override
+            public void onResponse(Call<Messages> call, Response<Messages> response) {
+                if (response.isSuccessful()) {
+                    Messages msg = response.body();
+                    Toast.makeText(DetailProductsActivity.this, msg.getMsg(), Toast.LENGTH_SHORT).show();
+                    if (msg.getStatus() == 0) {
+                        //is favorite
+                        setBackgroundIsFavorite();
+                    } else {
+                        //not favorite
+                        setBackgroundNotFavorite();
+                    }
+                } else {
+                    Toast.makeText(DetailProductsActivity.this, "Đã có lỗi xảy ra, vui lòng thử lại sau", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Messages> call, Throwable t) {
+                Log.e("FailureToggle", "onFailure: ", t);
+                Toast.makeText(DetailProductsActivity.this, "Lỗi kết nối server", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void checkFavorite() {
+        Call<Messages> call = toggleFavorite.checkFavorite(sessionManager.getIdUser());
+        call.enqueue(new Callback<Messages>() {
+            @Override
+            public void onResponse(Call<Messages> call, Response<Messages> response) {
+                if (response.isSuccessful()) {
+                    //set trang thai hien tai
+                    Messages msg = response.body();
+                    if (msg.getStatus() == 0) {
+                        //is favorite
+                        setBackgroundIsFavorite();
+                    } else {
+                        //not favorite
+                        setBackgroundNotFavorite();
+                    }
+                } else {
+                    Toast.makeText(DetailProductsActivity.this, "Đã có lỗi xảy ra, vui lòng thử lại sau", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Messages> call, Throwable t) {
+                Log.e("FailureCheck", "onFailure: ", t);
+                Toast.makeText(DetailProductsActivity.this, "Lỗi kết nối server", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setBackgroundIsFavorite() {
+    }
+
+    private void setBackgroundNotFavorite() {
+
+    }
+
+    private void actionIncreaseProduct() {
+        if (list.size() != 0) {
+            int index = -1;
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getProducts().get_id().equals(products.get_id())) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index != -1) {
+                if (list.get(index).getSoLuong() <= products.getQuantity()) {
+                    if (count < products.getQuantity() - list.get(index).getSoLuong() && count < 15) {
+                        count++;
+                        tv_quantity.setText(String.valueOf(count));
+                        tv_price.setText(products.getPrice() * count + " đ");
+                    }
+                }
+            } else {
+                if (count < products.getQuantity() && count < 15) {
+                    count++;
+                    tv_quantity.setText(String.valueOf(count));
+                    tv_price.setText(products.getPrice() * count + " đ");
+                }
+            }
+
+        } else {
+            //list null
+            if (count < products.getQuantity() && count < 15) {
+                count++;
+                tv_quantity.setText(String.valueOf(count));
+                tv_price.setText(products.getPrice() * count + " đ");
+            }
+        }
+    }
+
+    private void actionReduceProduct() {
+
+    }
+
     private void setDataListColor() {
         sizeCount = products.getSize().size();
-        for (int i =0; i<sizeCount; i++){
-            for (int j= 0; j<products.getSize().get(i).getColor().size();j++){
-                if (!colorList.contains(products.getSize().get(i).getColor().get(j))){
+        for (int i = 0; i < sizeCount; i++) {
+            for (int j = 0; j < products.getSize().get(i).getColor().size(); j++) {
+                if (!colorList.contains(products.getSize().get(i).getColor().get(j))) {
                     colorList.add(products.getSize().get(i).getColor().get(j));
                     codeList.add(products.getSize().get(i).getColor().get(j).getColorCode());
                 }
@@ -292,9 +329,9 @@ public class DetailProductsActivity extends AppCompatActivity {
 
     private void loadColor(List<ColorCodes> codeList) {
         adapter = new Adapter_Color_DetailProd(codeList, colorCode -> {
-//            cCode = colorCode;
+            cCode = colorCode;
         });
-        recyclerViewColor.setLayoutManager(new GridLayoutManager(this,5));
+        recyclerViewColor.setLayoutManager(new GridLayoutManager(this, 5));
         recyclerViewColor.setAdapter(adapter);
     }
 
@@ -307,22 +344,15 @@ public class DetailProductsActivity extends AppCompatActivity {
         sp.setQuantitySold(products.getQuantitySold());
         sp.setMota(products.getMota());
     }
-    private void setSize(String _id, SizeCodes sizeCode, List<Colors> color, int quantity){
-        s= new Sizes(_id, sizeCode, color, quantity);
+
+    private void setSize(String _id, SizeCodes sizeCode, List<Colors> color, int quantity) {
+        s = new Sizes(_id, sizeCode, color, quantity);
     }
-    private void setSizeCode(SizeCodes sizeCode){
+
+    private void setSizeCode(SizeCodes sizeCode) {
         sc = sizeCode;
     }
 
-    private void mProducts (){
-        Products products1 = new Products();
-        ColorCodes colorCode = new ColorCodes();
-        ProductType productType = new ProductType();
-        Sizes size1 = new Sizes();
-        SizeCodes sizeCode = new SizeCodes();
-        size1.get_id();
-        size1.getSizeCode();
-    }
 
 // Set other properties as needed
 
@@ -357,6 +387,7 @@ public class DetailProductsActivity extends AppCompatActivity {
         img_product = findViewById(R.id.anh_sp);
         img_backpress = findViewById(R.id.btnback);
         btn_themGH = findViewById(R.id.btn_themGH);
+        img_favorite = findViewById(R.id.img_toggle_favorite);
 
         tv_S = findViewById(R.id.size_s);
         tv_M = findViewById(R.id.size_m);
@@ -404,50 +435,76 @@ public class DetailProductsActivity extends AppCompatActivity {
         textView.setBackground(gradientDrawable);
         textView.setTextColor(getResources().getColor(R.color.text_1));
     }
+    private void chooseSize(TextView tv){
+        setBackgroundPick(tv);
+        if (selectedTV != null && selectedTV != tv){
+            setBackgroundDefault(tv);
+        }
+        selectedTV = tv;
+    }
+
     private void SizeExistButNoQty(String a) {
         if (a.equals(S)) {
             tv_S.setClickable(false);
             setBackgroundOff(tv_S);
-        } else if (a.equals(M)){
+        } else if (a.equals(M)) {
             setBackgroundOff(tv_M);
             tv_M.setClickable(false);
-        } else if (a.equals(L)){
+        } else if (a.equals(L)) {
             setBackgroundOff(tv_L);
             tv_L.setClickable(false);
-        } else if (a.equals(XL)){
+        } else if (a.equals(XL)) {
             setBackgroundOff(tv_XL);
             tv_XL.setClickable(false);
-        } else if (a.equals(XXL)){
+        } else if (a.equals(XXL)) {
             setBackgroundOff(tv_XXL);
             tv_XXL.setClickable(false);
         }
     }
-    private void setSizeExist(String a) {
-        if (a.equals(S)) {
+
+    private void setSizeExist(List<String> mList) {
+        for (String str : mList) {
+            if (str.equals(S)) {
+                ss = true;
+            }
+            if (str.equals(M)) {
+                sm = true;
+            }
+            if (str.equals(L)) {
+                sl = true;
+            }
+            if (str.equals(XL)) {
+                sxl = true;
+            }
+            if (str.equals(XXL)) {
+                sxxl = true;
+            }
+        }
+        if (ss) {
             setBackgroundDefault(tv_S);
         } else {
             tv_S.setClickable(false);
             setBackgroundOff(tv_S);
         }
-        if (a.equals(M)) {
+        if (sm) {
             setBackgroundDefault(tv_M);
         } else {
             setBackgroundOff(tv_M);
             tv_S.setClickable(false);
         }
-        if (a.equals(L)) {
+        if (sl) {
             setBackgroundDefault(tv_L);
         } else {
             setBackgroundOff(tv_L);
             tv_S.setClickable(false);
         }
-        if (a.equals(XL)) {
+        if (sxl) {
             setBackgroundDefault(tv_XL);
         } else {
             setBackgroundOff(tv_XL);
             tv_S.setClickable(false);
         }
-        if (a.equals(XXL)) {
+        if (sxxl) {
             setBackgroundDefault(tv_XXL);
         } else {
             setBackgroundOff(tv_XXL);

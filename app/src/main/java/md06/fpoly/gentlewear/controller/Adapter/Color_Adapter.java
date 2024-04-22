@@ -43,7 +43,7 @@ public class Color_Adapter extends RecyclerView.Adapter<Color_Adapter.ColorViewH
     public void onBindViewHolder(@NonNull ColorViewHolder holder, int position) {
         Colors color = colors.get(position);
         holder.colorName.setText(color.getColorCode().getNameColor());
-        Glide.with(context).load(color.getColorCode().getImage()).into(holder.colorImage);
+        Glide.with(context).load(color.getImage()).into(holder.colorImage);
         Log.d("Color_Adapter", "Item at position " + position + " bound.");
 
     }

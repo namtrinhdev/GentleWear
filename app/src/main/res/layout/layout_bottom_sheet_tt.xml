@@ -25,7 +25,7 @@
             android:fontFamily="@font/latobold"
             android:padding="12dp"
             android:text="@string/payWithZalo"
-            android:textColor="#0791E5"
+            android:textColor="@color/zaloColor"
             android:drawableRight="@drawable/zalopaylogo"
             android:textSize="18sp"/>
 </LinearLayout>

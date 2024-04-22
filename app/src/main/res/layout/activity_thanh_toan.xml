@@ -127,32 +127,6 @@
                     android:textColor="@color/text_2"
                     android:textSize="17sp" />
             </FrameLayout>
-<!--            <FrameLayout-->
-<!--                android:id="@+id/btn_option_thanhToanZalo"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_below="@+id/btn_option_thanhToan"-->
-<!--                android:layout_marginStart="15dp"-->
-<!--                android:layout_marginEnd="15dp"-->
-<!--                android:layout_marginBottom="45dp"-->
-<!--                android:background="@drawable/shape_ed_find">-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/tv_phuongThuc_thanhToan"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center_vertical"-->
-<!--                    android:layout_marginTop="15dp"-->
-<!--                    android:layout_marginEnd="10dp"-->
-<!--                    android:layout_marginBottom="15dp"-->
-<!--                    android:drawableRight="@drawable/baseline_navigate_next_24"-->
-<!--                    android:fontFamily="@font/latobold"-->
-<!--                    android:drawablePadding="5dp"-->
-<!--                    android:paddingStart="10dp"-->
-<!--                    android:text="Thanh toán bằng Zalopay"-->
-<!--                    android:textColor="@color/text_2"-->
-<!--                    android:textSize="17sp" />-->
-<!--            </FrameLayout>-->
 
             <TextView
                 android:id="@+id/tv_title_money_thanhToan"
@@ -161,6 +135,7 @@
                 android:layout_below="@+id/btn_option_thanhToan"
                 android:layout_marginStart="15dp"
                 android:text="Ví của bạn"
+                android:visibility="gone"
                 android:textSize="15sp" />
 
             <RelativeLayout
@@ -170,7 +145,8 @@
                 android:layout_below="@+id/btn_option_thanhToan"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="39dp"
-                android:layout_marginEnd="15dp">
+                android:layout_marginEnd="15dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/nonused_ID_010"
@@ -285,7 +261,7 @@
                 android:text="Số dư hiện tại không đủ"
                 android:textColor="@color/bg_red"
                 android:textSize="15sp"
-                android:visibility="invisible" />
+                android:visibility="gone" />
             <TextView
                 android:id="@+id/lblZpTransToken"
                 android:layout_width="wrap_content"

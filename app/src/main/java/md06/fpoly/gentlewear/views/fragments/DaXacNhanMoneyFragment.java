@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 import md06.fpoly.gentlewear.R;
-import md06.fpoly.gentlewear.activitys.DetailDonNapActivity;
+import md06.fpoly.gentlewear.activitys.DetailProductsActivity;
 import md06.fpoly.gentlewear.apiServices.ChangeStatusDonNapInterface;
 import md06.fpoly.gentlewear.apiServices.NapTienInterface;
 import md06.fpoly.gentlewear.classs.RetrofitClientAPI;
@@ -104,7 +104,7 @@ public class DaXacNhanMoneyFragment extends Fragment {
 
             @Override
             public void openDetailMoney(NapTien item) {
-                Intent i = new Intent(getActivity(), DetailDonNapActivity.class);
+                Intent i = new Intent(getActivity(), DetailProductsActivity.class);
                 i.putExtra("naptien",item);
                 startActivity(i);
             }

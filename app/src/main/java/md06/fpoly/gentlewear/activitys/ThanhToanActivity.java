@@ -48,30 +48,13 @@ import vn.zalopay.sdk.listeners.PayOrderListener;
 public class ThanhToanActivity extends AppCompatActivity {
     private SessionManager sessionManager;
     private RecyclerView recyclerView;
-    private FrameLayout btn_address, btn_option_thanhToan, btn_Dat_Hang, btn_choose_thanhToan;
+    private FrameLayout btn_address, btn_Dat_Hang, btn_choose_thanhToan;
     private RelativeLayout view_viTien;
     private TextView tv_address, tv_pt_thanhToan, tv_Total_Price;
-    private boolean tag;
+    private int tag;
     private TextView tv_soDuHT, tv_tongDonHang, tv_soDuMoi, tv_msg, tv_title;
     private ThanhToanAPI_Interface mInterface;
     private CartAdapter adapter;
-    TextView lblZpTransToken, txtToken;
-
-    private void BindView() {
-        txtToken = findViewById(R.id.txtToken);
-        lblZpTransToken = findViewById(R.id.lblZpTransToken);
-        IsLoading();
-    }
-
-    private void IsLoading() {
-        lblZpTransToken.setVisibility(View.INVISIBLE);
-        txtToken.setVisibility(View.INVISIBLE);
-    }
-
-    private void IsDone() {
-        lblZpTransToken.setVisibility(View.INVISIBLE);
-        txtToken.setVisibility(View.VISIBLE);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +64,10 @@ public class ThanhToanActivity extends AppCompatActivity {
         sessionManager = new SessionManager(this);
         mInterface = RetrofitClientAPI.getRetrofitInstance().create(ThanhToanAPI_Interface.class);
 
-        StrictMode.ThreadPolicy policy = new
-                StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         ZaloPaySDK.init(AppInfo.APP_ID, Environment.SANDBOX);
-        BindView();
         // handle CreateOrder
         // Set dia chi giao hang
         if (sessionManager.getAddress().equals("")) {
@@ -102,6 +83,41 @@ public class ThanhToanActivity extends AppCompatActivity {
         });
 
         // Hien thi danh sach don hang
+        loadListCart();
+
+
+        // Hide wallet, set total price
+        tv_Total_Price.setText(Cart2.getInstance().getTotalPrice() + " đ");
+
+        // Click option thanh toan
+        setDefaultTextViewPaymentMethod();
+        btn_choose_thanhToan.setOnClickListener(view -> {
+            openDialogBottom();
+        });
+
+        // Back press
+        findViewById(R.id.btn_back_thanhToan).setOnClickListener(view -> {
+            onBackPressed();
+        });
+
+        btn_Dat_Hang.setOnClickListener(view -> {
+            if (sessionManager.getAddress().equals("")) {
+                Toast.makeText(this, "Vui lòng thêm địa chỉ giao hàng", Toast.LENGTH_SHORT).show();
+            } else {
+                if (tag == 0) {
+                    postData(0);
+                    startActivity(new Intent(ThanhToanActivity.this, QLDH_Activity.class));
+                    finish();
+                } else {
+                    //
+                    createTokenOrder();
+                    // Xu ly khi bam nut Dat Hang
+                }
+            }
+        });
+    }
+
+    private void loadListCart() {
         adapter = new CartAdapter(this, new Cart_Update_Interface() {
             @Override
             public void onDelete(int position) {
@@ -116,44 +132,6 @@ public class ThanhToanActivity extends AppCompatActivity {
         adapter.setData(Cart2.getInstance().getCart());
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);
-
-        // Hide wallet, set total price
-        setVisibilityVi(false);
-        tv_Total_Price.setText(Cart2.getInstance().getTotalPrice() + " đ");
-
-        // Click option thanh toan
-        tag = true;
-        btn_choose_thanhToan.setOnClickListener(view -> {
-            openDialogBottom();
-        });
-
-        // Back press
-        findViewById(R.id.btn_back_thanhToan).setOnClickListener(view -> {
-            onBackPressed();
-        });
-
-        btn_Dat_Hang.setOnClickListener(view -> {
-            if (sessionManager.getAddress().equals("")) {
-                Toast.makeText(this, "Vui lòng thêm địa chỉ giao hàng", Toast.LENGTH_SHORT).show();
-            } else {
-                if (!tag) {
-                    if (!checkMoney()) {
-                        Toast.makeText(this, "Số dư không đủ, vui lòng chọn phương thức thanh toán khác", Toast.LENGTH_SHORT).show();
-                    } else {
-                        postData(0);
-                        sessionManager.setMoney(sessionManager.getMoney() - Cart2.getInstance().getTotalPrice());
-                        Cart2.getInstance().clear();
-                        startActivity(new Intent(ThanhToanActivity.this, QLDH_Activity.class));
-                        finish();
-                    }
-                } else {
-                    //
-                    createTokenOrder();
-                    // Xu ly khi bam nut Dat Hang
-
-                }
-            }
-        });
     }
 
     private void createTokenOrder() {
@@ -161,14 +139,12 @@ public class ThanhToanActivity extends AppCompatActivity {
         try {
             // Pass total price as a string
             JSONObject data = orderApi.createOrder(String.valueOf(Cart2.getInstance().getTotalPrice()));
-            lblZpTransToken.setVisibility(View.VISIBLE);
             String code = data.getString("return_code");
             Toast.makeText(getApplicationContext(), "Tạo đơn hàng thành công", Toast.LENGTH_LONG).show();
 
             if (code.equals("1")) {
                 String token = data.getString("zp_trans_token");
                 startPayWithZaloPay(token);
-                IsDone();
             }
 
         } catch (Exception e) {
@@ -189,7 +165,6 @@ public class ThanhToanActivity extends AppCompatActivity {
                 postData(1);
                 startActivity(new Intent(ThanhToanActivity.this, QLDH_Activity.class));
                 finish();
-
             }
 
             @Override
@@ -235,14 +210,6 @@ public class ThanhToanActivity extends AppCompatActivity {
     }
 
 
-    private int optionPayment() {
-        if (checkMoney()) {
-            return tag ? 0 : 1;
-        }
-        return 0;
-    }
-
-
     private boolean checkMoney() {
         return Cart2.getInstance().getTotalPrice() <= sessionManager.getMoney();
     }
@@ -252,7 +219,6 @@ public class ThanhToanActivity extends AppCompatActivity {
         tv_pt_thanhToan = findViewById(R.id.tv_phuongThuc_thanhToan);
         tv_Total_Price = findViewById(R.id.tv_price_thanhToan);
         btn_address = findViewById(R.id.id_address_thanhToan);
-//        btn_option_thanhToanZalo = findViewById(R.id.btn_option_thanhToanZalo);
         btn_Dat_Hang = findViewById(R.id.btn_dat_hang);
         recyclerView = findViewById(R.id.id_recycle_thanhToan);
         btn_choose_thanhToan = findViewById(R.id.btn_option_thanhToan);
@@ -296,6 +262,23 @@ public class ThanhToanActivity extends AppCompatActivity {
         TextView tv_cash = view.findViewById(R.id.tv_cash);
         TextView tv_zaloPay = view.findViewById(R.id.tv_zalopay);
 
+        tv_cash.setOnClickListener(v -> {
+            setDefaultTextViewPaymentMethod();
+            dialog.dismiss();
+        });
+        tv_zaloPay.setOnClickListener(v -> {
+            tv_pt_thanhToan.setText(tv_zaloPay.getText().toString());
+            tv_pt_thanhToan.setBackgroundResource(R.drawable.shape_zalopayment);
+            tv_pt_thanhToan.setTextColor(getResources().getColor(R.color.zaloColor));
+            tag = 1;
+            dialog.dismiss();
+        });
+    }
+    private void setDefaultTextViewPaymentMethod(){
+        tv_pt_thanhToan.setBackgroundResource(R.drawable.shape_item);
+        tv_pt_thanhToan.setText("Thanh toán sau khi nhận hàng");
+        tv_pt_thanhToan.setTextColor(getResources().getColor(R.color.bg_btn));
+        tag = 0;
     }
 
     @Override
