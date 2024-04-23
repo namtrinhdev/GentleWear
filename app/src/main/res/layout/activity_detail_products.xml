@@ -112,12 +112,12 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginRight="20dp"
                         android:layout_marginBottom="7dp"
-                        android:drawableLeft="@drawable/vnd_black"
+                        android:drawableLeft="@drawable/vnd_blue"
                         android:fontFamily="@font/latoblack"
                         android:gravity="center"
                         android:text="48.00"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:textColor="@color/bg_btn"
+                        android:textSize="19sp" />
                 </RelativeLayout>
 
 

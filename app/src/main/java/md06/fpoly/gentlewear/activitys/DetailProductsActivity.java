@@ -46,16 +46,14 @@ public class DetailProductsActivity extends AppCompatActivity {
     private String size;
     private List<Cart> list = Cart2.getInstance().getCart();
     private Products sp = new Products();
-    private Sizes s;
-    private SizeCodes sc = new SizeCodes();
-    private Colors color;
-    private ColorCodes cCode = new ColorCodes();
+    private Sizes s = new Sizes();
     private Adapter_Color_DetailProd adapter;
     private RecyclerView recyclerViewColor;
     private List<Colors> colorList = new ArrayList<>();
-    private List<ColorCodes> codeList = new ArrayList<>();
-    private int sizeCount = 0;
-    private int colorCount = 0;
+    private List<Sizes> sizeList = new ArrayList<>();
+    private List<String> sList = new ArrayList<>();
+
+    private int sizeCount = 0, colorCount = 0;
     private String selectedSize;
     private SessionManager sessionManager;
     private Favorite_API_Services toggleFavorite;
@@ -74,7 +72,6 @@ public class DetailProductsActivity extends AppCompatActivity {
         products = (Products) intent.getSerializableExtra("product_data");
 
         // Khởi tạo RecyclerView và adapter
-        List<Colors> colorsList = new ArrayList<>();
 
         tv_namepro.setText(products.getProductName());
         tv_mota.setText(products.getMota());
@@ -121,10 +118,10 @@ public class DetailProductsActivity extends AppCompatActivity {
 
         //lay ds color
         setDataListColor();
-        loadColor(codeList);
+        loadColor(colorList);
 
         //set size
-        List<String> sList = new ArrayList<>();
+
         List<SizeCodes> sCodeList = new ArrayList<>();
         for (int i = 0; i < sizeCount; i++) {
             sList.add(products.getSize().get(i).getSizeCode().getSizeCode());
@@ -139,45 +136,78 @@ public class DetailProductsActivity extends AppCompatActivity {
 
         //check click size
         tv_S.setOnClickListener(v -> {
-            Toast.makeText(this, "S", Toast.LENGTH_SHORT).show();
+            setClickSize(S, tv_S);
         });
         tv_M.setOnClickListener(v -> {
-            Toast.makeText(this, "M", Toast.LENGTH_SHORT).show();
+            setClickSize(M, tv_M);
         });
         tv_L.setOnClickListener(v -> {
-            Toast.makeText(this, "L", Toast.LENGTH_SHORT).show();
+            setClickSize(L, tv_L);
         });
         tv_XL.setOnClickListener(v -> {
-            Toast.makeText(this, "XL", Toast.LENGTH_SHORT).show();
+            setClickSize(XL, tv_XL);
         });
         tv_XXL.setOnClickListener(v -> {
-            Toast.makeText(this, "XXL", Toast.LENGTH_SHORT).show();
+            setClickSize(XXL, tv_XXL);
         });
 
 
         //set product
-        setProduct();
 
         btn_themGH.setOnClickListener(view -> {
+            actionAddToCart();
+        });
+
+    }
+
+    private void setClickSize(String str, TextView tv) {
+        if (checkSizeChoose(str, sList)) {
+            for (int i = 0; i < sizeCount; i++) {
+                if (products.getSize().get(i).getSizeCode().getSizeCode().equals(str)) {
+                    chooseSize(tv);
+                    s.set_id(products.getSize().get(i).get_id());
+                    s.setQuantity(products.getSize().get(i).getQuantity());
+                    s.setSizeCode(products.getSize().get(i).getSizeCode());
+                    colorList.clear();
+                    for (int j = 0; j < products.getSize().get(i).getColor().size(); j++) {
+                        if (!colorList.contains(products.getSize().get(i).getColor().get(j))) {
+                            //mau sac theo size
+                            colorList.add(products.getSize().get(i).getColor().get(j));
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        } else {
+            Toast.makeText(this, "Tạm thời hết hàng, chọn kích cỡ khác", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void actionAddToCart() {
+        sizeList.clear();
+        sizeList.add(s);
+        setProduct(sizeList);
+        if (colorList.size() == 0 || sizeList.size() == 0) {
+            Toast.makeText(this, "Chọn kích cỡ và màu sắc bạn mong muốn", Toast.LENGTH_SHORT).show();
+        } else {
             if (count != 0) {
-                Cart cart = new Cart();
+                //so luong > 0
+                Cart cart = new Cart(sp, count);
                 if (list.size() == 0) {
+                    // gio hang trong -> add
                     list.add(cart);
                     Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
-                    if (products.getQuantity() == count) {
+                    if (products.getSize().get(0).getColor().get(0).getQuantity() == count) {
                         count = 0;
                         tv_quantity.setText(String.valueOf(count));
-                        tv_price.setText(products.getPrice() * count + " đ");
                     } else {
                         count = 1;
                         tv_quantity.setText(String.valueOf(count));
-                        tv_price.setText(products.getPrice() * count + " đ");
                     }
-
                 } else {
                     int index = -1;
                     for (int i = 0; i < list.size(); i++) {
-                        if (list.get(i).getProducts().get_id().equals(cart.getProducts().get_id())) {
+                        if (list.get(i).getProducts().compareProducts(list.get(i).getProducts(), sp)) {
                             index = i;
                             break;
                         }
@@ -188,11 +218,9 @@ public class DetailProductsActivity extends AppCompatActivity {
                         if (products.getQuantity() > sum) {
                             count = 1;
                             tv_quantity.setText(String.valueOf(count));
-                            tv_price.setText(products.getPrice() * count + " đ");
                         } else {
                             count = 0;
                             tv_quantity.setText(String.valueOf(count));
-                            tv_price.setText(count * products.getPrice() + " đ");
                         }
                     } else {
                         Toast.makeText(this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
@@ -200,17 +228,28 @@ public class DetailProductsActivity extends AppCompatActivity {
                         if (products.getQuantity() == count) {
                             count = 0;
                             tv_quantity.setText(String.valueOf(count));
-                            tv_price.setText(products.getPrice() * count + " đ");
                         } else {
                             count = 1;
                             tv_quantity.setText(String.valueOf(count));
-                            tv_price.setText(products.getPrice() * count + " đ");
                         }
                     }
                 }
             }
-        });
+        }
+    }
 
+    private boolean checkSizeChoose(String s, List<String> sList) {
+        for (String str : sList) {
+            if (str.equals(s)) {
+                for (int i = 0; i < sizeCount; i++) {
+                    if (products.getSize().get(i).getQuantity() >= 1) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+        return false;
     }
 
     private void actionToggleFavorite() {
@@ -318,24 +357,30 @@ public class DetailProductsActivity extends AppCompatActivity {
     private void setDataListColor() {
         sizeCount = products.getSize().size();
         for (int i = 0; i < sizeCount; i++) {
-            for (int j = 0; j < products.getSize().get(i).getColor().size(); j++) {
+            colorCount = products.getSize().get(i).getColor().size();
+            for (int j = 0; j < colorCount; j++) {
                 if (!colorList.contains(products.getSize().get(i).getColor().get(j))) {
                     colorList.add(products.getSize().get(i).getColor().get(j));
-                    codeList.add(products.getSize().get(i).getColor().get(j).getColorCode());
                 }
             }
         }
     }
 
-    private void loadColor(List<ColorCodes> codeList) {
-        adapter = new Adapter_Color_DetailProd(codeList, colorCode -> {
-            cCode = colorCode;
+    private void loadColor(List<Colors> cList) {
+        adapter = new Adapter_Color_DetailProd(cList, colors -> {
+            if (colors.getQuantity() < 1) {
+                Toast.makeText(this, "Tạm thời hết hàng, chọn màu sắc khác", Toast.LENGTH_SHORT).show();
+            } else {
+                colorList.clear();
+                colorList.add(colors);
+                s.setColor(colorList);
+            }
         });
         recyclerViewColor.setLayoutManager(new GridLayoutManager(this, 5));
         recyclerViewColor.setAdapter(adapter);
     }
 
-    private void setProduct() {
+    private void setProduct(List<Sizes> lSize) {
         sp.set_id(products.get_id());
         sp.setProductName(products.getProductName());
         sp.setPrice(products.getPrice());
@@ -343,14 +388,7 @@ public class DetailProductsActivity extends AppCompatActivity {
         sp.setProductType(products.getProductType());
         sp.setQuantitySold(products.getQuantitySold());
         sp.setMota(products.getMota());
-    }
-
-    private void setSize(String _id, SizeCodes sizeCode, List<Colors> color, int quantity) {
-        s = new Sizes(_id, sizeCode, color, quantity);
-    }
-
-    private void setSizeCode(SizeCodes sizeCode) {
-        sc = sizeCode;
+        sp.setSize(lSize);
     }
 
 
@@ -435,9 +473,10 @@ public class DetailProductsActivity extends AppCompatActivity {
         textView.setBackground(gradientDrawable);
         textView.setTextColor(getResources().getColor(R.color.text_1));
     }
-    private void chooseSize(TextView tv){
+
+    private void chooseSize(TextView tv) {
         setBackgroundPick(tv);
-        if (selectedTV != null && selectedTV != tv){
+        if (selectedTV != null && selectedTV != tv) {
             setBackgroundDefault(tv);
         }
         selectedTV = tv;

@@ -90,4 +90,26 @@ public class Products implements Serializable {
     public void setQuantitySold(int quantitySold) {
         this.quantitySold = quantitySold;
     }
+    public boolean compareProducts(Products product1, Products product2) {
+        // So sánh _id
+        if (!product1.get_id().equals(product2.get_id())) {
+            return false;
+        }
+
+        // So sánh price
+        if (product1.getPrice() != product2.getPrice()) {
+            return false;
+        }
+
+        // So sánh size
+        if (!product1.getSize().get(0).get_id().equals(product2.getSize().get(0).get_id())) {
+            return false;
+        }
+        if (!product1.getSize().get(0).getColor().get(0).get_id().equals(product2.getSize().get(0).getColor().get(0).get_id())) {
+            return false;
+        }
+
+        // Trả về true nếu tất cả các trường đều trùng khớp
+        return true;
+    }
 }
