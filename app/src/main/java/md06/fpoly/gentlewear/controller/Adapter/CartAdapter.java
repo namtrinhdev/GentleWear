@@ -53,7 +53,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         Cart model = arrayList.get(position);
         if (model != null && model.getProducts() != null) {
             holder.tv_namesp.setText(model.getProducts().getProductName());
-            holder.tv_price.setText(String.valueOf(model.getProducts().getPrice()));
+            holder.tv_price.setText(model.getProducts().getPrice()+ " đ");
             holder.tv_quantity.setText(String.valueOf(model.getSoLuong()));
 
             // Safely accessing the nested properties with checks

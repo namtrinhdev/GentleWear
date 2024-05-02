@@ -112,47 +112,47 @@
                     android:textStyle="bold" />
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/id_your_wallet"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="15dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="5dp"
-                app:contentPaddingLeft="20dp">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/id_your_wallet"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_marginLeft="15dp"-->
+<!--                android:layout_marginRight="15dp"-->
+<!--                android:layout_marginBottom="15dp"-->
+<!--                app:cardCornerRadius="8dp"-->
+<!--                app:cardElevation="5dp"-->
+<!--                app:contentPaddingLeft="20dp">-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:text="Ví của bạn"
-                    android:textColor="@color/text_red"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </androidx.cardview.widget.CardView>
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:text="Ví của bạn"-->
+<!--                    android:textColor="@color/text_red"-->
+<!--                    android:textSize="18sp"-->
+<!--                    android:textStyle="bold" />-->
+<!--            </androidx.cardview.widget.CardView>-->
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/id_qld_napTien"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="15dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="5dp"
-                app:contentPaddingLeft="20dp">
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/id_qld_napTien"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_marginLeft="15dp"-->
+<!--                android:layout_marginRight="15dp"-->
+<!--                android:layout_marginBottom="15dp"-->
+<!--                app:cardCornerRadius="8dp"-->
+<!--                app:cardElevation="5dp"-->
+<!--                app:contentPaddingLeft="20dp">-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:text="Lịch sử nạp tiền"
-                    android:textColor="@color/text_red"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </androidx.cardview.widget.CardView>
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:text="Lịch sử nạp tiền"-->
+<!--                    android:textColor="@color/text_red"-->
+<!--                    android:textSize="18sp"-->
+<!--                    android:textStyle="bold" />-->
+<!--            </androidx.cardview.widget.CardView>-->
 
 
             <androidx.cardview.widget.CardView

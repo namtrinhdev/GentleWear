@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,7 @@ public class CartFragment extends Fragment {
         btn_thanhtoan.setOnClickListener(v -> {
             if (sessionManager.isLoggedIn()) {
                 if (list.size() != 0) {
+                    Log.e("TAG", "onViewCreated: "+ Cart2.getInstance().getCart() );
                     Intent i = new Intent(getActivity(), ThanhToanActivity.class);
                     startActivity(i);
                 }

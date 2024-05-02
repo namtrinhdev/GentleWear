@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="15dp"
     app:cardElevation="1dp"
+    android:layout_margin="10dp"
     android:backgroundTint="@color/bg_ed"
     >
 
@@ -21,7 +22,7 @@
             app:cardElevation="0dp">
 
             <ImageView
-                android:id="@+id/img_item_donHang"
+                android:id="@+id/img_item_donHang_TT"
                 android:layout_width="120dp"
                 android:layout_height="95dp"
                 android:scaleType="centerCrop"

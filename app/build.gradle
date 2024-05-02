@@ -65,4 +65,6 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.6.0")
     implementation("commons-codec:commons-codec:1.14")
 
+    implementation 'me.relex:circleindicator:2.1.6'
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
 }
