@@ -5,8 +5,6 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -16,8 +14,7 @@ import md06.fpoly.gentlewear.controller.Adapter.ViewpageAdapter;
 
 public class MainActivity extends AppCompatActivity {
     private ViewPager2 viewPager;
-    DrawerLayout drawerLayout;
-    Toolbar toolbar;
+
     private BottomNavigationView bottomNavigationView;
 
 

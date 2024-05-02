@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Tab chưa được chọn -->
+    <item android:state_selected="false" android:drawable="@drawable/clothes"  /> <!-- Màu chữ trắng khi không được chọn -->
+    <!-- Tab được chọn -->
+    <item android:state_selected="true" android:drawable="@drawable/clothes48" /> <!-- Màu chữ đỏ khi được chọn -->
+</selector>

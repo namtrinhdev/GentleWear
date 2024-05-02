@@ -1,9 +1,23 @@
 package md06.fpoly.gentlewear.models;
 
-public class ProductType {
+import java.io.Serializable;
+
+public class ProductType implements Serializable {
     private String _id, tenLoai;
+    private boolean isSelected;
 
     public ProductType() {
+    }
+
+    public ProductType(String productTypeId) {
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     public String get_id() {

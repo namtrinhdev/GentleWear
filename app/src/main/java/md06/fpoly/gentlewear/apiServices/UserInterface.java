@@ -20,13 +20,20 @@ import retrofit2.http.Path;
 public interface UserInterface {
     @POST("api/users/register")
     Call<Messages> registerUser(@Body Users data);
+
     @GET("api/users")
     Call<List<Users>> getAllUser();
+
     @GET("api/users/{id}")
     Call<Users> getUserById(@Path("id") String id);
+
     @FormUrlEncoded
     @POST("api/users/login")
     Call<Messages> checkLogin(@Field("email") String email, @Field("passwd") String passwd);
+
+    @POST("/api/users/forgot-password")
+    Call<Messages> resetpass(@Body String email);
+
     @Multipart
     @PUT("api/users/{id}")
     Call<Users> putUser(@Path("id") String id,

@@ -17,6 +17,8 @@ public class SessionManager {
     private static final String KEY_PHONE_NUMBER = "phoneNumber";
     private static final String KEY_AVATAR = "avatar";
     private static final String KEY_VAI_TRO = "vaiTro";
+    private static final String KEY_MONEY = "money";
+    private static final String KEY_SCREEN = "screen";
     private final SharedPreferences sharedPreferences;
     private final SharedPreferences.Editor editor;
     private final Context context;
@@ -35,6 +37,7 @@ public class SessionManager {
         editor.putString(KEY_PHONE_NUMBER, users.getSdt());
         editor.putInt(KEY_VAI_TRO, users.getStatus());
         editor.putString(KEY_AVATAR, users.getAvatar());
+        editor.putInt(KEY_MONEY, users.getSoTien());
         editor.apply();
     }
 
@@ -58,6 +61,10 @@ public class SessionManager {
     }
     public void setFullName(String name){
         editor.putString(KEY_FULL_NAME,name);
+        editor.apply();
+    }
+    public void setKeyScreen(int screen){
+        editor.putInt(KEY_SCREEN,screen);
         editor.apply();
     }
     public void checkLogin() {
@@ -84,6 +91,7 @@ public class SessionManager {
         users.setPasswd(sharedPreferences.getString(KEY_TOKEN, ""));
         users.setStatus(sharedPreferences.getInt(KEY_VAI_TRO, 1));
         users.setAvatar(sharedPreferences.getString(KEY_AVATAR, ""));
+        users.setSoTien(sharedPreferences.getInt(KEY_MONEY,0 ));
         return users;
     }
     public String getIdUser() {
@@ -92,9 +100,19 @@ public class SessionManager {
     public String getFullName() {
         return sharedPreferences.getString(KEY_FULL_NAME, "");
     }
+    public int getKeyScreen() {
+        return sharedPreferences.getInt(KEY_SCREEN, 0);
+    }//key 0: main activity, key 1: fragment Cart, key 2: fragment account
 
     public String getEmail() {
         return sharedPreferences.getString(KEY_EMAIL, "");
+    }
+    public String getToken() {
+        return sharedPreferences.getString(KEY_TOKEN, "");
+    }
+    public void setMoney(int soTien){
+        editor.putInt(KEY_MONEY,soTien);
+        editor.apply();
     }
 
     public String getPhoneNumber() {
@@ -109,5 +127,8 @@ public class SessionManager {
     }
     public String getAvatar() {
         return sharedPreferences.getString(KEY_AVATAR, "");
+    }
+    public int getMoney() {
+        return sharedPreferences.getInt(KEY_MONEY,0);
     }
 }

@@ -2,19 +2,51 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <queries>
+        <package android:name="vn.com.vng.zalopay" />
+        <package android:name="vn.com.vng.zalopay.sbmc" />
+    </queries>
 
     <application
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:launchMode="singleTask"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GentleWear"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".activitys.DetailOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.ViMoneyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.NapTienActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.QLDonNapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.QLDH_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".activitys.DetailProductsActivity"
+            android:exported="false" />
         <activity
             android:name=".activitys.MainActivity"
             android:exported="false" />
@@ -31,14 +63,22 @@
             android:name=".activitys.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".activitys.LoadingActivity"
-            android:exported="true">
+            android:name=".activitys.InformationActivity"
+            android:exported="false" />
+        <activity android:name=".activitys.ThanhToanActivity" android:exported="true" android:launchMode="singleTask">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="app" android:scheme="demozpdk"/>
             </intent-filter>
         </activity>
-    </application>
+        <activity android:name=".activitys.LoadingActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+</application>
 
-</manifest>
+    </manifest>

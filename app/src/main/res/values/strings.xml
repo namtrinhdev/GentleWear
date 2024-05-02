@@ -11,15 +11,22 @@
     <string name="password">Mật khẩu</string>
     <string name="remember_me">Nhớ tài khoản ?</string>
     <string name="forget_pass">Quên mật khẩu?</string>
-    <string name="create_acc">Tạo tài khoản</string>
+    <string name="create_acc">Bạn chưa có tài khoản ? Tạo tài khoản</string>
     <string name="goToCheckout">Thanh toán</string>
     <string name="addAllToCart">Add all to cart</string>
     <string name="ProductDetail">Chi tiết sản phẩm</string>
     <string name="login_register">Bạn đã có tài khoản ?  Đăng nhập</string>
     <string name="welcome_login">Yay! You are back! Thanks for shopping with us. We have excited deals and promotions going on, grab your pick now! </string>
     <string name="description_detail">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book...detail</string>
-    <string name="description">Description</string>
+    <string name="description">Mô tả</string>
     <string name="search">Tìm kiếm sản phẩm</string>
     <string name="searchYour">Tìm kiếm</string>
-    <string name="Filter">Lọc</string>
+    <string name="Filter">Bộ Lọc</string>
+    <string name="thanhtoan">Thanh toan</string>
+    <string name="product_color_circle">Product Color Circle</string>
+    <string name="product_type_icon">Áo Polo</string>
+    <string name="lbl_zptranstoken">zptranstoken</string>
+    <string name="payCash">Thanh toán sau khi nhận hàng</string>
+    <string name="payWithZalo">Thanh toán qua ZaloPay</string>
+
 </resources>

@@ -1,18 +1,17 @@
 package md06.fpoly.gentlewear.models;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 
 public class Users implements Serializable {
     private String _id,fullname,email,sdt,passwd,diaChi;
     private int status;
+    private boolean isLocked;
     private String avatar;
-
+    private int soTien;
     public Users() {
     }
 
-    public Users(String _id, String fullname, String email, String sdt, String passwd, String diaChi,int status, String avatar) {
+    public Users(String _id, String fullname, String email, String sdt, String passwd, String diaChi, int status, boolean isLocked, String avatar, int soTien) {
         this._id = _id;
         this.fullname = fullname;
         this.email = email;
@@ -20,7 +19,17 @@ public class Users implements Serializable {
         this.passwd = passwd;
         this.diaChi = diaChi;
         this.status = status;
+        this.isLocked = isLocked;
         this.avatar = avatar;
+        this.soTien = soTien;
+    }
+
+    public int getSoTien() {
+        return soTien;
+    }
+
+    public void setSoTien(int soTien) {
+        this.soTien = soTien;
     }
 
     public String get_id() {
@@ -85,5 +94,13 @@ public class Users implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public void setLocked(boolean locked) {
+        isLocked = locked;
     }
 }

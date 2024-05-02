@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="240dp"
+    android:padding="15dp">
+        <TextView
+            android:id="@+id/tv_cash"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="@string/payCash"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/latobold"
+            android:background="@drawable/shape_item"
+            android:textColor="@color/bg_btn"
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/tv_zalopay"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/shape_zalopayment"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/latobold"
+            android:padding="12dp"
+            android:text="@string/payWithZalo"
+            android:textColor="@color/zaloColor"
+            android:drawableRight="@drawable/zalopaylogo"
+            android:textSize="18sp"/>
+</LinearLayout>

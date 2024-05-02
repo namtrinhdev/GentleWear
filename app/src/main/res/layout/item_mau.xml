@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:layout_margin="5dp">
+
+    <!-- CheckBox to select the color -->
+    <CheckBox
+        android:id="@+id/checkBoxProductColor"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:checked="false"
+      />
+
+    <!-- Circular shape to represent the color -->
+    <ImageView
+        android:id="@+id/ImageColor"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/ao2"
+        android:contentDescription="@string/product_color_circle" />
+
+    <!-- Text view to display the color name -->
+    <TextView
+        android:id="@+id/textViewProductColorName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingStart="8dp"
+        android:text="Đen"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+</LinearLayout>
