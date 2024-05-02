@@ -21,11 +21,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     private Context context;
     private List<Favorites> marrayList;
 
-//    public FavoriteAdapter(Context context, List<Products> marrayList) {
-//        this.context = context;
-//        this.marrayList = marrayList;
-//    }
-
     public FavoriteAdapter(Context context, List<Favorites> favoriteProducts) {
         this.context = context;
         this.marrayList = favoriteProducts;

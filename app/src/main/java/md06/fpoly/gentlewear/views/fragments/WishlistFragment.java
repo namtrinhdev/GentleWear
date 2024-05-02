@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import md06.fpoly.gentlewear.R;
+import md06.fpoly.gentlewear.activitys.Login_Activity;
 import md06.fpoly.gentlewear.apiServices.Favorite_API_Services;
 import md06.fpoly.gentlewear.apiServices.ProductAPIServices;
 import md06.fpoly.gentlewear.classs.RetrofitClientAPI;
@@ -58,19 +59,24 @@ public class WishlistFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        // Khởi tạo adapter
-        adapter = new FavoriteAdapter(getContext(), new ArrayList<>());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
-        apiServices = RetrofitClientAPI.getRetrofitInstance().create(Favorite_API_Services.class);
         sessionManager = new SessionManager(getContext()); // Initialize sessionManager
-        String userId = sessionManager.getIdUser(); // Get userId
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
-        recyclerView.setLayoutManager(layoutManager);
-        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
-        loadData(userId);
+        String userId = sessionManager.getIdUser();
+        if (!sessionManager.isLoggedIn()){
+            startActivity(new Intent(getActivity(), Login_Activity.class));
+        }else {
+            adapter = new FavoriteAdapter(getContext(), new ArrayList<>());
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.setAdapter(adapter);
+            apiServices = RetrofitClientAPI.getRetrofitInstance().create(Favorite_API_Services.class);
+             // Get userId
+            GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+            recyclerView.setLayoutManager(layoutManager);
+            swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
+            loadData(userId);
+        }
+        // Khởi tạo adapter
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

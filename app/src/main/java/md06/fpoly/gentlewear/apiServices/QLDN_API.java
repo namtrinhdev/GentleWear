@@ -7,6 +7,7 @@ import md06.fpoly.gentlewear.models.ThanhToan;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -29,6 +30,7 @@ public interface QLDN_API {
     Call<List<ThanhToan>> getDsDaHuy(@Path("idUser")String id);
     @POST("api/orders/post")
     Call<Messages> postDonHang(@Body ThanhToan data);
+    @FormUrlEncoded
     @PUT("api/orders/put/{id}")
     Call<Messages> putDonHang(@Path("id") String id,@Field("trangThai") int trangThai, @Field("thoiGian") String time);
 }

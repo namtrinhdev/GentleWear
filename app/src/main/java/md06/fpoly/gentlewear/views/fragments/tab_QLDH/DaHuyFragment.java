@@ -20,6 +20,7 @@ import java.util.List;
 
 import md06.fpoly.gentlewear.R;
 import md06.fpoly.gentlewear.activitys.DetailOrderActivity;
+import md06.fpoly.gentlewear.apiServices.QLDH_Interface;
 import md06.fpoly.gentlewear.apiServices.QLDN_API;
 import md06.fpoly.gentlewear.classs.RetrofitClientAPI;
 import md06.fpoly.gentlewear.classs.SessionManager;
@@ -74,10 +75,18 @@ public class DaHuyFragment extends Fragment {
         recyclerView = view.findViewById(R.id.ryc_daHuy);
     }
     private void loadList(List<ThanhToan> list){
-        adapter = new Adapter_QLDH(list, data -> {
-            Intent intent = new Intent(getActivity(), DetailOrderActivity.class);
-            intent.putExtra("order", data);
-            startActivity(intent);
+        adapter = new Adapter_QLDH(list, new QLDH_Interface() {
+            @Override
+            public void onReceive(ThanhToan data) {
+                Intent intent = new Intent(getActivity(), DetailOrderActivity.class);
+                intent.putExtra("order", data);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onCanceled(ThanhToan data1) {
+
+            }
         });
         LinearLayoutManager manager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(manager);

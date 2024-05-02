@@ -178,7 +178,7 @@ public class ThanhToanActivity extends AppCompatActivity {
         });
     }
     private void postData(int optionPay) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         String thoiGian = sdf.format(new Date());
         ThanhToan data = new ThanhToan();
         data.setCart(Cart2.getInstance().getCart());

@@ -24,7 +24,7 @@ import md06.fpoly.gentlewear.controller.Adapter.Adapter_Tab_QLDH;
         private ViewPager2 viewPager2;
         private Adapter_Tab_QLDH adapter;
         private TabLayout tabLayout;
-ImageView btnback;
+        private ImageView btnback;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -34,42 +34,29 @@ ImageView btnback;
             btnback = findViewById(R.id.btnback);
             adapter = new Adapter_Tab_QLDH(this);
             viewPager2.setAdapter(adapter);
-            TabLayoutMediator mediator = new TabLayoutMediator(tabLayout, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
-                @SuppressLint("ResourceAsColor")
-                @Override
-                public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                    tab.setCustomView(R.layout.custom_tablayout);
-                    switch (position) {
-                        case 0:
-                            tab.setText("Chờ xác nhận");
-                            break;
-                        case 1:
-                            tab.setText("Chờ lấy hàng");
-                            break;
-                        case 2:
-                            tab.setText("Đang giao");
-                            break;
-                        case 3:
-                            tab.setText("Đã giao");
-                            break;
-                        case 4:
-                            tab.setText("Đã hủy");
-                            break;
-                    }
-                    View customView = tab.getCustomView();
-                    if (customView != null) {
-                        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) customView.getLayoutParams();
-                        params.rightMargin = 40;
-                    }
-                    tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.bg_red));
-
-                    // Set màu text khi không được chọn
-                    tabLayout.setTabTextColors(getResources().getColor(R.color.bg_white), Color.parseColor("#FF4081"));
+            TabLayoutMediator mediator = new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
+                switch (position) {
+                    case 0:
+                        tab.setText("Chờ xác nhận");
+                        break;
+                    case 1:
+                        tab.setText("Chờ lấy hàng");
+                        break;
+                    case 2:
+                        tab.setText("Đang giao");
+                        break;
+                    case 3:
+                        tab.setText("Đã giao");
+                        break;
+                    case 4:
+                        tab.setText("Đã hủy");
+                        break;
                 }
+
             });
             mediator.attach();
             btnback.setOnClickListener(v -> {
-
+                onBackPressed();
             });
         }
     }

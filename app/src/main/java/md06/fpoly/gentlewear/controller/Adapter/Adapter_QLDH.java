@@ -79,6 +79,7 @@ public class Adapter_QLDH extends RecyclerView.Adapter<Adapter_QLDH.WaitViewHold
         //click huy
         holder.btn_huy.setOnClickListener(v -> {
             //huy
+            mInterface.onCanceled(model);
         });
 
         holder.itemView.setOnClickListener(v -> {
