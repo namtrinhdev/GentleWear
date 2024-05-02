@@ -24,6 +24,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import md06.fpoly.gentlewear.R;
 import md06.fpoly.gentlewear.apiServices.Cart_Update_Interface;
@@ -31,7 +32,9 @@ import md06.fpoly.gentlewear.apiServices.ThanhToanAPI_Interface;
 import md06.fpoly.gentlewear.classs.RetrofitClientAPI;
 import md06.fpoly.gentlewear.classs.SessionManager;
 
+import md06.fpoly.gentlewear.controller.Adapter.Adapter_ThanhToan;
 import md06.fpoly.gentlewear.controller.Adapter.CartAdapter;
+import md06.fpoly.gentlewear.models.Cart;
 import md06.fpoly.gentlewear.models.Cart2;
 import md06.fpoly.gentlewear.models.CreateOrder;
 import md06.fpoly.gentlewear.models.Messages;
@@ -54,7 +57,7 @@ public class ThanhToanActivity extends AppCompatActivity {
     private int tag;
     private TextView tv_soDuHT, tv_tongDonHang, tv_soDuMoi, tv_msg, tv_title;
     private ThanhToanAPI_Interface mInterface;
-    private CartAdapter adapter;
+    private Adapter_ThanhToan adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +87,7 @@ public class ThanhToanActivity extends AppCompatActivity {
 
         // Hien thi danh sach don hang
         loadListCart();
-
+        Log.e("TAG", "onCreate: "+ Cart2.getInstance().getCart().get(0).getProducts().getProductName() );
 
         // Hide wallet, set total price
         tv_Total_Price.setText(Cart2.getInstance().getTotalPrice() + " đ");
@@ -118,18 +121,7 @@ public class ThanhToanActivity extends AppCompatActivity {
     }
 
     private void loadListCart() {
-        adapter = new CartAdapter(this, new Cart_Update_Interface() {
-            @Override
-            public void onDelete(int position) {
-
-            }
-
-            @Override
-            public void onUpdateCount() {
-
-            }
-        });
-        adapter.setData(Cart2.getInstance().getCart());
+        adapter = new Adapter_ThanhToan( this, Cart2.getInstance().getCart());
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);
     }
@@ -175,10 +167,16 @@ public class ThanhToanActivity extends AppCompatActivity {
             @Override
             public void onPaymentError(ZaloPayError zaloPayError, String zpTransToken, String appTransID) {
                 Toast.makeText(ThanhToanActivity.this, "Lỗi", Toast.LENGTH_SHORT).show();
+                Log.e("Order", ": "+zaloPayError.toString() );
+
+                if (zaloPayError == ZaloPayError.PAYMENT_APP_NOT_FOUND){
+                    Log.e("Order", "PAYMENT_APP_NOT_FOUND: " );
+                    ZaloPaySDK.getInstance().navigateToZaloPayOnStore(getApplicationContext());
+                    ZaloPaySDK.getInstance().navigateToZaloOnStore(getApplicationContext());
+                }
             }
         });
     }
-
     private void postData(int optionPay) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         String thoiGian = sdf.format(new Date());
@@ -210,9 +208,7 @@ public class ThanhToanActivity extends AppCompatActivity {
     }
 
 
-    private boolean checkMoney() {
-        return Cart2.getInstance().getTotalPrice() <= sessionManager.getMoney();
-    }
+
 
     private void anhxa() {
         tv_address = findViewById(R.id.tv_address_thanhToan);

@@ -31,7 +31,7 @@ public interface UserInterface {
     @POST("api/users/login")
     Call<Messages> checkLogin(@Field("email") String email, @Field("passwd") String passwd);
 
-    @POST("/api/users/resetpassword")
+    @POST("/api/users/forgot-password")
     Call<Messages> resetpass(@Body String email);
 
     @Multipart

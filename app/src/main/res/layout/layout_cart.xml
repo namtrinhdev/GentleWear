@@ -69,7 +69,6 @@
                 android:layout_height="27dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="15dp"
-                android:drawableLeft="@drawable/vnd_blue"
 
                 android:fontFamily="@font/latoblack"
                 android:text="28"

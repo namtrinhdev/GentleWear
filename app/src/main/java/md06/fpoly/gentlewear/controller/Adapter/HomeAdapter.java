@@ -20,6 +20,7 @@ import java.util.List;
 
 import md06.fpoly.gentlewear.R;
 import md06.fpoly.gentlewear.apiServices.Next_interface;
+import md06.fpoly.gentlewear.classs.APIClass;
 import md06.fpoly.gentlewear.models.Products;
 import md06.fpoly.gentlewear.models.ResProduct;
 
@@ -49,8 +50,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ClotherViewHol
     public void onBindViewHolder(@NonNull ClotherViewHolder holder, int position) {
         Products model = marrayList.get(position);
         holder.tv_name.setText(model.getProductName());
-        holder.tv_price.setText(String.valueOf(model.getPrice()));
-//        Glide.with(context).load(model.getImage()).apply(RequestOptions.centerCropTransform()).into(holder.imgavatar);
+        holder.tv_price.setText(model.getPrice()+ " đ");
+        String url = APIClass.URL +"uploads/"+model.getSize().get(0).getColor().get(0).getImage();
+        Glide.with(context)
+                    .load(url)
+                    .apply(RequestOptions.centerCropTransform())
+                    .into(holder.imgavatar);
         holder.itemView.setOnClickListener(view -> {
             anInterface.onNextPage(model);
         });
@@ -73,7 +78,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ClotherViewHol
             tv_name = itemView.findViewById(R.id.name_product);
             tv_price = itemView.findViewById(R.id.gia_product);
             imgavatar = itemView.findViewById(R.id.img_product);
-            img_like = itemView.findViewById(R.id.img_like);
         }
     }
 }

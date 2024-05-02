@@ -53,14 +53,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/anh_sp"
-                    android:layout_width="195dp"
-                    android:layout_height="280dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/ao4" />
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/id_slide_show"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_below="@+id/ed_search"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:layout_marginTop="25dp"
+                    android:backgroundTint="#F1F4FB"
+                    android:layout_centerHorizontal="true"/>
+
 
                 <ImageView
                     android:id="@+id/img_toggle_favorite"
@@ -71,7 +74,15 @@
                     android:layout_marginEnd="15dp"
                     android:src="@drawable/heart1" />
             </FrameLayout>
-
+            <me.relex.circleindicator.CircleIndicator3
+                android:id="@+id/id_circleindicator"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_below="@+id/id_slide_show"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                app:ci_drawable="@drawable/shape_circle_indicator"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -112,7 +123,6 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginRight="20dp"
                         android:layout_marginBottom="7dp"
-                        android:drawableLeft="@drawable/vnd_blue"
                         android:fontFamily="@font/latoblack"
                         android:gravity="center"
                         android:text="48.00"

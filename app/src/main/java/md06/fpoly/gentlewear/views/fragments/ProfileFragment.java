@@ -51,7 +51,7 @@ public class ProfileFragment extends Fragment {
         img = view.findViewById(R.id.img_avatar);
         tv_name = view.findViewById(R.id.tv_nameUser_account);
         tv_email = view.findViewById(R.id.tv_email_account);
-        btn_your_wallet = view.findViewById(R.id.id_your_wallet);
+//        btn_your_wallet = view.findViewById(R.id.id_your_wallet);
 
         //khoitao
         sessionManager = new SessionManager(getActivity());
@@ -66,9 +66,9 @@ public class ProfileFragment extends Fragment {
         });
 
         // vi cua ban
-        btn_your_wallet.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), ViMoneyActivity.class));
-        });
+//        btn_your_wallet.setOnClickListener(v -> {
+//            startActivity(new Intent(getActivity(), ViMoneyActivity.class));
+//        });
 
         // thong tin ca nhan
         view.findViewById(R.id.id_thong_tin_ca_nhan).setOnClickListener(v ->{

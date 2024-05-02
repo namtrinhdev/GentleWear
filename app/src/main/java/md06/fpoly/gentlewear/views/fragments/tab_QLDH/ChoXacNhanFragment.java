@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +94,8 @@ public class ChoXacNhanFragment extends Fragment {
                     list.addAll(mList);
                     adapter.notifyDataSetChanged();
                 }else {
-
+                    Log.e(TAG, "Activity is null");
+                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
                 }
             }
             @Override

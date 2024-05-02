@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="sort_options">
-        <item>Name (A-Z)</item>
-        <item>Price (Low to High)</item>
-        <item>Price (High to Low)</item>
+        <item>Tên sản phẩm (A-Z)</item>
+        <item>Giá thấp đến cao </item>
+        <item>Giá cao đến thấp </item>
     </string-array>
 </resources>

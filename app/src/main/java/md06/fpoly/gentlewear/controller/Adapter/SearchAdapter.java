@@ -46,7 +46,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
         Products model = searchList.get(position);
         holder.tv_name.setText(model.getProductName());
-        holder.tv_price.setText(String.valueOf(model.getPrice()));
+        holder.tv_price.setText(model.getPrice()+ " đ");
         Glide.with(context).load("a").apply(RequestOptions.centerCropTransform()).into(holder.imgavatar);
         holder.itemView.setOnClickListener(view -> {
             anInterface.onNextPage(model);
@@ -71,7 +71,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             tv_name = itemView.findViewById(R.id.name_product);
             tv_price = itemView.findViewById(R.id.gia_product);
             imgavatar = itemView.findViewById(R.id.img_product);
-            img_like = itemView.findViewById(R.id.img_like);
         }
     }
 

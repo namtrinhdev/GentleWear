@@ -3,6 +3,8 @@ package md06.fpoly.gentlewear.activitys;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -10,19 +12,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.MarginPageTransformer;
+import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import md06.fpoly.gentlewear.R;
 import md06.fpoly.gentlewear.apiServices.Favorite_API_Services;
+import md06.fpoly.gentlewear.classs.APIClass;
 import md06.fpoly.gentlewear.classs.RetrofitClientAPI;
 import md06.fpoly.gentlewear.classs.SessionManager;
 import md06.fpoly.gentlewear.controller.Adapter.Adapter_Color_DetailProd;
+import md06.fpoly.gentlewear.controller.Adapter.SlideShowAdapter;
 import md06.fpoly.gentlewear.models.Cart;
 import md06.fpoly.gentlewear.models.Cart2;
 import md06.fpoly.gentlewear.models.Messages;
@@ -31,6 +39,7 @@ import md06.fpoly.gentlewear.models.Colors;
 import md06.fpoly.gentlewear.models.ColorCodes;
 import md06.fpoly.gentlewear.models.Sizes;
 import md06.fpoly.gentlewear.models.SizeCodes;
+import me.relex.circleindicator.CircleIndicator3;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,7 +49,7 @@ public class DetailProductsActivity extends AppCompatActivity {
     private RecyclerView colorsRecyclerView;
     private TextView tv_mota, tv_namepro, tv_quantity, tv_price, tv_S, tv_M, tv_L, tv_XL, tv_XXL, selectedTV;
     private static final String M = "M", L = "L", S = "S", XL = "XL", XXL = "XXL";
-    private ImageView img_product, img_backpress, img_add, img_remove, img_favorite;
+    private ImageView  img_backpress, img_add, img_remove, img_favorite;
     private FrameLayout btn_themGH;
     private int count = 1, status = 0;
     private String size;
@@ -52,12 +61,28 @@ public class DetailProductsActivity extends AppCompatActivity {
     private List<Colors> colorList = new ArrayList<>();
     private List<Sizes> sizeList = new ArrayList<>();
     private List<String> sList = new ArrayList<>();
+    private List<String> imgList = new ArrayList<>();
 
     private int sizeCount = 0, colorCount = 0;
     private String selectedSize;
     private SessionManager sessionManager;
     private Favorite_API_Services toggleFavorite;
     private boolean ss = false, sm = false, sl = false, sxl = false, sxxl = false;
+    private ViewPager2 slideshow;
+    private CircleIndicator3 circleIndicator3;
+    private SlideShowAdapter slideShowAdapter;
+    private Handler handler = new Handler(Looper.getMainLooper());
+    private Runnable mRunable = new Runnable() {
+        @Override
+        public void run() {
+            int currentPosition = slideshow.getCurrentItem();
+            if (currentPosition == list.size() - 1){
+                slideshow.setCurrentItem(0);
+            }else {
+                slideshow.setCurrentItem(currentPosition+1);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +140,9 @@ public class DetailProductsActivity extends AppCompatActivity {
                 startActivity(new Intent(DetailProductsActivity.this, Login_Activity.class));
             }
         });
+        //get list image
+        getListImage();
+        setSlideShow();
 
         //lay ds color
         setDataListColor();
@@ -158,6 +186,43 @@ public class DetailProductsActivity extends AppCompatActivity {
             actionAddToCart();
         });
 
+    }
+    private void setSlideShow() {
+        slideshow.setOffscreenPageLimit(3);
+        slideshow.setClipChildren(false);
+        slideshow.setClipToPadding(false);
+        CompositePageTransformer cpt = new CompositePageTransformer();
+        cpt.addTransformer(new MarginPageTransformer(40));
+        cpt.addTransformer(new ViewPager2.PageTransformer() {
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                float r = 1 - Math.abs(position);
+                page.setScaleY(0.85f + r * 0.15f);
+            }
+        });
+        slideshow.setPageTransformer(cpt);
+
+        slideShowAdapter = new SlideShowAdapter(imgList, this);
+        slideshow.setAdapter(slideShowAdapter);
+        circleIndicator3.setViewPager(slideshow);
+        slideshow.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                handler.removeCallbacks(mRunable);
+                handler.postDelayed(mRunable,4000);
+            }
+        });
+    }
+    private void getListImage() {
+        sizeCount = products.getSize().size();
+        for (int i = 0; i < sizeCount; i++) {
+            colorCount = products.getSize().get(i).getColor().size();
+            for (int j = 0; j < colorCount; j++) {
+                String img = APIClass.URL + "uploads/" +products.getSize().get(i).getColor().get(j).getImage();
+                imgList.add(img);
+            }
+        }
     }
 
     private void setClickSize(String str, TextView tv) {
@@ -422,10 +487,11 @@ public class DetailProductsActivity extends AppCompatActivity {
         tv_price = findViewById(R.id.product_price_text);
         img_add = findViewById(R.id.img_add);
         img_remove = findViewById(R.id.img_remove);
-        img_product = findViewById(R.id.anh_sp);
         img_backpress = findViewById(R.id.btnback);
         btn_themGH = findViewById(R.id.btn_themGH);
         img_favorite = findViewById(R.id.img_toggle_favorite);
+        slideshow = findViewById(R.id.id_slide_show);
+        circleIndicator3 = findViewById(R.id.id_circleindicator);
 
         tv_S = findViewById(R.id.size_s);
         tv_M = findViewById(R.id.size_m);
